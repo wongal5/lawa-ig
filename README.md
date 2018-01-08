@@ -21,15 +21,13 @@
 
 ## Usage
 
-> Some usage instructions
+> (Almost) Full-featured instagram
 
 ## Requirements
 
 - Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- SQL
+- Express
 
 ## Development
 
@@ -45,7 +43,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://github.com/lawa-ig/lawa-ig/wiki/Insta-Product-Roadmap)
 
 
 ## Contributing
