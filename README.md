@@ -1,13 +1,13 @@
-# Project Name
+# Instagram 2.0
 
-> Pithy project description
+> Instagram, but better
 
-## Team
+## Lawa
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Albert Wong
+  - Aaron Pietsch
+  - Will Putnam
+  - Larry Chang
 
 ## Table of Contents
 
