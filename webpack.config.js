@@ -11,16 +11,14 @@ const config = {
         loaders: [
             {
                 test: /.jsx?$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
                     presets: ['es2015', 'react']
                 }
             }
         ]
-    },
-    target: 'node'
-
+    }
 };
 
 module.exports = config;
