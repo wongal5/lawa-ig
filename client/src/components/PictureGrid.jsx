@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
+import PicModal from './modal.jsx';
 
 const PictureGrid = (props) => (
   <div className="grid-container">
@@ -7,7 +8,7 @@ const PictureGrid = (props) => (
     <Grid centered relaxed columns={3}>
       <Grid.Row>
         <Grid.Column>
-          <Image src='http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' />
+          <PicModal img={'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60'} />
         </Grid.Column>
         <Grid.Column>
           <Image src='http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' />

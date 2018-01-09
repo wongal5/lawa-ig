@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PictureGrid from './components/PictureGrid.jsx';
- 
+import ModalModalExample from './components/modal.jsx';
 //dummy photo data
 
 const photos = [

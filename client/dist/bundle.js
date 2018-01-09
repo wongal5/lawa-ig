@@ -20044,9 +20044,13 @@ var _reactDom = __webpack_require__(123);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _component = __webpack_require__(387);
+var _PictureGrid = __webpack_require__(387);
 
-var _component2 = _interopRequireDefault(_component);
+var _PictureGrid2 = _interopRequireDefault(_PictureGrid);
+
+var _modal = __webpack_require__(719);
+
+var _modal2 = _interopRequireDefault(_modal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20056,13 +20060,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//dummy photo data
+
+var photos = [{ url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }, { url: 'https://media.alienwarearena.com/media/tux-r.jpg' }];
+
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
   function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+    _this.state = {
+      photos: photos
+    };
+    return _this;
   }
 
   _createClass(App, [{
@@ -20076,7 +20089,7 @@ var App = function (_React$Component) {
           null,
           'React is Live'
         ),
-        _react2.default.createElement(_component2.default, null)
+        _react2.default.createElement(_PictureGrid2.default, { allPhotos: this.state.photos })
       );
     }
   }]);
@@ -37346,54 +37359,81 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(388);
 
+var _modal = __webpack_require__(719);
+
+var _modal2 = _interopRequireDefault(_modal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ComponentOne = function ComponentOne() {
+var PictureGrid = function PictureGrid(props) {
   return _react2.default.createElement(
-    _semanticUiReact.Grid,
-    { columns: 3, divided: true },
+    'div',
+    { className: 'grid-container' },
     _react2.default.createElement(
-      _semanticUiReact.Grid.Row,
-      null,
+      _semanticUiReact.Grid,
+      { centered: true, relaxed: true, columns: 3 },
       _react2.default.createElement(
-        _semanticUiReact.Grid.Column,
+        _semanticUiReact.Grid.Row,
         null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: '../assets/cube.' })
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_modal2.default, { img: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        )
       ),
       _react2.default.createElement(
-        _semanticUiReact.Grid.Column,
+        _semanticUiReact.Grid.Row,
         null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: '../assets/cube.jpg' })
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        )
       ),
       _react2.default.createElement(
-        _semanticUiReact.Grid.Column,
+        _semanticUiReact.Grid.Row,
         null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: '../assets/cube.jpg' })
-      )
-    ),
-    _react2.default.createElement(
-      _semanticUiReact.Grid.Row,
-      null,
-      _react2.default.createElement(
-        _semanticUiReact.Grid.Column,
-        null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: '../assets/cube.jpg' })
-      ),
-      _react2.default.createElement(
-        _semanticUiReact.Grid.Column,
-        null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: '../assets/cube.jpg' })
-      ),
-      _react2.default.createElement(
-        _semanticUiReact.Grid.Column,
-        null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: '../assets/cube.jpg' })
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' })
+        )
       )
     )
   );
 };
 
-exports.default = ComponentOne;
+exports.default = PictureGrid;
 
 /***/ }),
 /* 388 */
@@ -57913,6 +57953,77 @@ Feed.User = __WEBPACK_IMPORTED_MODULE_16__FeedUser__["a" /* default */];
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Statistic__["a"]; });
 
 
+
+/***/ }),
+/* 719 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(388);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PicModal = function PicModal(props) {
+  return _react2.default.createElement(
+    _semanticUiReact.Modal,
+    { size: 'large', trigger: _react2.default.createElement(_semanticUiReact.Image, { src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' }) },
+    _react2.default.createElement(
+      _semanticUiReact.Modal.Content,
+      { image: true },
+      _react2.default.createElement(_semanticUiReact.Image, { size: 'huge', src: 'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' }),
+      _react2.default.createElement(
+        _semanticUiReact.Modal.Description,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Container,
+          null,
+          _react2.default.createElement(_semanticUiReact.Image, { avatar: true, size: 'mini', inline: true, src: './assets/fred.png' }),
+          _react2.default.createElement(
+            _semanticUiReact.Header,
+            { floated: 'left' },
+            'FredZirdung'
+          )
+        ),
+        _react2.default.createElement(_semanticUiReact.Divider, null),
+        _react2.default.createElement(
+          _semanticUiReact.Comment.Group,
+          { minimal: true },
+          _react2.default.createElement(
+            _semanticUiReact.Comment,
+            null,
+            _react2.default.createElement(_semanticUiReact.Comment.Avatar, { as: 'a', src: '/assets/images/avatar/small/matt.jpg' }),
+            _react2.default.createElement(
+              _semanticUiReact.Comment.Content,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Comment.Author,
+                { as: 'a' },
+                'Albert'
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Comment.Text,
+                null,
+                'How artistic!'
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = PicModal;
 
 /***/ })
 /******/ ]);
