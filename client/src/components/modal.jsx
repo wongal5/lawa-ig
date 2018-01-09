@@ -13,15 +13,15 @@ const PicModal = (props) => (
         </Container>
         <Divider />
 
-      <Comment.Group minimal>
-        <Comment>
-          <Comment.Avatar as='a' src='/assets/images/avatar/small/matt.jpg' />
-          <Comment.Content>
-            <Comment.Author as='a'>Albert</Comment.Author>
-            <Comment.Text>How artistic!</Comment.Text>
-          </Comment.Content>
-        </Comment>
-      </Comment.Group>
+        <Comment.Group minimal>
+          <Comment>
+            <Comment.Avatar as='a' src='/assets/images/avatar/small/matt.jpg' />
+            <Comment.Content>
+              <Comment.Author as='a'>Albert</Comment.Author>
+              <Comment.Text>How artistic!</Comment.Text>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
       </Modal.Description>
 
     </Modal.Content>
