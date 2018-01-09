@@ -2,8 +2,7 @@
   "environments": {
     "test": {
       "env": {
-        "PORT": 3000,
-        "FB_ID": 156902491617294
+        "PORT": 3000
       }
     }
   }
