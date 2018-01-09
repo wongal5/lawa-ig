@@ -5,3 +5,4 @@ before_install:
 script: node_modules/karma/bin/karma start my.conf.js --single-run
 before_script:
   - npm install
+os: osx
