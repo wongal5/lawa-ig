@@ -2,10 +2,9 @@ import React from 'react';
 import { Comment, Container, Divider, Button, Header, Image, Modal } from 'semantic-ui-react';
 
 const PicModal = (props) => (
-  <Modal size='large' trigger={<Image src='http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' />}>
-    {/* <Modal.Header>Select a Photo</Modal.Header> */}
+  <Modal size='large' trigger={<Image src={props.img} />}>
     <Modal.Content image>
-      <Image size='huge' src='http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60' />
+      <Image className='modal-img' src={props.img} />
       <Modal.Description>
         <Container>
           <Image avatar size='mini' inline src='./assets/fred.png' />
