@@ -2,7 +2,6 @@
   "environments": {
     "test": {
       "env": {
-        "PORT": 3000
       }
     }
   }
