@@ -7,7 +7,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      photos: photos
+      loggedIn: ''
     };
   }
   render() {
