@@ -15,7 +15,7 @@ const PicModal = (props) => (
 
         <Comment.Group minimal>
           <Comment>
-            <Comment.Avatar as='a' src='/assets/images/avatar/small/matt.jpg' />
+            <Comment.Avatar as='a' src='/assets/images/avatar/small/fred.jpg' />
             <Comment.Content>
               <Comment.Author as='a'>Albert</Comment.Author>
               <Comment.Text>How artistic!</Comment.Text>
