@@ -12,6 +12,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 // app.get('/', (req, res) => res.sendStatus(200));
 
-app.listen(process.env.PORT, () => console.log('Example app listening on process env port!'));
+let port = process.env.PORT || 3000;
+app.listen(port, () => console.log('Example app listening on process env port!'));
 
 //routes here
