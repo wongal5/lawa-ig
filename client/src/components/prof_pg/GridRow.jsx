@@ -5,15 +5,15 @@ import { Grid, Image } from 'semantic-ui-react';
 const GridRow = (props) => {
   return (
     <Grid.Row>
-      <Grid.Column>
-        <PicModal img={'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60'} />
-      </Grid.Column>
-      <Grid.Column>
-        <PicModal img={'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60'} />
-      </Grid.Column>
-      <Grid.Column>
-        <PicModal img={'http://cdn.newsapi.com.au/image/v1/cf1189b89fa9c40c5a2c9f4a8bdcbd60'} />
-      </Grid.Column>
+      {
+        props.rowPics.map(photo => {
+          return (
+            <Grid.Column key={photo}>
+              <PicModal className="grid-img" img={photo} />
+            </Grid.Column>
+          );
+        })
+      }
     </Grid.Row>
   );
 };

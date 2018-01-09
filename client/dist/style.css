@@ -3,3 +3,14 @@
     margin: 0 auto;
     width: 70%;
 }
+
+img {
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+}
+
+.modal-img {
+    width: 600px;
+    height: 600px;
+}

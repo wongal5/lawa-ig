@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "lawa-ig",
+  "version": "0.0.2",
+  "description": "lawa's first launch",
+  "author": "Albert Wong, Will Putnam, Larry Chang, Aaron Pietsch",
   "license": "",
   "engines": {
     "node": ">=6.4.0"
