@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ComponentOne from './components/component1.jsx';
  
 class App extends React.Component {
   render() {
-    return <h1>React is Live</h1>
+    return (
+      <div>
+        <h1>React is Live</h1>
+        <ComponentOne />
+      </div>
+    )
   }
 }
  
