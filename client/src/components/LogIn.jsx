@@ -26,8 +26,13 @@ class LogIn extends React.Component {
     return (
       <div>
       	<h1>Log in with Facebook</h1>
+<<<<<<< HEAD
         <input></input>
         <input></input>
+=======
+        <input placeholder='email...'></input>
+        <input placeholder='password...'></input>
+>>>>>>> going to rebase new semantic ui components to local master
         <button onClick={(e)=> this.handleClick(e)}>Login</button>
       </div>
      );

@@ -8,6 +8,37 @@ const passport = require('passport');
 var expressSession = require('express-session')
 
 
+<<<<<<< HEAD
+=======
+
+// configure Facebook Strategy for use by passport
+passport.use(new FacebookStrategy({
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
+  callbackURL: "http://localhost:3000/auth/facebook/callback"
+},
+  function (accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+
+// passport provided methods to serialzie and deserialize user info
+// this means every subsequent request will not contain user credentials
+passport.serializeUser(function (user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+// setting up express server
+>>>>>>> going to rebase new semantic ui components to local master
 const app = express();
 
 app.use(bodyParser.json());
@@ -22,6 +53,7 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/../client/dist'));
 
 
+<<<<<<< HEAD
 // passport provided methods to serialzie and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function(user, done) {
@@ -31,6 +63,36 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
     done(err, user);
+=======
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+
+//routes here
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/login/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login/facebook' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res) {
+    res.render('profile', { user: req.user });
+>>>>>>> going to rebase new semantic ui components to local master
   });
 });
 
