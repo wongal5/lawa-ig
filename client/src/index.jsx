@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import LogIn from './components/LogIn.jsx';
 import PictureGrid from './components/prof_pg/PictureGrid.jsx';
 import ModalModalExample from './components/prof_pg/modal.jsx';
-
+ 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      loggedIn: ''
-    };
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		loggedIn: false
+  	}
   }
   render() {
     return (
       <div>
-        <h1>React is Live</h1>
-        {/* ADD YOUR ONE COMPONENT HERE, BUILD A FOLDER FROM IT */}
-        <PictureGrid allPhotos={this.state.photos} />
+        <LogIn />
+    	<h1>React is Live</h1>
       </div>
     );
   }

@@ -16,3 +16,6 @@ let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Example app listening on ${port}!`));
 
 //routes here
+app.get('/login/facebook', function(req, res) {
+	res.send('Hey there');
+})
