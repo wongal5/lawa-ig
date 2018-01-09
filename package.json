@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "react-dev": "webpack --watch"
+    "react-dev": "webpack --watch",
+    "test": "karma start my.conf.js --log-level debug --single-run"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -42,6 +43,7 @@
     "karma-jasmine": "^1.1.1",
     "karma-requirejs": "^1.1.0",
     "nodemon": "^1.14.9",
+    "requirejs": "^2.3.5",
     "webpack": "^3.10.0"
   },
   "babel": {
