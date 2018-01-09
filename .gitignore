@@ -23,6 +23,7 @@ build/
 client/dist/bundle.js
 client/src/semantic
 semantic.json
+package-lock.json
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
