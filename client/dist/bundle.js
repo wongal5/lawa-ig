@@ -57906,7 +57906,6 @@ var PicModal = function PicModal(props) {
           _react2.default.createElement(
             _semanticUiReact.Comment,
             null,
-            _react2.default.createElement(_semanticUiReact.Comment.Avatar, { as: 'a', src: '/assets/images/avatar/small/fred.jpg' }),
             _react2.default.createElement(
               _semanticUiReact.Comment.Content,
               null,
