@@ -59706,14 +59706,14 @@ var PicModal = function PicModal(props) {
       _react2.default.createElement(_semanticUiReact.Image, { className: 'modal-img', src: props.img }),
       _react2.default.createElement(
         _semanticUiReact.Modal.Description,
-        null,
+        { className: 'modal-description-field' },
         _react2.default.createElement(
           _semanticUiReact.Container,
-          null,
-          _react2.default.createElement(_semanticUiReact.Image, { avatar: true, size: 'mini', inline: true, src: './assets/fred.png' }),
+          { className: 'modal-header-contain' },
+          _react2.default.createElement(_semanticUiReact.Image, { avatar: true, size: 'mini', inline: true, src: './assets/fred.png', floated: 'left' }),
           _react2.default.createElement(
             _semanticUiReact.Header,
-            { floated: 'left' },
+            { className: 'uname-modal', size: 'small', floated: 'left' },
             'FredZirdung'
           )
         ),
@@ -59728,16 +59728,43 @@ var PicModal = function PicModal(props) {
               _semanticUiReact.Comment.Content,
               null,
               _react2.default.createElement(
-                _semanticUiReact.Comment.Author,
-                { as: 'a' },
-                'Albert'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Comment.Text,
-                null,
-                'How artistic!'
+                'div',
+                { className: 'comment-div' },
+                _react2.default.createElement(
+                  _semanticUiReact.Comment.Text,
+                  { className: 'modal-author', as: 'a' },
+                  'Albert'
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Comment.Text,
+                  { className: 'modal-comment' },
+                  'How artistic!'
+                )
               )
             )
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Modal.Description,
+          { image: true, className: 'footer-content' },
+          _react2.default.createElement(
+            _semanticUiReact.Container,
+            { className: 'modal-footer-contain' },
+            _react2.default.createElement(_semanticUiReact.Divider, null),
+            _react2.default.createElement(_semanticUiReact.Image, { src: './assets/like-icon.png', size: 'mini', inline: true }),
+            _react2.default.createElement(_semanticUiReact.Image, { src: './assets/comment-icon.png', size: 'mini', inline: true }),
+            _react2.default.createElement(
+              _semanticUiReact.Header,
+              { className: 'likes-text', size: 'small' },
+              '12 Likes'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'post-date' },
+              ' January 9, 2018 '
+            ),
+            _react2.default.createElement(_semanticUiReact.Divider, null),
+            _react2.default.createElement(_semanticUiReact.Input, { className: 'add-comment-input', focus: true, placeholder: 'Add a Comment...' })
           )
         )
       )
