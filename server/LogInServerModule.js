@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const config = require('./config.js');
 
 // passport's sole purpose is to authenticate requests
 const passport = require('passport');
@@ -12,10 +13,11 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
 
+
 // configure Facebook Strategy for use by passport
 passport.use(new FacebookTokenStrategy({
-  clientID: FACEBOOK_APP_ID,
-  clientSecret: FACEBOOK_APP_SECRET,
+  clientID: process.env.FB_ID,
+  clientSecret: process.env.FB_SECRET,
   callbackURL: "http://localhost:3000/login/facebook/callback"
 },
   function (accessToken, refreshToken, profile, done) {
@@ -46,46 +48,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // passport middleware use in our express server
-app.use(expressSession({secret: 'mySecretKey'}));
+app.use(expressSession({ secret: 'mySecretKey' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(__dirname + '/../client/dist'));
 
 
-// passport provided methods to serialzie and deserialize user info
-// this means every subsequent request will not contain user credentials
-passport.serializeUser(function(user, done) {
-  done(null, user._id);
-});
- 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-
-passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
-
-
 
 //routes here
 
 // getting response, but cannot parse body
-app.post('/login/facebook', 
+app.post('/login/facebook',
 
-// function (req, res) {
-//   console.log('request', req.body.params)
-//   res.json(req.body.params);
-// });
+  // function (req, res) {
+  //   console.log('request', req.body.params)
+  //   res.json(req.body.params);
+  // });
   passport.authenticate('facebook-token', {
     successRedirect: '/profile/',
     failureRedirect: '/profile/' // failing here
@@ -93,7 +72,7 @@ app.post('/login/facebook',
 
 app.get('/login/facebook/callback',
   passport.authenticate('facebook-token', { failureRedirect: '/login/facebook' }),
-  function(req, res) {
+  function (req, res) {
     console.log('connected');
     console.log('request', req);
     // Successful authentication, redirect home.
@@ -109,45 +88,38 @@ app.get('/profile',
     console.log('here is request', req);
     res.render('profile', { user: req.user });
   });
-});
 
 // app.get('/', (req, res) => res.sendStatus(200));
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Example app listening on ${port}!`));
 
-// export default app;
 
 
+// /* <script>
+//   window.fbAsyncInit = function() {
+//     FB.init({
+//       appId: '{your-app-id}',
+//       cookie: true,
+//       xfbml: true,
+//       version: '{latest-api-version}'
+//     });
 
-{/* <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: '{your-app-id}',
-      cookie: true,
-      xfbml: true,
-      version: '{latest-api-version}'
-    });
+//   FB.AppEvents.logPageView();
 
-  FB.AppEvents.logPageView();
+//   };
 
-  };
+//   (function(d, s, id){
+//      var js, fjs = d.getElementsByTagName(s)[0];
+//      if (d.getElementById(id)) {return ;}
+//      js = d.createElement(s); js.id = id;
+//      js.src = "https://connect.facebook.net/en_US/sdk.js";
+//      fjs.parentNode.insertBefore(js, fjs);
+//    }(document, 'script', 'facebook-jssdk'));
+// </script>
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return ;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
-app.get('/login/facebook/callback', 
-	passport.authenticate('facebook', {
-		successRedirect: '/home',
-		failureRedirect : '/'
-	}))
-
-
-export default app;
-
+// app.get('/login/facebook/callback', 
+// 	passport.authenticate('facebook', {
+// 		successRedirect: '/home',
+// 		failureRedirect : '/'
+// 	}))
