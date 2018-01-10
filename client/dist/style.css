@@ -54,6 +54,58 @@
 /* Profile Page View */
 /*==================*/
 /*==================*/
+
+/* Profile Panel */
+.prof-panel-container {
+    margin: 0 auto;
+    width: 65%;
+    padding: 3% 0;
+    vertical-align: middle
+  }
+
+  .prof-avatar {
+      width: 75%;
+      height: auto;
+  }
+
+  .profile-name-title {
+      margin: 0;
+      display: inline-block;
+  }
+
+  .profile-name-title.ui.header {
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1px;
+    font-size: 2.6rem;
+    font-weight: 300;
+  }
+
+  .follow-button {
+    /* position: absolute; */
+    display: inline-block;
+  }
+
+  .follow-button.ui.primary.button {
+      margin: 0 15px;
+  }
+
+  .profile-sub-data {
+    font-size: 1.25rem;
+    margin-right: 6%;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .header-caption {
+    font-size: 1.25rem;
+    font-family: 'Heebo', sans-serif;
+    margin-top: 20px;
+  }
+
+  .profile-sub-data-num {
+      font-weight: bold;
+  }
+
+/* Picture Grid */
 .grid-container {
   margin: 0 auto;
   width: 75%;
