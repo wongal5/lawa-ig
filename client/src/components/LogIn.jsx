@@ -31,18 +31,8 @@ class LogIn extends React.Component {
     return (
       <div>
       	<h1>Log in with Facebook</h1>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <input></input>
-        <input></input>
-=======
-        <input placeholder='email...'></input>
-        <input placeholder='password...'></input>
->>>>>>> going to rebase new semantic ui components to local master
-=======
         <input name='email' ref={(input)=> {this.email = input}}placeholder='email...'></input>
         <input name='password' ref={(input) => {this.password=input}} placeholder='password...'></input>
->>>>>>> email and password go from input to server in post request but we get back a 401 error with facebook authorization
         <button onClick={(e)=> this.handleClick(e)}>Login</button>
       </div>
      );
