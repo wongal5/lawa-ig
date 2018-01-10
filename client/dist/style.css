@@ -59,7 +59,7 @@
   width: 75%;
 }
 
-img {
+.ui.grid>.row>img, .ui.grid>.row>.column>img {
   object-fit: cover;
   width: 23vw;
   height: 23vw;
@@ -67,26 +67,20 @@ img {
 }
 
 .modal-img {
-  object-fit: cover;
-  width: 50vw;
-  height: 50vw;
-  display: block;
+    object-fit: cover;
+    width: 50vw;
+    height: 50vw;
+    display: block;
 }
 
 .ui.large.modal {
-    left: 50%;
-    top: 50%;
-    width: 75%;
+    width: 75vw;
+    height: 50vw;
     overflow: hidden;
 }
 
 .ui.modal>.content {
     padding: 0;
-}
-
-.modal-description.field {
-    position: relative;
-    min-width: 200px;
 }
 
 .ui.container {
@@ -133,6 +127,10 @@ img {
 .ui.container.modal-footer-contain>.ui.small.header {
     padding: 0;
     margin: 3px 0;
+}
+
+.ui.modal>.content>.image+.description {
+    width: 30%;
 }
 
 .ui.container.modal-footer-contain>.ui.mini.image {
