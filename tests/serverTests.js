@@ -1,12 +1,15 @@
-// refer to jasmine docs here --> https://jasmine.github.io/api/2.8/global.html
-
+var expect = require('chai').expect;
 var server = require('../server/index.js');
-var express = require('express');
 
-describe('TESTING TESTS WITH TRAVISCI', function () {
 
-  it('Should always be true', function () {
-    expect(true).toBe(true);
+describe('server', function () {
+  describe('GET /', function () {
+    it('should return the content of index.html', function (done) {
+      // just assume that if it contains an <input> tag its index.html
+      request
+        .get('/')
+        .expect(200, /<input/, done);
+    });
   });
 });
 

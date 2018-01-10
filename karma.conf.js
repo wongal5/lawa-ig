@@ -2,6 +2,11 @@
 // Generated on Mon Jan 08 2018 20:10:27 GMT-0800 (PST)
 const path = require('path');
 
+var customBrowsers = ['Chrome'];
+if (process.env.TRAVIS) {
+  customBrowsers = ['Firefox'];
+}
+
 module.exports = function(config) {
   config.set({
 
@@ -18,12 +23,13 @@ module.exports = function(config) {
       'karma-chai',
       'karma-mocha',
       'karma-sourcemap-loader',
+      'karma-mocha-reporter'
     ],
 
     // list of files / patterns to load in the browser
     files: [
-      'server/*.js',
-      'database/*.js',
+      'server/index.js',
+      // 'database/*.js',
       'tests/*.js'
     ],
 
@@ -43,7 +49,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
 
     // web server port
@@ -65,7 +71,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: customBrowsers,
 
 
     // Continuous Integration mode
