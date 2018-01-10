@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import NavBar from './components/NavBar.jsx';
 import LogIn from './components/LogIn.jsx';
 import PictureGrid from './components/prof_pg/PictureGrid.jsx';
 import ModalModalExample from './components/prof_pg/modal.jsx';
@@ -41,8 +42,10 @@ class App extends React.Component {
   pageRouter(currentPg) {
     if (currentPg === 'user_profile') {
       return (
-      //<NavBar /> (ALBERT)
-        <PictureGrid user={this.state.onPageForUser} /> //(AARON)
+        <div>
+          <NavBar /> {/* Albert */}
+          <PictureGrid user={this.state.onPageForUser} />
+        </div>
       );
     } else if (currentPg === 'login_page') {
       return (
@@ -50,8 +53,10 @@ class App extends React.Component {
       );
     } else if (currentPg === 'feed') {
       return (
-      //<NavBar /> (ALBERT)
-        <div></div> //<Feed /> (LARRY)
+        <div>
+          <NavBar /> {/* Albert */}
+          <div></div> {/* <Feed /> Larry */}
+        </div>
       );
     }
   }
@@ -59,7 +64,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>React is Live</h1>
         {
           this.pageRouter(this.state.currentPg)
         }
