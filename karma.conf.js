@@ -18,14 +18,12 @@ module.exports = function(config) {
       'karma-chai',
       'karma-mocha',
       'karma-sourcemap-loader',
-      'karma-webpack',
     ],
 
     // list of files / patterns to load in the browser
     files: [
-      'client/dist/*.js',
       'server/*.js',
-      // 'database/*.js',
+      'database/*.js',
       'tests/*.js'
     ],
 
@@ -37,9 +35,9 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'client/dist/bundle.js': ['webpack', 'sourcemap']
-    },
+    // preprocessors: {
+    //   'client/dist/bundle.js': ['webpack', 'sourcemap']
+    // },
 
 
     // test results reporter to use
@@ -74,29 +72,6 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 
-    webpack: {
-      entry: './client/src/index.jsx',
-      output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'client/dist/')
-      },
-      devtool: 'inline-source-map',
-      module: {
-        loaders: [
-          {
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            test: /\.jsx?$/,
-            query: {
-              presets: ['es2015', 'react']
-            }
-          }
-        ],
-      }
-    },
-    webpackMiddleware: {
-      noInfo: true,
-    },
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
