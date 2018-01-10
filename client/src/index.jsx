@@ -43,7 +43,7 @@ class App extends React.Component {
       return (
         <div>
           <NavBar /> {/* Albert */}
-          <PictureGrid user={this.state.onPageForUser} />
+          <UserProfile user={this.state.onPageForUser} />
         </div>
       );
     } else if (currentPg === 'login_page') {
