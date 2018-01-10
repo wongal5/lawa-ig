@@ -38670,35 +38670,39 @@ var NavBar = function (_React$Component) {
       var activeItem = this.state.activeItem;
 
       return _react2.default.createElement(
-        _semanticUiReact.Menu,
-        { className: 'navbar', secondary: true },
+        _semanticUiReact.Container,
+        { className: 'navbar-container' },
         _react2.default.createElement(
-          _semanticUiReact.Menu.Menu,
-          { position: 'left', className: 'left-menu' },
-          _react2.default.createElement('img', { className: 'logo', src: 'http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg' }),
+          _semanticUiReact.Menu,
+          { className: 'navbar', secondary: true },
           _react2.default.createElement(
-            'div',
-            { className: 'logo-bar' },
-            '|'
+            _semanticUiReact.Menu.Menu,
+            { position: 'left', className: 'left-menu' },
+            _react2.default.createElement('img', { className: 'logo', src: 'http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg' }),
+            _react2.default.createElement(
+              'div',
+              { className: 'logo-bar' },
+              '|'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'logo-name' },
+              ' InstaLawa'
+            ),
+            _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'home', active: activeItem === 'home', onClick: this.handleItemClick }),
+            _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'friends', active: activeItem === 'friends', onClick: this.handleItemClick })
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'logo-name' },
-            ' InstaLawa'
-          ),
-          _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'home', active: activeItem === 'home', onClick: this.handleItemClick }),
-          _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'friends', active: activeItem === 'friends', onClick: this.handleItemClick })
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Menu.Menu,
-          { position: 'right', className: 'right-menu' },
-          _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'upload', active: activeItem === 'upload', onClick: this.handleItemClick }),
-          _react2.default.createElement(
-            _semanticUiReact.Menu.Item,
-            null,
-            _react2.default.createElement(_semanticUiReact.Input, { icon: 'search', placeholder: 'Search...' })
-          ),
-          _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'logout', active: activeItem === 'logout', onClick: this.handleItemClick })
+            _semanticUiReact.Menu.Menu,
+            { position: 'right', className: 'right-menu' },
+            _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'upload', active: activeItem === 'upload', onClick: this.handleItemClick }),
+            _react2.default.createElement(
+              _semanticUiReact.Menu.Item,
+              null,
+              _react2.default.createElement(_semanticUiReact.Input, { icon: 'search', placeholder: 'Search...' })
+            ),
+            _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'logout', active: activeItem === 'logout', onClick: this.handleItemClick })
+          )
         )
       );
     }
