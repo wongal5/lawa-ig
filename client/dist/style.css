@@ -1,16 +1,41 @@
 /* Profile Page View */
 .grid-container {
-    margin: 0 auto;
-    width: 70%;
+  margin: 0 auto;
+  width: 70%;
 }
 
 img {
-    object-fit: cover;
-    width: 300px;
-    height: 300px;
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
 }
 
 .modal-img {
-    width: 600px;
-    height: 600px;
+  width: 600px;
+  height: 600px;
+}
+
+.logo {
+  height: 60px;
+  width: 40px;
+  margin: 0 20px 0 20px;
+}
+
+.logo-name {
+  margin-top: 20px;
+  margin-right: 20px;
+  font-size: 50px;
+  font-family: 'Dancing Script', Arial;
+  font-weight: 700;
+}
+
+.logo-bar {
+  margin-top: 20px;
+  margin-right: 20px;
+  font-size: 50px;
+}
+
+.navbar {
+  width: 82%;
+  padding: 20px 0 20px 14%;
 }
