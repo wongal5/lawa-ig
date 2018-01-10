@@ -10,8 +10,8 @@ var expressSession = require('express-session')
 var expressSession = require('express-session');
 const FacebookTokenStrategy = require('passport-facebook-token');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-// const FACEBOOK_APP_ID = '156902491617294';
-// const FACEBOOK_APP_SECRET = '4a58ce8ff173a7a10797a973c06586a6';
+const FACEBOOK_APP_ID = '156902491617294';
+const FACEBOOK_APP_SECRET = '4a58ce8ff173a7a10797a973c06586a6';
 
 >>>>>>> can connect to local server but only with hardcoded app id and app secret need to investigate
 
@@ -21,8 +21,8 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 // configure Facebook Strategy for use by passport
 passport.use(new FacebookTokenStrategy({
-  clientID: process.env.FB_ID,
-  clientSecret: process.env.FB_SECRET,
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: "http://localhost:3000/login/facebook/callback"
 },
   function (accessToken, refreshToken, profile, cb) {
@@ -90,10 +90,10 @@ passport.use(new FacebookStrategy({
 
 //routes here
 app.get('/login/facebook',
-  passport.authenticate('facebook'));
+  passport.authenticate('facebook-token'));
 
 app.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login/facebook' }),
+  passport.authenticate('facebook-token', { failureRedirect: '/login/facebook' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
