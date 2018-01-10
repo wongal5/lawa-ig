@@ -5,20 +5,14 @@ const morgan = require('morgan');
 
 // passport's sole purpose is to authenticate requests
 const passport = require('passport');
-<<<<<<< HEAD
-var expressSession = require('express-session')
-=======
 var expressSession = require('express-session');
 const FacebookTokenStrategy = require('passport-facebook-token');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const FACEBOOK_APP_ID = '156902491617294';
 const FACEBOOK_APP_SECRET = '4a58ce8ff173a7a10797a973c06586a6';
 
->>>>>>> can connect to local server but only with hardcoded app id and app secret need to investigate
 
 
-<<<<<<< HEAD
-=======
 
 // configure Facebook Strategy for use by passport
 passport.use(new FacebookTokenStrategy({
@@ -47,7 +41,6 @@ passport.deserializeUser(function (id, done) {
 });
 
 // setting up express server
->>>>>>> going to rebase new semantic ui components to local master
 const app = express();
 
 app.use(bodyParser.json());
@@ -62,8 +55,6 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/../client/dist'));
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // passport provided methods to serialzie and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function(user, done) {
@@ -73,7 +64,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
     done(err, user);
-=======
+
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
@@ -86,8 +77,7 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-=======
->>>>>>> can connect to local server but only with hardcoded app id and app secret need to investigate
+
 
 //routes here
 
@@ -120,7 +110,6 @@ app.get('/profile',
   function (req, res) {
     console.log('here is request', req);
     res.render('profile', { user: req.user });
->>>>>>> going to rebase new semantic ui components to local master
   });
 });
 
@@ -129,12 +118,6 @@ app.get('/profile',
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Example app listening on ${port}!`));
 
-<<<<<<< HEAD
-//routes here
-app.get('/login/facebook', 
-	passport.authenticate('facebook', {scope: 'email'});
-})
-=======
 // export default app;
 
 
@@ -160,7 +143,6 @@ app.get('/login/facebook',
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
->>>>>>> can connect to local server but only with hardcoded app id and app secret need to investigate
 
 app.get('/login/facebook/callback', 
 	passport.authenticate('facebook', {
