@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
 // passport's sole purpose is to authenticate requests
@@ -25,9 +26,9 @@ passport.use(new FacebookTokenStrategy({
   clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: "http://localhost:3000/login/facebook/callback"
 },
-  function (accessToken, refreshToken, profile, cb) {
+  function (accessToken, refreshToken, profile, done) {
     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return cb(err, user);
+      return done(err, user);
     });
   }
 ));
@@ -93,11 +94,14 @@ passport.use(new FacebookStrategy({
 // getting response, but cannot parse body
 app.post('/login/facebook', 
 
-function (req, res) {
-  console.log('request', req.body.params)
-  res.send(req.params);
-});
-  // passport.authenticate('facebook-token', {scope: 'email'}));
+// function (req, res) {
+//   console.log('request', req.body.params)
+//   res.json(req.body.params);
+// });
+  passport.authenticate('facebook-token', {
+    successRedirect: '/profile/',
+    failureRedirect: '/profile/' // failing here
+  }));
 
 app.get('/login/facebook/callback',
   passport.authenticate('facebook-token', { failureRedirect: '/login/facebook' }),
@@ -109,7 +113,10 @@ app.get('/login/facebook/callback',
   });
 
 app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn(), // failing here
+
+  // is the note below important?
+  //Note: For security reasons, the redirection URL must reside on the same host that is registered with Facebook.
   function (req, res) {
     console.log('here is request', req);
     res.render('profile', { user: req.user });
