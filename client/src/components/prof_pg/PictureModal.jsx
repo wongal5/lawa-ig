@@ -3,7 +3,7 @@ import { Comment, Container, Divider, Button, Header, Image, Modal } from 'seman
 
 const PicModal = (props) => (
   <Modal size='large' trigger={<Image src={props.img} />}>
-    <Modal.Content image>
+    <Modal.Content image className='pic-modal'>
       <Image className='modal-img' src={props.img} />
       <Modal.Description>
         <Container>
