@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node server/index.js",
     "react-dev": "webpack --watch",
-    "test": "karma start my.conf.js --log-level debug --single-run"
+    "test": "karma start my.conf.js --log-level debug --single-run",
+    "heroku-postbuild": "webpack"
   },
   "dependencies": {
     "axios": "^0.17.1",
