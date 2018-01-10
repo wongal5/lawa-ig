@@ -16,7 +16,7 @@ const CommentsField = (props) => {
         <Modal.Description image className='footer-content'>    
           <Container className='modal-footer-contain'>
             <Divider />
-            <Image src="./assets/like-icon.png" size='mini' inline/>  
+            <Image className="heart-icon" src={props.isLiked ? "./assets/redheart.png" : "./assets/like-icon.png"} onClick={props.toggleLike} size='mini' inline/>  
             <Image src="./assets/comment-icon.png" size='mini' inline/>                  
             <Header className='likes-text' size='small'>{props.post.likes.length} Likes</Header>
             <p className='post-date'> {props.post.date} </p>

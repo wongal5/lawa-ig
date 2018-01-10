@@ -29,7 +29,7 @@ class NavBar extends React.Component {
           </Menu.Menu>
         
           <Menu.Menu position='right' className="right-menu">
-            <Menu.Item name='upload' active={activeItem === 'upload'} onClick={this.handleItemClick}/>
+            <Menu.Item name='upload' icon='upload' active={activeItem === 'upload'} onClick={this.handleItemClick}/>
             <Menu.Item>
               <Input icon='search' placeholder='Search...' />
             </Menu.Item>

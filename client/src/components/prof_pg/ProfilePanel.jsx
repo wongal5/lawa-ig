@@ -11,7 +11,12 @@ const ProfilePanel = (props) => (
       </Grid.Column>
       <Grid.Column width={9}>
         <Grid.Row className="first-panel-row">
-          <Header inline className='profile-name-title'>{props.user.username}</Header> <Button className='follow-button' primary>Follow</Button>
+          <Header inline className='profile-name-title'>{props.user.username}</Header> 
+          {
+            (props.isFollowed === true) 
+            ? <Button onClick={props.followUser} className='follow-button' basic>Following</Button>
+            : <Button onClick={props.followUser} className='follow-button' primary>Follow</Button> 
+          }
         </Grid.Row>
         <Grid.Row >
           <span className='profile-sub-data'> 
