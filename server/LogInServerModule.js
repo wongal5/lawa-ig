@@ -8,8 +8,6 @@ const passport = require('passport');
 var expressSession = require('express-session');
 const FacebookTokenStrategy = require('passport-facebook-token');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-const FACEBOOK_APP_ID = '156902491617294';
-const FACEBOOK_APP_SECRET = '4a58ce8ff173a7a10797a973c06586a6';
 
 
 
