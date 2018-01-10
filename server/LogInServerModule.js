@@ -33,7 +33,7 @@ passport.use(new FacebookTokenStrategy({
 ));
 
 
-// passport provided methods to serialzie and deserialize user info
+// passport provided methods to serialize and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function (user, done) {
   done(null, user._id);
@@ -89,12 +89,21 @@ passport.use(new FacebookStrategy({
 >>>>>>> can connect to local server but only with hardcoded app id and app secret need to investigate
 
 //routes here
-app.get('/login/facebook',
-  passport.authenticate('facebook-token'));
+
+// getting response, but cannot parse body
+app.post('/login/facebook', 
+
+function (req, res) {
+  console.log('request', req.body.params)
+  res.send(req.params);
+});
+  // passport.authenticate('facebook-token', {scope: 'email'}));
 
 app.get('/login/facebook/callback',
   passport.authenticate('facebook-token', { failureRedirect: '/login/facebook' }),
   function(req, res) {
+    console.log('connected');
+    console.log('request', req);
     // Successful authentication, redirect home.
     res.redirect('/');
   });
@@ -102,6 +111,7 @@ app.get('/login/facebook/callback',
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res) {
+    console.log('here is request', req);
     res.render('profile', { user: req.user });
 >>>>>>> going to rebase new semantic ui components to local master
   });
