@@ -7,7 +7,7 @@ const config = require('./config.js');
 // passport's sole purpose is to authenticate requests
 const passport = require('passport');
 var expressSession = require('express-session');
-const FacebookTokenStrategy = require('passport-facebook-token');
+const FacebookStrategy = require('passport-facebook');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
@@ -15,7 +15,7 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
 // configure Facebook Strategy for use by passport
-passport.use(new FacebookTokenStrategy({
+passport.use(new FacebookStrategy({
   clientID: config.FACEBOOK_APP_ID,
   clientSecret: config.FACEBOOK_APP_SECRET,
   callbackURL: "http://localhost:3000/login/facebook/callback"
@@ -31,7 +31,7 @@ passport.use(new FacebookTokenStrategy({
 // passport provided methods to serialize and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function (user, done) {
-  done(null, user._id);
+  done(null, user);
 });
 
 passport.deserializeUser(function (id, done) {
@@ -44,7 +44,8 @@ passport.deserializeUser(function (id, done) {
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 // passport middleware use in our express server
@@ -59,24 +60,26 @@ app.use(express.static(__dirname + '/../client/dist'));
 //routes here
 
 // getting response, but cannot parse body
-app.post('/login/facebook',
+app.get('/login/facebook',
 
   // function (req, res) {
   //   console.log('request', req.body.params)
   //   res.json(req.body.params);
   // });
-  passport.authenticate('facebook-token', {
-    successRedirect: '/profile/',
-    failureRedirect: '/profile/' // failing here
-  }));
+  passport.authenticate('facebook'), function (req, res) {
+    console.log('connected');
+    console.log('request', req);
+    // Successful authentication, redirect home.
+    res.send('Logged in with Facebook!');
+  }); // failing here, not even doing callback
 
 app.get('/login/facebook/callback',
-  passport.authenticate('facebook-token', { failureRedirect: '/login/facebook' }),
+  passport.authenticate('facebook', { failureRedirect: '/profile' }),
   function (req, res) {
     console.log('connected');
     console.log('request', req);
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.send('Logged in with Facebook!');
   });
 
 app.get('/profile',
