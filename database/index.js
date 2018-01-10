@@ -1,4 +1,3 @@
-
 const pg = require('pg');
 const path = require('path');
 const moment = require('moment');
