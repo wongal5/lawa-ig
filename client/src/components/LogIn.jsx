@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import config from '../../../server/config.js';
 
 
 
@@ -30,10 +31,10 @@ class LogIn extends React.Component {
 
     return (
       <div>
-        <a href="https://www.facebook.com/v2.8/dialog/oauth?client_id=156902491617294&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback">Log in with Facebook</a>
+        <a href={'https://www.facebook.com/v2.8/dialog/oauth?client_id=' + config.FACEBOOK_APP_ID + '&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback'}>Log in with Facebook</a>
         <input name='email' ref={(input) => { this.email = input }} placeholder='email...'></input>
         <input name='password' ref={(input) => { this.password = input }} placeholder='password...'></input>
-        <button href="https://www.facebook.com/v2.8/dialog/oauth?client_id=156902491617294'&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback">Login</button>
+        <button>Login</button>
       </div>
     );
   }
