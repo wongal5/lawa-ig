@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-// const config = require('./config.js');
+const config = require('./config.js');
 
 // passport's sole purpose is to authenticate requests
 const passport = require('passport');
@@ -16,8 +16,8 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 // configure Facebook Strategy for use by passport
 passport.use(new FacebookTokenStrategy({
-  clientID: process.env.FB_ID,
-  clientSecret: process.env.FB_SECRET,
+  clientID: config.FACEBOOK_APP_ID,
+  clientSecret: config.FACEBOOK_APP_SECRET,
   callbackURL: "http://localhost:3000/login/facebook/callback"
 },
   function (accessToken, refreshToken, profile, done) {
