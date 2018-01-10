@@ -25,10 +25,7 @@ client/dist/bundle.js
 semantic.json
 package-lock.json
 client/dist/bundle.js
-<<<<<<< HEAD
 server/config.js
-=======
->>>>>>> test tinkering
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
