@@ -18,12 +18,12 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 passport.use(new FacebookStrategy({
   clientID: config.FACEBOOK_APP_ID,
   clientSecret: config.FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:3000/login/facebook/callback"
+  callbackURL: "http://localhost:3000/login/facebook/callback",
+  enableProof: true
 },
   function (accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+    console.log('profile', profile);
+    return done();
   }
 ));
 
@@ -71,16 +71,22 @@ app.get('/login/facebook',
     console.log('request', req);
     // Successful authentication, redirect home.
     res.send('Logged in with Facebook!');
-  }); // failing here, not even doing callback
+  }); 
 
 app.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/profile' }),
+  passport.authenticate('facebook', { failureRedirect: 'http://www.instagram.com' }),
   function (req, res) {
     console.log('connected');
     console.log('request', req);
+    console.log('profile', profile);
     // Successful authentication, redirect home.
     res.send('Logged in with Facebook!');
   });
+
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(), // failing here
@@ -89,7 +95,7 @@ app.get('/profile',
   //Note: For security reasons, the redirection URL must reside on the same host that is registered with Facebook.
   function (req, res) {
     console.log('here is request', req);
-    res.render('profile', { user: req.user });
+    res.render('profile', { username: req.user });
   });
 
 // app.get('/', (req, res) => res.sendStatus(200));
