@@ -3,10 +3,8 @@
     "test": {
       "env": {
         "INHERIT_THIS_CONFIG_VAR": {
-          "NPM_CONFIG_PRODUCTION": true,
-          "FB_ID": true,
-          "FB_SECRET": true,
-          "NODE_ENV": true
+          "NPM_CONFIG_PRODUCTION": false,
+          "NODE_ENV": "development"
         }
       }
     }
