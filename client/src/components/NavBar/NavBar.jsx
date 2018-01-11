@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, Menu, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import Select from 'react-select';
+import UploadModal from './UploadModal.jsx';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class NavBar extends React.Component {
 
   render() {
     const { activeItem, selectedOption } = this.state;
-  	const value = selectedOption && selectedOption.value;
+    const value = selectedOption && selectedOption.value;
     return (
       <Container className="navbar-container">
         <Menu className="navbar" secondary>
@@ -42,12 +43,10 @@ class NavBar extends React.Component {
           </Menu.Menu>
         
           <Menu.Menu position='right' className="right-menu">
-            <Menu.Item name='upload' icon='upload' active={activeItem === 'upload'} onClick={this.handleItemClick}/>
+            {/* <Menu.Item name='upload' icon='upload' active={activeItem === 'upload'} onClick={this.handleItemClick}/> */}
             {/* <Menu.Item className='menu-search'>
-
-            
-
             </Menu.Item> */}
+            <UploadModal></UploadModal>
             <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
           </Menu.Menu>
           <Select
