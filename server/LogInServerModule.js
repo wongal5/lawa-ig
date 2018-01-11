@@ -23,7 +23,7 @@ passport.use(new FacebookStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     console.log('profile', profile);
-    return done();
+    done(profile);
   }
 ));
 
@@ -31,11 +31,13 @@ passport.use(new FacebookStrategy({
 // passport provided methods to serialize and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function (user, done) {
+  console.log('messing up in serialize user')
   done(null, user);
 });
 
 passport.deserializeUser(function (id, done) {
   User.findById(id, function (err, user) {
+    console.log('messing up here');
     done(err, user);
   });
 });
@@ -80,19 +82,18 @@ app.get('/login/facebook/callback',
     console.log('request', req);
     console.log('profile', profile);
     // Successful authentication, redirect home.
-    res.send('Logged in with Facebook!');
+    res.redirect('/profile');
   });
 
 app.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/');
+  console.log('logging out at route level');
+  res.redirect('/'); // let's redirect to home page
 });
 
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(), // failing here
 
-  // is the note below important?
-  //Note: For security reasons, the redirection URL must reside on the same host that is registered with Facebook.
   function (req, res) {
     console.log('here is request', req);
     res.render('profile', { username: req.user });
