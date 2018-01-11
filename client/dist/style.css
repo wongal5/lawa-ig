@@ -85,6 +85,17 @@
     display: inline-block;
   }
 
+  .dynamic-select input {
+    min-width: 171px;
+    max-width: 171px;
+  }
+
+  .dynamic-select {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+  }
+
   .follow-button.ui.primary.button {
       margin: 0 15px;
   }
