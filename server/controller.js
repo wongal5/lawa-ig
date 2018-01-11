@@ -11,31 +11,31 @@ let headers = {
 
 module.exports = {
 
-  respondOptions: function (req, res) {
+  respondOptions: function(req, res) {
     res.set(headers).sendStatus(200);
   },
 
-  usersFollowing: function (req, res) {
+  usersFollowing: function(req, res) {
     db.getUsersFollowing(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
-        res.json(results.rows.map(item => { return item.followed_user }));
+        res.json(results.rows);
       })
       .catch((err) => {
         console.log('getUsersFollowing had an error', err);
       })
   },
 
-  usersFollowers: function (req, res) {
+  usersFollowers: function(req, res) {
     db.getUsersFollowers(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
-        res.json(results.rows.map(item => { return item.following_user }));
+        res.json(results.rows);
       })
       .catch((err) => {
         console.log('getUsersFollowers had an error', err);
       })
   },
 
-  feed: function (req, res) {
+  feed: function(req, res) {
     db.getAllPosts(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         let posts = results.rows;
@@ -50,6 +50,15 @@ module.exports = {
       })
       .catch((err) => {
         console.log('feed had an error', err);
+      })
+  },
+
+  insertPost: function(req,res) {
+    //CURRENTLY HARD CODED post object, change to req.body when using
+    db.insertPost({ img: 'some image here', user_id: 2, caption: 'here is a funny caption'})
+      .then(res.sendStatus(201))
+      .catch(err => {
+        console.log('insertPost had an error');
       })
   }
 }
