@@ -22,6 +22,7 @@ passport.use(new FacebookStrategy({
   enableProof: true
 },
   function (accessToken, refreshToken, profile, done) {
+    console.log('profile', profile);
     done();
   }
 ));
@@ -71,7 +72,15 @@ app.get('/login/facebook',
     res.send('Logged in with Facebook!');
   }); 
 app.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: 'http://www.instagram.com' }),
+  // function(req, res, next) {
+  //   console.log('url', req.url);
+  //   passport.authenticate('facebook', function (err, user, info) {
+  //     console.log("authenticate");
+  //     console.log(err);
+  //     console.log(user);
+  //   })(req, res, next);
+  // });
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   function (req, res) {
     // Successful authentication, redirect home. 
     res.redirect('/');
