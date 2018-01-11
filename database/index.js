@@ -13,18 +13,24 @@ pool.connect();
 
 //get all users following
 const getUsersFollowing = function(userId) {
-	return pool.query('SELECT followed_user FROM followers WHERE following_user = $1', [userId]);
+	return pool.query('SELECT users.user_id, users.name, users.description, users.prof_pic \
+	FROM users INNER JOIN followers \
+	ON followers.following_user = $1 AND followers.followed_user = users.user_id', 
+	[userId]);
 }
 
 //get user followers
 const getUsersFollowers = function(userId) {
-	return pool.query('SELECT following_user FROM followers WHERE followed_user = $1', [userId]);
+	return pool.query('SELECT users.user_id, users.name, users.description, users.prof_pic \
+	FROM users INNER JOIN followers \
+	ON followers.followed_user = $1 AND followers.following_user = users.user_id', 
+	[userId]);
 }
 
 //get all posts following
 const getAllPosts = function (userId) {
-	return pool.query('SELECT posts.post_id, posts.img, posts.like_count, posts.user_id, posts.caption, posts.created_at FROM \
-		posts INNER JOIN followers ON followers.following_user = $1 AND \
+	return pool.query('SELECT posts.post_id, posts.img, posts.like_count, posts.user_id, posts.caption, posts.created_at FROM posts \
+	INNER JOIN followers ON followers.following_user = $1 AND \
 		followers.followed_user = posts.user_id', [userId])
 }
 
@@ -35,7 +41,9 @@ const getPostsLiked = function (userId, postsIdArray) {
 }
 
 const insertPost = function(post) {
-	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) VALUES ($1, $2, $3, $4, $5)', [post.img, 0, post.user_id, post.caption, moment().format()]);
+	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
+	VALUES ($1, $2, $3, $4, $5)',
+	[post.img, 0, post.user_id, post.caption, moment().format()]);
 }
 
 

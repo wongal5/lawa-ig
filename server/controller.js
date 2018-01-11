@@ -18,7 +18,7 @@ module.exports = {
   usersFollowing: function(req, res) {
     db.getUsersFollowing(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
-        res.json(results.rows.map(item => { return item.followed_user }));
+        res.json(results.rows);
       })
       .catch((err) => {
         console.log('getUsersFollowing had an error', err);
@@ -28,7 +28,7 @@ module.exports = {
   usersFollowers: function(req, res) {
     db.getUsersFollowers(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
-        res.json(results.rows.map(item => { return item.following_user }));
+        res.json(results.rows);
       })
       .catch((err) => {
         console.log('getUsersFollowers had an error', err);
