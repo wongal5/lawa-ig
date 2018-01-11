@@ -9,6 +9,9 @@
     "NPM_CONFIG_PRODUCTION": {
       "required": true,
       "value": "false"
+    }, 
+    "DATABASE_URL": {
+      "required": true
     }
   }
 }
