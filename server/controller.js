@@ -55,7 +55,10 @@ module.exports = {
 
   insertPost: function(req,res) {
     //CURRENTLY HARD CODED post object, change to req.body when using
-    db.insertPost({ img: 'some image here', like_count: 0, user_id: 2, caption: 'here is a funny caption', created_at: new Date })
-      .then(res.sendStatus(201));
+    db.insertPost({ img: 'some image here', user_id: 2, caption: 'here is a funny caption'})
+      .then(res.sendStatus(201))
+      .catch(err => {
+        console.log('insertPost had an error');
+      })
   }
 }

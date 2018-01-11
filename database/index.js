@@ -35,7 +35,7 @@ const getPostsLiked = function (userId, postsIdArray) {
 }
 
 const insertPost = function(post) {
-	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) VALUES ($1, $2, $3, $4, $5)', [post.img, post.like_count, post.user_id, post.caption, moment().format()]);
+	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) VALUES ($1, $2, $3, $4, $5)', [post.img, 0, post.user_id, post.caption, moment().format()]);
 }
 
 
