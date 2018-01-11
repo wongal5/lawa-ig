@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import config from '../../../server/config.js';
 
 
 
@@ -9,9 +10,19 @@ class LogIn extends React.Component {
 
   }
 
+  logOut(e) {
+    axios.get('/logout')
+      .then(function(response) {
+        console.log('logged out');
+      })
+      .catch(function(error) {
+        console.log('error logging out', error);
+      })
+  }
+
   handleClick(e) {
     // perform a get request to server
-    axios.post('/login/facebook', {
+    axios.get('/login/facebook', {
       params: {
         email: this.email.value,
         password: this.password.value
@@ -30,10 +41,11 @@ class LogIn extends React.Component {
 
     return (
       <div>
-        <h1>Log in with Facebook</h1>
+        <a href={'https://www.facebook.com/v2.8/dialog/oauth?client_id=' + config.FACEBOOK_APP_ID + '&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback'}>Log in with Facebook</a>
         <input name='email' ref={(input) => { this.email = input }} placeholder='email...'></input>
         <input name='password' ref={(input) => { this.password = input }} placeholder='password...'></input>
-        <button onClick={(e) => this.handleClick(e)}>Login</button>
+        <button>Sign Up</button>
+        <button onClick={(e) => {this.logOut(e)}}>Log Out</button>
       </div>
     );
   }

@@ -7,7 +7,7 @@ const config = require('./config.js');
 // passport's sole purpose is to authenticate requests
 const passport = require('passport');
 var expressSession = require('express-session');
-const FacebookTokenStrategy = require('passport-facebook-token');
+const FacebookStrategy = require('passport-facebook');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
@@ -15,15 +15,15 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
 // configure Facebook Strategy for use by passport
-passport.use(new FacebookTokenStrategy({
-  clientID: config.FACEBOOK_APP_ID,
-  clientSecret: config.FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:3000/login/facebook/callback"
+passport.use(new FacebookStrategy({
+  clientID: process.env.FB_ID,
+  clientSecret: process.env.FB_SECRET,
+  callbackURL: "http://localhost:3000/login/facebook/callback",
+  enableProof: true
 },
   function (accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+    console.log('profile', profile);
+    done();
   }
 ));
 
@@ -31,20 +31,21 @@ passport.use(new FacebookTokenStrategy({
 // passport provided methods to serialize and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function (user, done) {
-  done(null, user._id);
+  console.log('getting to serialize user')
+  done(null, user);
 });
 
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(function (user, done) {
+    console.log('getting to deserialize user')
+    done(null, user);
 });
 
 // setting up express server
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 // passport middleware use in our express server
@@ -58,35 +59,54 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //routes here
 
-// getting response, but cannot parse body
-app.post('/login/facebook',
+app.get('/login/facebook',
 
   // function (req, res) {
   //   console.log('request', req.body.params)
   //   res.json(req.body.params);
   // });
-  passport.authenticate('facebook-token', {
-    successRedirect: '/profile/',
-    failureRedirect: '/profile/' // failing here
-  }));
-
-app.get('/login/facebook/callback',
-  passport.authenticate('facebook-token', { failureRedirect: '/login/facebook' }),
-  function (req, res) {
+  passport.authenticate('facebook'), function (req, res) {
     console.log('connected');
     console.log('request', req);
     // Successful authentication, redirect home.
+    res.send('Logged in with Facebook!');
+  }); 
+app.get('/login/facebook/callback',
+  // function(req, res, next) {
+  //   console.log('url', req.url);
+  //   passport.authenticate('facebook', function (err, user, info) {
+  //     console.log("authenticate");
+  //     console.log(err);
+  //     console.log(user);
+  //   })(req, res, next);
+  // });
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function (req, res) {
+    // Successful authentication, redirect home. 
     res.redirect('/');
   });
+// app.get('/login/facebook/callback',
+//   passport.authenticate('facebook'),
+//   function (req, res) {
+//     console.log('connected to callback');
+//     console.log('request', req);
+//     // console.log('profile', profile);
+//     // Successful authentication, redirect home.
+//     res.redirect('/profile');
+//   });
+
+app.get('/logout', function (req, res) {
+  req.logout();
+  console.log('logging out at route level');
+  res.redirect('/'); // let's redirect to home page
+});
 
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(), // failing here
 
-  // is the note below important?
-  //Note: For security reasons, the redirection URL must reside on the same host that is registered with Facebook.
   function (req, res) {
     console.log('here is request', req);
-    res.render('profile', { user: req.user });
+    res.render('profile', { username: req.user });
   });
 
 // app.get('/', (req, res) => res.sendStatus(200));
