@@ -32,7 +32,8 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "semantic-ui-react": "^0.77.1",
-    "sync-exec": "^0.6.2"
+    "sync-exec": "^0.6.2",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -46,8 +47,7 @@
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.9",
-    "requirejs": "^2.3.5",
-    "webpack": "^3.10.0"
+    "requirejs": "^2.3.5"
   },
   "babel": {
     "presets": [
