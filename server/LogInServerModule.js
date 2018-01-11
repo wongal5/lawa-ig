@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const config = require('./config.js');
+// const config = require('./config.js');
 
 // passport's sole purpose is to authenticate requests
 const passport = require('passport');
