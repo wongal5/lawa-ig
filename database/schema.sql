@@ -4,6 +4,11 @@ CREATE DATABASE lawa_db;
 
 CREATE TABLE users (
   user_id SERIAL,
+  email VARCHAR(30) NOT NULL,
+  password VARCHAR(30) NOT NULL,
+  fb_id VARCHAR(30) NOT NULL,
+  fb_name VARCHAR(30) NOT NULL,
+  fb_token VARCHAR(30) NOT NULL,
   name VARCHAR(30) NOT NULL,
   description VARCHAR(500),
   prof_pic VARCHAR(100),
