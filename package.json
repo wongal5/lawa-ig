@@ -32,6 +32,7 @@
     "pg": "^7.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-dropzone": "^4.2.5",
     "react-router": "^4.2.0",
     "react-select": "^1.2.0",
     "semantic-ui-react": "^0.77.1",
