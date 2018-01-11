@@ -71,10 +71,10 @@ app.get('/login/facebook',
     res.send('Logged in with Facebook!');
   }); 
 app.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: 'http://www.instagram.com' }),
   function (req, res) {
     // Successful authentication, redirect home. 
-    res.redirect('/profile');
+    res.redirect('/');
   });
 // app.get('/login/facebook/callback',
 //   passport.authenticate('facebook'),
