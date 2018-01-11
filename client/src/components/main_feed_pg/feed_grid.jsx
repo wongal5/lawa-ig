@@ -5,7 +5,7 @@ import OneFeed from './feed.jsx';
 const FeedGrid = (props) => (
 
   <div className="feed-grid-container">
-    <Grid centered>
+    <Grid centered columns={1}>
       {
         props.users.photos.map((photo, index) => {
             return <OneFeed photo={photo} key={index}/>;
