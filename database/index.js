@@ -1,31 +1,37 @@
 const pg = require('pg');
+const path = require('path');
 
-const connection = process.env.DATABASE_URL || 'postgres://localhost:3000/lawadb';
-const client = new pg.Client(connection);
+const connection = {
+	host: process.env.DATABASE_URL || 'localhost',
+	database: 'lawa_db'
+}
+// ADD PATH TO DATABASE URL ABOVE
+
+const client = new pg.Pool(connection);
 client.connect();
 
 //get all users following
-const getUsersFollowing = function(callback) {
- client.query('SELECT * FROM users', function(error, results) {
- 		if (error) {
- 			console.log('select all users error')
- 		} else {
- 			console.log('select all users success')
- 			callback(results);
- 		}
-	});
+const getUsersFollowing = function(userId, callback) {
+	return client.query(`SELECT followed_user FROM followers WHERE following_user = ${userId}`);
 }
 
 //get user followers
-const getUserFollowers = function(user, callback) {
-	client.query('SELECT name FROM users WHERE  ', function (error, results) {
-		if (error) {
-			console.log('select get user followers fail')
-		} else {
-			console.log('select get user followers success')
-			callback(results);
-		}
+const getUsersFollowers = function(userId, callback) {
+	var query = client.query("SELECT following_user FROM followers WHERE followed_user = 1");
+	query.then(res => {
+		console.log(res);
 	})
+		.catch(err=> {
+			console.log('error', err);
+		})
+	// client.query(`SELECT following_user FROM followers WHERE followed_user = $1`, [userId], function (error, results) {
+	// 	if (error) {
+	// 		console.log('select get user followers fail')
+	// 	} else {
+	// 		console.log('select get user followers success')
+	// 		callback(results);
+	// 	}
+	// })
 }
 
 //get all posts following
@@ -60,8 +66,9 @@ const getPostsLiked = function (userId, postsIdArray, callback) {
 //get like number
 
 
-
-
-
-
-//db functions here
+module.exports = {
+	getUsersFollowing,
+	getUsersFollowers,
+	getAllPosts,
+	getPostsLiked
+}
