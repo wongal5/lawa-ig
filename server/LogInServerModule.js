@@ -22,8 +22,7 @@ passport.use(new FacebookStrategy({
   enableProof: true
 },
   function (accessToken, refreshToken, profile, done) {
-    console.log('profile', profile);
-    done(profile);
+    done();
   }
 ));
 
@@ -31,15 +30,13 @@ passport.use(new FacebookStrategy({
 // passport provided methods to serialize and deserialize user info
 // this means every subsequent request will not contain user credentials
 passport.serializeUser(function (user, done) {
-  console.log('messing up in serialize user')
+  console.log('getting to serialize user')
   done(null, user);
 });
 
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    console.log('messing up here');
-    done(err, user);
-  });
+passport.deserializeUser(function (user, done) {
+    console.log('getting to deserialize user')
+    done(null, user);
 });
 
 // setting up express server
@@ -61,7 +58,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //routes here
 
-// getting response, but cannot parse body
 app.get('/login/facebook',
 
   // function (req, res) {
@@ -74,16 +70,21 @@ app.get('/login/facebook',
     // Successful authentication, redirect home.
     res.send('Logged in with Facebook!');
   }); 
-
 app.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: 'http://www.instagram.com' }),
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
   function (req, res) {
-    console.log('connected');
-    console.log('request', req);
-    console.log('profile', profile);
-    // Successful authentication, redirect home.
+    // Successful authentication, redirect home. 
     res.redirect('/profile');
   });
+// app.get('/login/facebook/callback',
+//   passport.authenticate('facebook'),
+//   function (req, res) {
+//     console.log('connected to callback');
+//     console.log('request', req);
+//     // console.log('profile', profile);
+//     // Successful authentication, redirect home.
+//     res.redirect('/profile');
+//   });
 
 app.get('/logout', function (req, res) {
   req.logout();
