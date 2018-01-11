@@ -4,7 +4,29 @@ const connection = process.env.DATABASE_URL || 'postgres://localhost:3000/lawadb
 const client = new pg.Client(connection);
 client.connect();
 
+//get all users following
+const getUsersFollowing = function(callback) {
+ client.query('SELECT * FROM users', function(error, results) {
+ 		if (error) {
+ 			console.log('select all users error')
+ 		} else {
+ 			console.log('select all users success')
+ 			callback(results);
+ 		}
+	});
+}
 
+//get user followers
+const getUserFollowers = function(user, callback) {
+	client.query('SELECT name FROM users WHERE  ', function (error, results) {
+		if (error) {
+			console.log('select get user followers fail')
+		} else {
+			console.log('select get user followers success')
+			callback(results);
+		}
+	})
+}
 
 //get all posts following
 const getAllPosts = function (userId, callback) {
@@ -91,6 +113,7 @@ const getUserFollowers = function(user, callback) {
 		}
 	});
 }
+
 
 
 
