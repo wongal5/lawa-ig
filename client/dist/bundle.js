@@ -21297,6 +21297,10 @@ var _fakeProfileTableData = __webpack_require__(757);
 
 var _fakeProfileTableData2 = _interopRequireDefault(_fakeProfileTableData);
 
+var _all_feed = __webpack_require__(753);
+
+var _all_feed2 = _interopRequireDefault(_all_feed);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21304,6 +21308,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var fakeUserData = {
+  'username': 'willputnam12',
+  'photos': ['https://cdn.images.express.co.uk/img/dynamic/78/590x/Russia-volcano-888840.jpg', 'http://www.arenal.net/img/gallery/volcano/2.jpg', 'https://i.kinja-img.com/gawker-media/image/upload/s--6l4Bf9Wf--/c_fill,fl_progressive,g_north,h_264,q_80,w_470/h98k8gzwa5gou1gmchkj.jpg', 'http://cdn.cnn.com/cnnnext/dam/assets/170301100404-mount-etna-lava-erupt-volcano-00000000-exlarge-169.jpg', 'https://sciencetrends-techmakaillc.netdna-ssl.com/wp-content/uploads/2017/11/Mauna-Loa-700x468.jpg', 'http://i.dailymail.co.uk/i/pix/2015/04/02/11/27377ACF00000578-3022885-The_Colima_volcano_is_regarded_as_one_of_the_most_dangerous_in_M-a-2_1427970366256.jpg', 'https://cdn.images.express.co.uk/img/dynamic/78/590x/Popocatepetl-878612.jpg', 'https://www.statisticbrain.com/wp-content/uploads/2012/05/Krakatau-volcano-1.jpeg', 'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzAxNy83NDAvb3JpZ2luYWwva2lsYXVlYS1oYXdhaWktdm9sY2Fuby0xMDAyLTAyLmpwZw=='],
+  'followers': ['wongal', 'larry123', 'airbear'],
+  'following': ['strictlyvolcanopics']
+};
 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -21319,7 +21330,7 @@ var App = function (_React$Component) {
       loggedInUser: '', //should be an object with data for logged in user
       onPageForUser: _fakeProfileTableData2.default[0], //should be an object with user data
       //****************************************************************************/
-      currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
+      currentPg: 'feed' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
     };
     return _this;
@@ -21396,6 +21407,10 @@ var App = function (_React$Component) {
             } }),
           ' ',
           _react2.default.createElement('div', null),
+          ' ',
+          _react2.default.createElement(_NavBar2.default, null),
+          ' ',
+          _react2.default.createElement(_all_feed2.default, { data: this.state.onPageForUser }),
           ' '
         );
       }
@@ -60111,9 +60126,170 @@ var PicModal = function (_React$Component) {
 exports.default = PicModal;
 
 /***/ }),
-/* 751 */,
-/* 752 */,
-/* 753 */,
+/* 751 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(76);
+
+var _feed_grid = __webpack_require__(752);
+
+var _feed_grid2 = _interopRequireDefault(_feed_grid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var OneFeed = function OneFeed(props) {
+	return _react2.default.createElement(
+		'container',
+		{ className: 'each-feed' },
+		_react2.default.createElement(
+			'container',
+			{ className: 'top-feed' },
+			_react2.default.createElement(
+				_semanticUiReact.Feed,
+				null,
+				_react2.default.createElement(
+					_semanticUiReact.Feed.Content,
+					null,
+					_react2.default.createElement(_semanticUiReact.Feed.Label, { image: './assets/fred.png' }),
+					_react2.default.createElement(
+						_semanticUiReact.Feed.Summary,
+						null,
+						_react2.default.createElement(
+							'a',
+							null,
+							'Fred Z'
+						)
+					)
+				)
+			)
+		),
+		_react2.default.createElement(
+			_semanticUiReact.Feed,
+			null,
+			_react2.default.createElement(
+				_semanticUiReact.Feed.Event,
+				null,
+				_react2.default.createElement(_semanticUiReact.Feed.Label, { image: './assets/fred.png' }),
+				_react2.default.createElement(
+					_semanticUiReact.Feed.Content,
+					null,
+					_react2.default.createElement(
+						_semanticUiReact.Feed.Summary,
+						null,
+						_react2.default.createElement(
+							'a',
+							null,
+							'Helen Troy'
+						)
+					),
+					_react2.default.createElement(_semanticUiReact.Image, { src: props.photo, size: 'big', centered: true }),
+					_react2.default.createElement(
+						_semanticUiReact.Feed.Date,
+						null,
+						'4 days ago'
+					),
+					_react2.default.createElement(
+						_semanticUiReact.Feed.Meta,
+						null,
+						_react2.default.createElement(
+							_semanticUiReact.Feed.Like,
+							null,
+							_react2.default.createElement(_semanticUiReact.Icon, { name: 'like' }),
+							'1 Like'
+						)
+					)
+				)
+			)
+		)
+	);
+};
+
+exports.default = OneFeed;
+
+/***/ }),
+/* 752 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(76);
+
+var _feed = __webpack_require__(751);
+
+var _feed2 = _interopRequireDefault(_feed);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FeedGrid = function FeedGrid(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'feed-grid-container' },
+    _react2.default.createElement(
+      _semanticUiReact.Grid,
+      { centered: true },
+      props.users.photos.map(function (photo, index) {
+        return _react2.default.createElement(_feed2.default, { photo: photo, key: index });
+      })
+    )
+  );
+};
+
+exports.default = FeedGrid;
+
+/***/ }),
+/* 753 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(76);
+
+var _feed_grid = __webpack_require__(752);
+
+var _feed_grid2 = _interopRequireDefault(_feed_grid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AllFeeds = function AllFeeds(props) {
+	return _react2.default.createElement(
+		'div',
+		{ className: 'all-feeds' },
+		_react2.default.createElement(_feed_grid2.default, { users: props.data })
+	);
+};
+
+exports.default = AllFeeds;
+
+/***/ }),
 /* 754 */,
 /* 755 */
 /***/ (function(module, exports, __webpack_require__) {

@@ -3,6 +3,9 @@
 /* NavBar */
 /*==================*/
 /*==================*/
+body {
+  background-color: #FEF7FF;
+}
 
 .logo {
     height: 60px;
@@ -225,4 +228,27 @@
 .heart-icon {
     width: 35px;
     height: 35px;
+}
+/*feed page*/
+.feed-grid-container {
+  margin-top: 50px;
+  width: 75%;
+}
+
+.each-feed {
+  margin: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: thin;
+  border-color: #e6e6e6;
+  background: white;
+  background-clip: padding-box;
+}
+
+.all-feeds {
+  margin-top: 20px;
+}
+
+.top-feed {
+  float: left;
 }
