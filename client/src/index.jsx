@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import NavBar from './components/NavBar.jsx';
 import LogIn from './components/LogIn.jsx';
 import UserProfile from './components/prof_pg/UserProfile.jsx';
+import AllFeeds from './components/main_feed_pg/all_feed.jsx';
 
 const fakeUserData = {
   'username': 'willputnam12', 
@@ -33,7 +34,7 @@ class App extends React.Component {
       loggedInUser: '', //should be an object with data for logged in user
       onPageForUser: fakeUserData, //should be an object with user data
       //****************************************************************************/
-      currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
+      currentPg: 'feed' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
     };
   }
@@ -54,7 +55,7 @@ class App extends React.Component {
       return (
         <div>
           <NavBar /> {/* Albert */}
-          <div></div> {/* <Feed /> Larry */}
+          <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );
     }
