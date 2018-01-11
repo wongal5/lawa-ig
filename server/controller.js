@@ -59,6 +59,7 @@ module.exports = {
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
+<<<<<<< HEAD
       });
   },
   //for autocomplete search bar
@@ -105,3 +106,13 @@ module.exports = {
   //need image comments incl usernames
 
 };
+=======
+      })
+  },
+  
+  upload: function (req, res) {
+    console.log(req.file);
+    res.sendStatus(201);
+  }
+}
+>>>>>>> rebase
