@@ -16,9 +16,17 @@ let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Example app listening on ${port}!`));
 
 app.post('/profile', (req, res) =>{
-	console.log('reqbody is: ', req.body);
     //[changeto] GET * FROM profiles WHERE username=req.body.username
-    //FAKE QUERY HERE
     var selectedProf = allProfileData.filter(profile => profile.username === req.body.username)[0];
 	res.json(selectedProf);
   });
+
+app.get('/profile', (req, res) => {
+
+    var profiles = allProfileData.map(profile => {
+        return {'name': profile.name, 'label': profile.username}
+    });
+
+    console.log('sending profiles: ', profiles);
+    res.json(profiles);
+})

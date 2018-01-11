@@ -12,8 +12,6 @@ class NavBar extends React.Component {
     };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
-
-
   
   handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
@@ -38,8 +36,8 @@ class NavBar extends React.Component {
         <Menu className="navbar" secondary>
           <Menu.Menu position='left' className="left-menu">
             <img className="logo" src="http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg"/>
-            <div className="logo-bar">|</div><div className="logo-name"> InstaLawa</div>
-            <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
+            <div className="logo-bar">|</div><div className="logo-name" > InstaLawa</div>
+            <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
             <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick}/>
           </Menu.Menu>
         

@@ -25,11 +25,26 @@ class App extends React.Component {
   }
 
   getAllUserNames(){
-    //replace with fetch
-    this.setState({allUsernames: [
-      {name:'Will Putnam',label: 'wsputnam12'},
-      {name: 'Cherry Xu', label: 'cherry_coco'}
-    ]})
+    //GET retrieves all profiles
+    fetch('/profile')
+    .then(data => data.json())
+    .then(jsondata => this.setState({allUsernames: jsondata}))
+    .catch(err => console.log('error fetching allprofiles'));
+  }
+
+  changeUser(username) {
+    //get a specific user's profile - triggered by navbar search
+    var bodyObj = {username: username};
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+    fetch('/profile', postConfig)
+      .then(data => data.json())
+      .then(userDataObj => this.setState({onPageForUser: userDataObj}));
   }
 
   pageRouter(currentPg) {
@@ -47,25 +62,11 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} /> {/* Albert */}
+          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} returnHome={e => this.returnHome(e)}/> {/* Albert */}
           <div></div> {/* <Feed /> Larry */}
         </div>
       );
     }
-  }
-
-  changeUser(username) {
-    var bodyObj = {username: username};
-    var postConfig = {
-      headers: {
-        'content-type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(bodyObj)
-    };
-    fetch('/profile', postConfig)
-      .then(data => data.json())
-      .then(userDataObj => this.setState({onPageForUser: userDataObj}));
   }
 
   render() {
