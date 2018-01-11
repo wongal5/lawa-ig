@@ -3,9 +3,6 @@
 /* NavBar */
 /*==================*/
 /*==================*/
-body {
-  background-color: #FEF7FF;
-}
 
 .logo {
     height: 60px;
@@ -231,15 +228,48 @@ body {
 }
 /*feed page*/
 .ui.card, .ui.cards>.card {
-    margin: 30px;
-    max-width: 100%;
-    width: 650px;
+    margin-top: 45px;
+    width: 550px;
+    margin-bottom: 10px;
+    min-width: 300px;
 }
 
+.ui.grid {
+    margin-top: 65px;
+    margin-left: 220px;
+}
+
+.ui.list {
+    font-size: 1em;
+    width: 200px;
+    min-height: 500px;
+
+}
+
+.feedBar {
+  float: right;
+  margin-right: 250px;
+}
+
+/*.ui.left.aligned.selection.list {
+  margin-right: 100px;
+  min-width: 100px;
+}*/
+
+.ui.selection.list .list>.item, .ui.selection.list>.item {
+  position: fixed;
+  padding: 10px;
+  border-radius: 0;
+  width: 230px;
+  border-color: #D9D9D9;
+  border-bottom-style: solid;
+  border-width: 1px;
+
+}
 
 .likes {
   font-weight: bold;
-  float:left;
+  float: left;
 }
 .ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
     float: left;
