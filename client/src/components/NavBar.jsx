@@ -19,8 +19,8 @@ class NavBar extends React.Component {
 
   handleChange(selectedOption) {
     this.setState({ selectedOption });
-    this.props.changeUser(selectedOption.label);
-    console.log(`Selected: ${selectedOption.label}`);
+    this.props.changeUser(selectedOption.name);
+    console.log(`Selected: ${selectedOption.label} id is ${selectedOption.name}`);
   }
 
   selectSubmit(e) {

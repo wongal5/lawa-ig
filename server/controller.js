@@ -60,5 +60,48 @@ module.exports = {
       .catch(err => {
         console.log('insertPost had an error');
       })
-  }
+  },
+  //for autocomplete search bar
+  allUserNames: function(req, res) {
+    db.getAllUsernames()
+      .then(allUserNames =>{
+        console.log('allusernames ', allUserNames);
+        let profileNames = allUserNames.rows.map(profileName => {
+          return {'name': profileName.user_id, 'label': profileName.name}
+        });
+        res.json(profileNames);
+      })
+  }, 
+
+  //for profile page view
+  currentUserProfile: function(req, res) {
+    
+    userId = req.body.username;
+    console.log('user id is ', userId);
+
+    db.getUserProfile(userId)
+    .then(currentUserProfile => { 
+      var currentUserProfile = currentUserProfile.rows[0];
+      db.getUserPosts(userId)
+      .then(currentUserPosts => {     
+        currentUserProfile.posts = currentUserPosts.rows;
+        db.getUsersFollowing(userId)
+        .then(usersFollowing => {
+          console.log('got usersfollowing', usersFollowing);
+          currentUserProfile.following = usersFollowing.rows;
+          db.getUsersFollowers(userId)
+          .then(usersFollowers => {
+            currentUserProfile.followers = usersFollowers.rows;
+            res.json(currentUserProfile);
+          })
+        })
+      })
+    })
+  },
+
+  //for image modal view
+  //need image likes
+  //need image url
+  //need image comments incl usernames
+
 }

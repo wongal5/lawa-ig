@@ -84,6 +84,26 @@ const insertPost = function(post) {
 	VALUES ($1, $2, $3, $4, $5)',
 	[post.img, 0, post.user_id, post.caption, moment().format()]);
 }
+//for search and profile change
+const getAllUsernames = function() {
+	return pool.query('SELECT user_id, name FROM users');
+}
+
+const getUserProfile = function(userId) {
+	return pool.query('SELECT users.name, users.prof_pic, users.description FROM users \
+	WHERE users.user_id = $1', 
+	[userId])
+}
+
+const getUserPosts  = function(usedId) {
+	return pool.query('SELECT * FROM posts WHERE user_id = $1', [userId])
+}
+
+//get user following
+
+//get post likes
+
+//get like number
 
 
 
@@ -92,5 +112,8 @@ module.exports = {
 	getUsersFollowers,
 	getAllPosts,
 	getPostsLiked,
-	insertPost
+	insertPost,
+	getAllUsernames,
+	getUserPosts,
+	getUserProfile
 }
