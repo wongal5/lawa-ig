@@ -3,36 +3,30 @@ import { Container, Image, Feed, Icon, Segment, Divider, Button } from 'semantic
 import FeedGrid from './feed_grid.jsx';
 
 const OneFeed = (props) => (
-<container className="each-feed">
-	<container className="top-feed">
-		<Feed>
-		<Feed.Content>
-			<Feed.Label image='./assets/fred.png' />
-			<Feed.Summary>
-				<a>Fred Z</a>
-			</Feed.Summary>
-		</Feed.Content>
-		</Feed>
-	</container>
-		<Feed>
-		    <Feed.Event>
-		      <Feed.Label image='./assets/fred.png' />
-		      <Feed.Content>
-		        <Feed.Summary>
-		          <a>Helen Troy</a>
-		        </Feed.Summary>
-		        <Image src={props.photo} size='big' centered />
-		        <Feed.Date>4 days ago</Feed.Date>
-		        <Feed.Meta>
-		          <Feed.Like>
-		            <Icon name='like' />
-		            1 Like
-		          </Feed.Like>
-		        </Feed.Meta>
-		      </Feed.Content>
-		    </Feed.Event>
-		</Feed>
-</container>
+	<div className="ui card">
+	  <div className="content">
+	    <div className="right floated meta">14h</div>
+	    <img className="ui avatar image" src="./assets/fred.png"/>Fred
+	  </div>
+	  <div className="image">
+	    <img src={props.photo}/>
+	  </div>
+	  <div className="content">
+	    <span className="right floated">
+	      <i className="heart outline like icon"></i>
+	      17 likes
+	    </span>
+	    <i className="comment icon"></i>
+	    3 comments
+	  </div>
+	  <div className="extra content">
+	    <div className="ui large transparent left icon input">
+	      <i className="heart outline icon"></i>
+	      <input type="text" placeholder="Add Comment..."></input>
+	    </div>
+	  </div>
+	</div>
 );
 
 export default OneFeed;
+
