@@ -54,6 +54,73 @@
 /* Profile Page View */
 /*==================*/
 /*==================*/
+
+/* Profile Panel */
+.prof-panel-container {
+    margin: 0 auto;
+    width: 65%;
+    padding: 3% 0;
+    vertical-align: middle
+  }
+
+  .prof-avatar {
+      width: 75%;
+      height: auto;
+  }
+
+  .profile-name-title {
+      margin: 0;
+      display: inline-block;
+  }
+
+  .profile-name-title.ui.header {
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1px;
+    font-size: 2.6rem;
+    font-weight: 300;
+  }
+
+  .follow-button {
+    /* position: absolute; */
+    display: inline-block;
+  }
+
+  .dynamic-select input {
+    min-width: 171px;
+    max-width: 171px;
+  }
+
+  .dynamic-select {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+  }
+
+  .follow-button.ui.primary.button {
+      margin: 0 15px;
+  }
+
+  .follow-button.ui.basic.button {
+    margin: 0 15px;
+}
+
+  .profile-sub-data {
+    font-size: 1.25rem;
+    margin-right: 6%;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .header-caption {
+    font-size: 1.25rem;
+    font-family: 'Heebo', sans-serif;
+    margin-top: 20px;
+  }
+
+  .profile-sub-data-num {
+      font-weight: bold;
+  }
+
+/* Picture Grid */
 .grid-container {
   margin: 0 auto;
   width: 75%;
@@ -65,6 +132,14 @@
   height: 23vw;
   display: block;
 }
+
+.column.ui.image:hover {
+    object-fit: cover;
+    width: 23vw;
+    height: 23vw;
+    display: block;
+  }
+  
 
 .modal-img {
     object-fit: cover;
@@ -147,6 +222,7 @@
     padding: 0;
 }
 
+
 /*feed page*/
 .ui.card, .ui.cards>.card {
     margin-top: 45px;
@@ -198,3 +274,7 @@
 semantic.min.css:19
 
 
+.heart-icon {
+    width: 35px;
+    height: 35px;
+}

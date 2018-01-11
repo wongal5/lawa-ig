@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const router = require('./router.js');
 
+// setting up express server
 const app = express();
 
 app.use(bodyParser.json());
@@ -10,12 +13,9 @@ app.use(morgan('dev'));
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-// app.get('/', (req, res) => res.sendStatus(200));
+app.use('/', router);
 
 let port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Example app listening on ${port}!`));
+app.listen(port, () => console.log(`LawaGram listening on ${port}!`));
 
-//routes here
-app.get('/login/facebook', function(req, res) {
-	res.send('Hey there');
-})
+module.exports = app;
