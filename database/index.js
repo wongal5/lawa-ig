@@ -1,5 +1,6 @@
 const pg = require('pg');
 const path = require('path');
+const moment = require('moment');
 
 const connection = {
 	host: process.env.DATABASE_URL || 'localhost',
@@ -33,16 +34,15 @@ const getPostsLiked = function (userId, postsIdArray) {
 	[userId])
 }
 
-//get user following
-
-//get post likes
-
-//get like number
+const insertPost = function(post) {
+	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) VALUES ($1, $2, $3, $4, $5)', [post.img, post.like_count, post.user_id, post.caption, moment().format()]);
+}
 
 
 module.exports = {
 	getUsersFollowing,
 	getUsersFollowers,
 	getAllPosts,
-	getPostsLiked
+	getPostsLiked,
+	insertPost
 }

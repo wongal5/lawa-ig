@@ -11,11 +11,11 @@ let headers = {
 
 module.exports = {
 
-  respondOptions: function (req, res) {
+  respondOptions: function(req, res) {
     res.set(headers).sendStatus(200);
   },
 
-  usersFollowing: function (req, res) {
+  usersFollowing: function(req, res) {
     db.getUsersFollowing(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         res.json(results.rows.map(item => { return item.followed_user }));
@@ -25,7 +25,7 @@ module.exports = {
       })
   },
 
-  usersFollowers: function (req, res) {
+  usersFollowers: function(req, res) {
     db.getUsersFollowers(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         res.json(results.rows.map(item => { return item.following_user }));
@@ -35,7 +35,7 @@ module.exports = {
       })
   },
 
-  feed: function (req, res) {
+  feed: function(req, res) {
     db.getAllPosts(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         let posts = results.rows;
@@ -51,5 +51,11 @@ module.exports = {
       .catch((err) => {
         console.log('feed had an error', err);
       })
+  },
+
+  insertPost: function(req,res) {
+    //CURRENTLY HARD CODED post object, change to req.body when using
+    db.insertPost({ img: 'some image here', like_count: 0, user_id: 2, caption: 'here is a funny caption', created_at: new Date })
+      .then(res.sendStatus(201));
   }
 }
