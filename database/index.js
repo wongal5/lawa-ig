@@ -49,6 +49,12 @@ const getAllUsernames = function () {
 	return pool.query('SELECT user_id, name FROM users');
 };
 
+const checkForUser = function (facebookId) {
+  return pool.query('SELECT * FROM users WHERE user.facebook_id = $1', [facebookId]);
+};
+const insertNewFbUser = function (newUser) {
+  return pool.query('INSERT INTO users (facebook_id, name) VALUES ($1, $2)', [newUser.id, newUser.displayName]);
+}
 const getUserProfile = function (userId) {
 	return pool.query('SELECT users.user_id, users.name, users.prof_pic, users.description FROM users \
 	WHERE users.user_id = $1',
@@ -103,5 +109,7 @@ module.exports = {
   addFollow,
   rmFollow,
   addComment,
-  rmComment
+  rmComment,
+  checkForUser,
+  insertNewFbUser
 };
