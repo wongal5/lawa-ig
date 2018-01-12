@@ -38,11 +38,11 @@ const getPostsLiked = function (userId, postsIdArray) {
     [userId]);
 };
 
-const insertPost = function (caption, file, userId, timestamp) {
-  const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/';
+const insertPost = function (caption, userId, fileName, timestamp) {
+  const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/';
   return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
     VALUES ($1, $2, $3, $4, $5)',
-    [`${AWSUrl}${userId}-${timestamp.toString().split(' ').join('+')}${file.originalname.slice(-4)}`, 0, userId, caption, moment().format()]);
+    [`${AWSUrl}${fileName}`, 0, userId, caption, timestamp]);
 };
 //for search and profile change
 const getAllUsernames = function () {
