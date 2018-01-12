@@ -67,7 +67,7 @@ class UploadModal extends React.Component {
           maxSize={5000000} 
           onDrop={this.onDrop.bind(this)}> 
           <p>Try dropping some files here, or click to select files to upload.</p>
-          <p>Only *.jpeg and *.png images will be accepted</p>
+          <p>Only *.jpeg and *.png images will be accepted</p><br/>
         </Dropzone>
         {this.insertForm(this.state.submitFlag)}
       </Modal>
