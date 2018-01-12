@@ -36,13 +36,13 @@ class UploadModal extends React.Component {
       axios.post('/post', this.state.uploadedFile)
         .catch(err => {
           console.log('image post failed', err);
-        })
+        });
     } else {
       console.log('error, please upload a file first'); // HANDLE THIS BETTER
     }
     this.setState({
       submitFlag: 'submitted'
-    })
+    });
   }
   
   onOpen() {
@@ -60,7 +60,12 @@ class UploadModal extends React.Component {
   render() {
     return (
       <Modal className="upload-modal" size='small' onOpen={this.onOpen.bind(this)} trigger={<Menu.Item name='upload' icon='upload' />}>
-        <Dropzone accept="image/jpeg, image/png" maxSize={5000000} onDrop={this.onDrop.bind(this)}> 
+        <Dropzone 
+          acceptStyle={{ background: '#C8E6C9'}} 
+          rejectStyle={{ background: '#EF9A9A'}}
+          accept="image/jpeg, image/png" 
+          maxSize={5000000} 
+          onDrop={this.onDrop.bind(this)}> 
           <p>Try dropping some files here, or click to select files to upload.</p>
           <p>Only *.jpeg and *.png images will be accepted</p>
         </Dropzone>
