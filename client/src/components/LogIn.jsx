@@ -24,7 +24,7 @@ class LogIn extends React.Component {
 
   handleClick(e) {
     // perform a get request to server
-    axios.get('/login/facebook', {
+    axios.get('/logon/', {
       params: {
         email: this.email.value,
         password: this.password.value
@@ -84,10 +84,11 @@ class LogIn extends React.Component {
                   ref={(input) => { this.password = input }}
                 />
 
-                <Button color='instagram' fluid size='large'>Login</Button>
+                <Button color='instagram' onClick={(e) => {this.handleClick(e)}} fluid size='large'>Login</Button>
               </Segment>
             </Form>
             <Message>
+            {/* will probably get rid of this button  */}
               New to us? <a href='/'>Sign Up</a>
             </Message>
           </Grid.Column>

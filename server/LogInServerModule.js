@@ -158,6 +158,11 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //routes here
 
+app.get('/logon', function (req, res) {
+     console.log('request', req.body.params)
+     res.json(req.body.params);
+   });
+
 app.get('/login',
 
   // will keep this in case we need to track request params later
