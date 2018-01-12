@@ -88,6 +88,10 @@ class App extends React.Component {
     
   }
 
+  logIn() {
+    this.setState({currentPg: 'feed'});
+  }
+
   logOut() {
     // this.setState({loggedInUser: })
   }
@@ -111,7 +115,7 @@ class App extends React.Component {
       );
     } else if (currentPg === 'login_page') {
       return (
-        <LogIn /> //(WILL)
+        <LogIn logIn={e => this.logIn(e)}/> //(WILL)
       );
     } else if (currentPg === 'feed') {
       return (

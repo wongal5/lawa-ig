@@ -9,7 +9,7 @@ import { Button, Form, Grid, Header, Image, Icon, Message, Segment } from 'seman
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
-
+    this.logOut = this.logOut.bind(this);
   }
 
   logOut(e) {
@@ -24,7 +24,7 @@ class LogIn extends React.Component {
 
   handleClick(e) {
     // perform a get request to server
-    axios.get('/logon/', {
+    axios.get('/login/facebook', {
       params: {
         email: this.email.value,
         password: this.password.value
@@ -36,7 +36,7 @@ class LogIn extends React.Component {
       .catch(function (error) {
         console.log('there was an error', error);
       });
-  }
+    };
 
 
   render() {
@@ -74,7 +74,7 @@ class LogIn extends React.Component {
                   icon='user'
                   iconPosition='left'
                   placeholder='Username or email'
-                  ref={(input) => { this.email = input }}
+                  onChange={(input) => { this.email = input }}
                 />
                 <Form.Input
                   fluid
@@ -82,10 +82,10 @@ class LogIn extends React.Component {
                   iconPosition='left'
                   placeholder='Password'
                   type='password'
-                  ref={(input) => { this.password = input }}
+                  onChange={(input) => { this.password = input }}
                 />
 
-                <Button color='instagram' onClick={(e) => {this.handleClick(e)}} fluid size='large'>Login</Button>
+                <Button color='instagram' onClick={(e) => {this.props.logIn(e)}} fluid size='large'>Login</Button>
               </Segment>
             </Form>
             <Message>
