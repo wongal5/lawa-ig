@@ -238,7 +238,7 @@
 .feed-grid-container .ui.grid {
     margin-top: 65px;
     margin-left: 220px;
-}
+} */
 
 .ui.list {
     font-size: 1em;
@@ -268,11 +268,23 @@
 
 }
 
+.follow {
+    margin-left: 20px;
+    margin-top: 7px;
+    padding-right: 20px;
+
+} 
+.space {
+    width: 190%;
+}
+.small-follow-button {
+    margin-left: 40px;
+} */
 .likes {
   font-weight: bold;
   float: left;
 }
-.ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
+/* .ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
     float: left;
 }
 

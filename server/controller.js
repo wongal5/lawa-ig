@@ -33,7 +33,25 @@ module.exports = {
         console.log('getUsersFollowing had an error', err);
       });
   },
+  fbLogin: function(req, res) {
+    db.checkForUser(res.body.id)
+      .then((results) => {
+        let user = results.rows;
+        if (user.length === 0) {
+          let newUser = {
+            "id": res.body.id,
+            "displayName": res.body.displayName,
+            "photo": res.body.photos[0].value
+          }
+          db.insertNewFbUser(newUser)
+            .then(res.sendStatus(201))
+            .catch((err) => {
+              console.log('insert new fb user had an error', err);
+            })
+        }
+      })
 
+  },
   usersFollowers: function(req, res) {
     db.getUsersFollowers(1) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {

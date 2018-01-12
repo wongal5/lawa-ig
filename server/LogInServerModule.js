@@ -10,7 +10,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 var expressSession = require('express-session');
 const FacebookStrategy = require('passport-facebook');
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+// var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
 // hardcoded user info
@@ -73,7 +73,8 @@ passport.use(new FacebookStrategy({
     //   if (user.length === 0) {
     //     var newUser = {
     //       "id": profile.id,
-    //       "username": profile.displayName
+    //       "username": profile.displayName,
+            //  "photo": profile.photos[0].value
     //     }
     //     db.query('INSERT INTO users (user_id, name) values (?, ?)', [newUser.id, newUser.username], function(err, user) {
     //       if (err) {
@@ -158,6 +159,11 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //routes here
 
+// app.get('/logon', function (req, res) {
+//      console.log('request', req.body.params)
+//      res.json(req.body.params);
+//    });
+
 app.get('/login/facebook',
 
   // will keep this in case we need to track request params later
@@ -185,13 +191,13 @@ app.get('/logout', function (req, res) {
   res.redirect('/'); // redirect to home page
 });
 
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(), // failing here. will need to fix when connecting routes
+// app.get('/profile',
+//   require('connect-ensure-login').ensureLoggedIn(), // failing here. will need to fix when connecting routes
 
-  function (req, res) {
-    console.log('here is request', req);
-    res.render('profile', { username: req.user });
-  });
+//   function (req, res) {
+//     console.log('here is request', req);
+//     res.render('profile', { username: req.user });
+//   });
 
 
 let port = process.env.PORT || 3000;
@@ -226,7 +232,7 @@ app.listen(port, () => console.log(`Example app listening on ${port}!`));
 // </script>
 
 // app.get('/login/facebook/callback', 
-// 	passport.authenticate('facebook', {
-// 		successRedirect: '/home',
-// 		failureRedirect : '/'
-// 	}))
+//  passport.authenticate('facebook', {
+//    successRedirect: '/home',
+//    failureRedirect : '/'
+//  }))
