@@ -6,14 +6,43 @@ class ProfilePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      followed: this.props.isFollowed,
+      followed: false,
     };
+  }
+
+  followUser(e) {
+    //POST this.props.user.username to FOLLOWED table
+    this.setState({followed: !this.state.followed});
+  }
+
+  checkIfFollowing() {
+    var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: this.props.user.user_id};
+    bodyObj.status = 'checkFollow';
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/follow', postConfig)
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes.rows);
+        if (jsonRes.rows && jsonRes.rows.length) {
+          console.log('is following');
+          this.setState({followed: true});
+        } 
+      });
+
   }
 
   toggleFollow() {
     //PUSH picture data into logged in user's liked photos
     var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: this.props.user.user_id};
-    bodyObj.status = this.props.isFollowed ? 'rmFollow' : 'addFollow';
+    bodyObj.status = this.state.followed ? 'rmFollow' : 'addFollow';
 
     var postConfig = {
       headers: {
@@ -24,7 +53,7 @@ class ProfilePanel extends React.Component {
     };
 
     fetch('/follow', postConfig);
-    this.props.followUser();
+    this.followUser();
 
     let {description, name, prof_pic, user_id} = this.props.loggedInUser;
     var loggedInFollowerObj = {
@@ -51,9 +80,9 @@ class ProfilePanel extends React.Component {
             <Grid.Row className="first-panel-row">
               <Header className='profile-name-title'>{this.props.user.name}</Header> 
               {
-                (this.props.isFollowed === true) 
-                  ? <Button onClick={this.props.followUser} className='follow-button' onClick={e => this.toggleFollow(e)} basic>Following</Button>
-                  : <Button onClick={this.props.followUser} className='follow-button' onClick={e => this.toggleFollow(e)} primary>Follow</Button> 
+                (this.state.followed === true) 
+                  ? <Button onClick={e => this.followUser(e)} className='follow-button' onClick={e => this.toggleFollow(e)} basic>Following</Button>
+                  : <Button onClick={e => this.followUser(e)} className='follow-button' onClick={e => this.toggleFollow(e)} primary>Follow</Button> 
               }
             </Grid.Row>
             <Grid.Row >
