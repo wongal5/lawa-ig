@@ -190,13 +190,13 @@ app.get('/logout', function (req, res) {
   res.redirect('/'); // redirect to home page
 });
 
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(), // failing here. will need to fix when connecting routes
+// app.get('/profile',
+//   require('connect-ensure-login').ensureLoggedIn(), // failing here. will need to fix when connecting routes
 
-  function (req, res) {
-    console.log('here is request', req);
-    res.render('profile', { username: req.user });
-  });
+//   function (req, res) {
+//     console.log('here is request', req);
+//     res.render('profile', { username: req.user });
+//   });
 
 
 let port = process.env.PORT || 3000;
