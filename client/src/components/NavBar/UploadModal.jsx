@@ -25,7 +25,13 @@ class UploadModal extends React.Component {
       })
       var image = new FormData();
       image.append('image', acceptedFiles[0]);
-      axios.post('/upload', image)
+      axios.post('/post', image)
+        .then((result) => {
+          axios.post('/feed')
+            .then((result) => {
+              console.log(result.data[5].img);
+            })
+        })
         .catch(err => {
           console.log('image post failed', err);
         })

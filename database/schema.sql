@@ -28,7 +28,7 @@ CREATE TABLE followers (
 
 CREATE TABLE posts (
   post_id SERIAL,
-  img VARCHAR(200) NOT NULL,
+  img bytea NOT NULL,
   like_count INT default 0,
   user_id INT NOT NULL,
   caption VARCHAR(200),
