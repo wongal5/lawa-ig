@@ -40,14 +40,9 @@ const getPostsLiked = function (userId, postsIdArray) {
 		[userId]);
 };
 
-<<<<<<< HEAD
 const insertPost = function (caption, file) {
 	const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
 	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
-=======
-const insertPost = function(post) {
-  return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
->>>>>>> add page change fn
 	VALUES ($1, $2, $3, $4, $5)',
 		[AWSUrl + file.originalname.split(' ').join('+'), 0, 1, caption, moment().format()]);
 }
