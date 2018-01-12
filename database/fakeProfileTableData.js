@@ -1,4 +1,5 @@
 var fakeProfileTableData = [{
+  'user_id': 1,
   'username': 'willputnam12', 
   'name': 'Will Putnam',
   'avatar': 'https://pickaface.net/gallery/avatar/akinto54676adec860d.png',
@@ -61,6 +62,7 @@ var fakeProfileTableData = [{
   ]
 },
 {
+  'user_id': 2,
   'username': 'cherry_coco', 
   'name': 'Cherry Xu',
   'avatar': 'https://memegenerator.net/img/images/11323633.jpg',

@@ -231,7 +231,7 @@
     min-width: 300px;
 }
 
-.ui.grid {
+.feed-grid-container .ui.grid {
     margin-top: 65px;
     margin-left: 220px;
 }
@@ -271,6 +271,8 @@
 .ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
     float: left;
 }
+
+
 semantic.min.css:19
 
 
@@ -278,6 +280,7 @@ semantic.min.css:19
     width: 35px;
     height: 35px;
 }
+
 /*feed page*/
 .ui.card, .ui.cards>.card {
     margin-top: 45px;

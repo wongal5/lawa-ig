@@ -19,8 +19,8 @@ class NavBar extends React.Component {
 
   handleChange(selectedOption) {
     this.setState({ selectedOption });
-    this.props.changeUser(selectedOption.label);
-    console.log(`Selected: ${selectedOption.label}`);
+    this.props.changeUser(selectedOption.name);
+    console.log(`Selected: ${selectedOption.label} id is ${selectedOption.name}`);
   }
 
   selectSubmit(e) {
@@ -51,14 +51,14 @@ class NavBar extends React.Component {
             <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
           </Menu.Menu>
           <Select
-              onSubmit={e => this.selectSubmit(e)}
-              className="dynamic-select"
-              name="form-field-name"
-              placeholder=""
-              value={value}
-              onChange={e => this.handleChange(e)}
-              options={this.props.allUsers}
-            />
+            onSubmit={e => this.selectSubmit(e)}
+            className="dynamic-select"
+            name="form-field-name"
+            placeholder=""
+            value={value}
+            onChange={e => this.handleChange(e)}
+            options={this.props.allUsers}
+          />
         </Menu>
       </Container>
     );

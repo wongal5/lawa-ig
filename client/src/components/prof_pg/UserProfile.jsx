@@ -5,18 +5,19 @@ import PictureGrid from './PictureGrid.jsx';
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
+    var isFollowing = this.props.loggedInUser.followers.map(e => e.user_id).includes(this.props.user.user_id);
     this.state = {
       //set default with GET
-      following: false
-    }
+      following: isFollowing
+    };
   }
 
-  followUser(e){
+  followUser(e) {
     //POST this.props.user.username to FOLLOWED table
     this.setState({following: !this.state.following});
   }
 
-  render(){
+  render() {
     return (
       <div>
         <ProfilePanel user={this.props.user} followUser={e => this.followUser(e)} isFollowed={this.state.following} />
