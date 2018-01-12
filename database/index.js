@@ -90,6 +90,7 @@ const insertNewLike = function (userId, postId, callback) {
 }
 
 const insertPost = function(caption, file) {
+  console.log(file);
   s3.putObject({
     Bucket: 'lawa-ig',
     Key: 'images/' + file.originalname,
