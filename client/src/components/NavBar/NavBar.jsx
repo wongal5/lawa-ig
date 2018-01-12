@@ -16,6 +16,7 @@ class NavBar extends React.Component {
   
   handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
+    this.props.changePage(name);
   }
 
   handleChange(selectedOption) {
@@ -39,7 +40,7 @@ class NavBar extends React.Component {
             <img className="logo" src="http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg"/>
             <div className="logo-bar">|</div><div className="logo-name" > InstaLawa</div>
             <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-            <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick}/>
+            <Menu.Item name='profile' active={activeItem === 'profile'} onClick={this.handleItemClick}/>
           </Menu.Menu>
         
           <Menu.Menu position='right' className="right-menu">
