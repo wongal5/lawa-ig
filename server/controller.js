@@ -36,7 +36,7 @@ module.exports = {
   },
 
   feed: function(req, res) {
-    db.getAllPosts(1) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getAllPosts(3) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         let posts = results.rows;
         db.getPostsLiked(1)
@@ -55,7 +55,7 @@ module.exports = {
 
   insertPost: function(req, res) {
     //CURRENTLY HARD CODED post object, change to req.body when using
-    db.insertPost({ img: 'some image here', user_id: 2, caption: 'here is a funny caption'})
+    db.insertPost(req.file)
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
@@ -108,11 +108,11 @@ module.exports = {
 };
 =======
       })
-  },
-  
-  upload: function (req, res) {
-    console.log(req.file);
-    res.sendStatus(201);
   }
+<<<<<<< HEAD
 }
 >>>>>>> rebase
+=======
+
+}
+>>>>>>> progress on upload modal
