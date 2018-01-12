@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import config from '../../../server/config.js';
+// import config from '../../../server/config.js';
 import { Button, Form, Grid, Header, Image, Icon, Message, Segment } from 'semantic-ui-react'
 
 
@@ -62,10 +62,11 @@ class LogIn extends React.Component {
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450 }}>
+            <img className="logo" src="http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg" />
             <Header as='h1' color='instagram' textAlign='center'>
-              Instalawa
-        </Header>
-            <Button color="facebook"><Icon name="facebook" /><a href={'https://www.facebook.com/v2.8/dialog/oauth?client_id=' + config.FACEBOOK_APP_ID + '&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback'}>Log in with Facebook</a></Button>
+                <div className="logo-name" > Instalawa </div>
+           </Header>
+            <Button color="facebook"><Icon name="facebook" /><a href={'https://www.facebook.com/v2.8/dialog/oauth?client_id=' + process.env.FB_ID + '&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback'}>Log in with Facebook</a></Button>
             <Form size='large'>
               <Segment stacked>
                 <Form.Input
