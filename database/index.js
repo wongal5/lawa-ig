@@ -61,21 +61,49 @@ const getUserPosts = function (usedId) {
 	return pool.query('SELECT * FROM posts WHERE user_id = $1', [userId]);
 };
 
-//get user following
+const addLike = function(userId, postId) {
+  return pool.query('INSERT INTO likes (user_id, post_id, created_at) VALUES ($1, $2, $3)',
+    [userId, postId, moment.format()]);
+};
 
-//get post likes
+const rmLike = function(userId, postId) {
+  return pool.query('',
+    [userId, postId]);
+};
 
-//get like number
+const addFollow = function(followerId, followingId) {
+  return pool.query('INSERT INTO followers (followed_user, following_user, created_at) VALUES ($1, $2, $3)',
+    [followingId, followerId, moment.format()]);
+};
 
+const rmFollow = function(followerId, followingId) {
+  return pool.query('',
+    [followingId, followerId]);
+};
 
+const addComment = function(userId, postId, text) {
+  return pool.query('INSERT INTO comments (user_id, post_id, text, created_at) VALUES ($1, $2, $3, $4)',
+    [userId, postId, text, moment.format()]);
+};
+
+const rmComment = function(userId, postId) {
+  return pool.query('',
+    [userId, postId]);
+};
 
 module.exports = {
-	getUsersFollowing,
-	getUsersFollowers,
-	getAllPosts,
-	getPostsLiked,
-	insertPost,
-	getAllUsernames,
-	getUserPosts,
-	getUserProfile
+  getUsersFollowing,
+  getUsersFollowers,
+  getAllPosts,
+  getPostsLiked,
+  insertPost,
+  getAllUsernames,
+  getUserPosts,
+  getUserProfile,
+  addLike,
+  rmLike,
+  addFollow,
+  rmFollow,
+  addComment,
+  rmComment
 };

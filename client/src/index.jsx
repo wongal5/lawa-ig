@@ -13,7 +13,7 @@ class App extends React.Component {
       loggedIn: false, 
       allUsernames: [], //for dynamic search
       loggedInUser: fakeProfileTableData[0], //waiting for login profile name
-      onPageForUser: fakeProfileTableData[0], //is replaced by a real user on render
+      onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
       currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
@@ -51,12 +51,27 @@ class App extends React.Component {
       .then(userDataObj => this.setState({onPageForUser: userDataObj}));
   }
 
+  changePage(toPage) {
+    if (toPage === 'home') {
+      this.setState({currentPg: 'feed'});
+    } else if (toPage === 'profile') {
+      this.setState({currentPg: 'user_profile'});
+    }
+    
+  }
+
+  logOut() {
+    // this.setState({loggedInUser: })
+  }
+
   pageRouter(currentPg) {
     if (currentPg === 'user_profile') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)}/> {/* Albert */}
-          <UserProfile loggedInUser={this.state.loggedInUser} user={this.state.onPageForUser} />
+          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
+          {this.state.onPageForUser &&
+            <UserProfile loggedInUser={this.state.loggedInUser} user={this.state.onPageForUser} />
+          }
         </div>
       );
     } else if (currentPg === 'login_page') {
@@ -66,7 +81,7 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)}/> {/* Albert */}
+          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
           <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );
