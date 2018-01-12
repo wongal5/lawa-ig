@@ -6,9 +6,9 @@ CREATE TABLE users (
   user_id SERIAL,
   email VARCHAR(30) NOT NULL,
   password VARCHAR(30) NOT NULL,
-  fb_id VARCHAR(30) NOT NULL,
-  fb_name VARCHAR(30) NOT NULL,
-  fb_token VARCHAR(30) NOT NULL,
+  fb_id VARCHAR(30),
+  fb_name VARCHAR(30),
+  fb_token VARCHAR(30),
   name VARCHAR(30) NOT NULL,
   description VARCHAR(500),
   prof_pic VARCHAR(500),
@@ -28,7 +28,7 @@ CREATE TABLE followers (
 
 CREATE TABLE posts (
   post_id SERIAL,
-  img bytea NOT NULL,
+  img VARCHAR(200) NOT NULL,
   like_count INT default 0,
   user_id INT NOT NULL,
   caption VARCHAR(200),
@@ -59,10 +59,17 @@ CREATE TABLE likes (
 );
 
 -- USERS TABLE DATA
+<<<<<<< HEAD
 INSERT into users (name, description, prof_pic, created_at) VALUES ('Albert Wong', 'whatup its albert', 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAWZAAAAJDU1ZWRlMGViLTU5M2UtNGM3Ni1iOTU5LWUwMmNiNjQzZmQ1ZQ.jpg', '1000-01-01 00:00:00.000000');
 INSERT into users (name, description, prof_pic, created_at) VALUES ('Larry Chang', 'meow', 'https://upload.wikimedia.org/wikipedia/commons/7/77/Avatar_cat.png', '1000-01-01 00:00:00.000000');
 INSERT into users (name, description, prof_pic, created_at) VALUES ('Will Putnam', 'Volcano life', 'https://www.thesun.co.uk/wp-content/uploads/2017/02/nintchdbpict0002990093241.jpg?strip=all&w=960', '1000-01-01 00:00:00.000000');
 INSERT into users (name, description, prof_pic, created_at) VALUES ('Aaron Pietsch', 'I love code', 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAIA_wDGAAAAAQAAAAAAAAopAAAAJDY5ZTRkYjlhLTM5OTEtNDZhYS1iNGM4LTRmZTk5NmI0MzFlYw.jpg', '1000-01-01 00:00:00.000000');
+=======
+INSERT into users (email, password, fb_id, fb_name, fb_token, name, description, prof_pic, created_at) VALUES ('email@email.com', 'password!!!', 'some FB ID', 'some FB name', 'some FB token', 'Albert Wong', 'temp description', 'prof pic link', '1000-01-01 00:00:00.000000');
+INSERT into users (email, password, fb_id, fb_name, fb_token, name, description, prof_pic, created_at) VALUES ('email@email.com', 'password!!!', 'some FB ID', 'some FB name', 'some FB token', 'Larry Chang', 'temp description', 'prof pic link', '1000-01-01 00:00:00.000000');
+INSERT into users (email, password, fb_id, fb_name, fb_token, name, description, prof_pic, created_at) VALUES ('email@email.com', 'password!!!', 'some FB ID', 'some FB name', 'some FB token', 'Will Putnam', 'temp description', 'prof pic link', '1000-01-01 00:00:00.000000');
+INSERT into users (email, password, fb_id, fb_name, fb_token, name, description, prof_pic, created_at) VALUES ('email@email.com', 'password!!!', 'some FB ID', 'some FB name', 'some FB token', 'Aaron Pietsch', 'temp description', 'prof pic link', '1000-01-01 00:00:00.000000');
+>>>>>>> working post route, just missing userID of person who posted
 
 -- FOLLOWERS TABLE DATA
 INSERT into followers (followed_user, following_user, created_at) VALUES (1, 2, '1000-01-01 00:00:00.000000');

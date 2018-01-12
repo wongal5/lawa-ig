@@ -1,6 +1,19 @@
 const pg = require('pg');
 const path = require('path');
 const moment = require('moment');
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
+const multer = require('multer');
+
+AWS.config.update({
+  accessKeyId: 'AKIAILL7TX3HOMGX7BGA',
+  secretAccessKey: '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',
+  region: 'us-west-1'
+})
+
+const s3 = new AWS.S3();
+
+const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
 
 const connection = {
   host: process.env.DATABASE_URL || 'localhost',
@@ -40,14 +53,6 @@ const getPostsLiked = function (userId, postsIdArray) {
   [userId])
 }
 
-
-<<<<<<< HEAD
-const insertPost = function(caption, file) {
-
-	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
-	VALUES ($1, $2, $3, $4, $5)',
-  [AWSUrl + file.originalname.split(' ').join('+'), 0, 1, caption, moment().format()]);
-=======
 //gets the total like count of a particular post
 const getLikeCountOfPost = function (postId, callback) {
 	client.query('SELECT like_count FROM posts WHERE post_id = (?)', postId, function (error, results) {
@@ -84,36 +89,18 @@ const insertNewLike = function (userId, postId, callback) {
 	});
 }
 
-//get all users following
-const getUsersFollowing = function(callback) {
- client.query('', function(error, results) {
- 		if (error) {
- 			console.log('select all users error')
- 		} else {
- 			console.log('select all users success')
- 			callback(results);
- 		}
-	});
-}
-
-//get user followers
-const getUserFollowers = function(user, callback) {
-	client.query('', function (error, results) {
-		if (error) {
-			console.log('select get user followers fail')
-		} else {
-			console.log('select get user followers success')
-			callback(results);
-		}
-	});
-}
-
-
-const insertPost = function(post) {
+const insertPost = function(caption, file) {
+  s3.putObject({
+    Bucket: 'lawa-ig',
+    Key: 'images/' + file.originalname,
+    Body: file.buffer,
+    ACL: 'public-read', // your permisions  
+  }, (err, result) => {
+    console.log(result);
+  })
 	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
 	VALUES ($1, $2, $3, $4, $5)',
-	[post.toString('hex'), 0, 1, 'test caption', moment().format()]);
->>>>>>> progress on upload modal
+  [AWSUrl + file.originalname.split(' ').join('+'), 0, 1, caption, moment().format()]);
 }
 
 
@@ -123,5 +110,5 @@ module.exports = {
 	getUsersFollowers,
 	getAllPosts,
 	getPostsLiked,
-	insertPost
+	insertPost 
 }
