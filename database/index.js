@@ -96,6 +96,13 @@ const rmComment = function(userId, postId) {
     [userId, postId]);
 };
 
+const getLikesOnPost = function (postId) {
+  return pool.query('SELECT users.user_id, users.name, users.prof_pic \
+    FROM users INNER JOIN likes \
+    ON likes.post_id = $1 AND likes.user_id = users.user_id',
+    [postId]);
+};
+
 module.exports = {
   getUsersFollowing,
   getUsersFollowers,
