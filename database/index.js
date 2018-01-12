@@ -89,7 +89,12 @@ const addFollow = function(followerId, followedId) {
 };
 
 const rmFollow = function(followerId, followedId) {
-  return pool.query('DELETE from followers where followers.followed_user = $1 and followers.following_user = $2; ',
+  return pool.query('DELETE from followers WHERE followers.followed_user = $1 AND followers.following_user = $2; ',
+    [followedId, followerId]);
+};
+
+const checkFollow = function(followerId, followedId) {
+  return pool.query('SELECT * FROM followers WHERE followers.followed_user = $1 AND followers.following_user = $2',
     [followedId, followerId]);
 };
 
@@ -128,5 +133,6 @@ module.exports = {
   checkForUser,
   insertNewFbUser,
   getLikesOnPost,
-  checkLike
+  checkLike, 
+  checkFollow
 };

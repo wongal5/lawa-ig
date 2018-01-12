@@ -7,27 +7,61 @@ class PicModal extends React.Component {
     super(props);
     this.state = {
       liked: false,
-      postLikes: this.props.post.like_count
+      postLikes: []
     };
+    this.getLikesOnPost(this.props.post.post_id);
     this.checkIfLike();
   }
 
-  liveUpdateLike() {
-    var likes = this.state.postLikes;
-    console.log(likes);
-    if (this.state.liked) {
-      this.setState({postLikes: likes - 1});
+  getLikesOnPost() {
+    var bodyObj = {postId: this.props.post.post_id};
+    bodyObj.status = 'getAllLikes';
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/like', postConfig)
+      .then(data => data.json())
+      .then(jsonData => {
+        this.setState({postLikes: jsonData.rows});
+      });
+  }
+
+  changeLikesLive (likerObj, addOrRm) {
+    var postLikes = this.state.postLikes;
+    
+    if (addOrRm === 'add') {
+      postLikes.push(likerObj);
+      this.setState({postLikes: postLikes});
     } else {
-      this.setState({postLikes: likes + 1});
+      postLikes = postLikes.filter(like => likerObj.user_id !== like.user_id);
+      this.setState({postLikes: postLikes});
+    }
+  }
+
+  liveUpdateLike() {
+    let { postLikes } = this.state;
+
+    let likerObj = {
+      user_id: this.props.loggedInUser.user_id,
+      name: this.props.loggedInUser.name,
+      prof_pic: this.props.loggedInUser.prof_pic
+    };
+    
+    if (this.state.liked) {
+      this.changeLikesLive(likerObj, 'rm');        
+    } else {
+      this.changeLikesLive(likerObj, 'add');
     }
   }
 
   checkIfLike() {
     var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post.post_id};
-
-    console.log('user id is ', bodyObj.userId);
-    console.log('post id is ', bodyObj.postId);
-
     bodyObj.status = 'checkLike';
 
     var postConfig = {
@@ -82,7 +116,7 @@ class PicModal extends React.Component {
             <Divider className='top-div-modal'/>
       
             <CommentsField user={this.props.user} 
-              likeCount={this.state.postLikes} 
+              likeCount={this.state.postLikes.length} 
               post={this.props.post} 
               toggleLike={e => this.toggleLike(e)} 
               isLiked={this.state.liked}

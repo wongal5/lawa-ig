@@ -152,6 +152,9 @@ module.exports = {
     if (req.body.status === 'checkLike') {
       db.checkLike(req.body.userId, req.body.postId)
         .then(data => res.status(201).json(data));
+    } else if (req.body.status === 'getAllLikes') {
+      db.getLikesOnPost(req.body.postId)
+        .then(data => res.status(201).json(data));
     } else if (req.body.status === 'addLike') {
       db.addLike(req.body.userId, req.body.postId)
         .then(res.status(201).send('Liked!'));
@@ -162,7 +165,10 @@ module.exports = {
   },
 
   changeFollow: function(req, res) {
-    if (req.body.status === 'addFollow') {
+    if (req.body.status === 'checkFollow') {
+      db.checkFollow(req.body.followerId, req.body.followedId)
+        .then(data => res.status(201).json(data));
+    } else if (req.body.status === 'addFollow') {
       db.addFollow(req.body.followerId, req.body.followedId)
         .then(res.status(201).send('Followed!'));
     } else if (req.body.status === 'rmFollow') {
