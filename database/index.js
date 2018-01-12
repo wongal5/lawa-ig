@@ -77,33 +77,6 @@ const insertNewLike = function (userId, postId callback) {
 	});
 }
 
-//get all users following
-const getUsersFollowing = function(callback) {
- client.query('', function(error, results) {
- 		if (error) {
- 			console.log('select all users error')
- 		} else {
- 			console.log('select all users success')
- 			callback(results);
- 		}
-	});
-}
-
-//get user followers
-const getUserFollowers = function(user, callback) {
-	client.query('', function (error, results) {
-		if (error) {
-			console.log('select get user followers fail')
-		} else {
-			console.log('select get user followers success')
-			callback(results);
-		}
-	});
-}
-
-
-
-
 
 
 const insertPost = function(post) {
