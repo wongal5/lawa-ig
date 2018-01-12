@@ -1,0 +1,17 @@
+{
+  "name": "Lawa-IG",
+  "description": "Instagram clone for Greenfield Project. HackReactor-86",
+  "env": {
+    "NODE_ENV": {
+      "required": true,
+      "value": "development"
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true,
+      "value": "false"
+    }, 
+    "DATABASE_URL": {
+      "required": true
+    }
+  }
+}
