@@ -13,7 +13,7 @@ class App extends React.Component {
       loggedIn: false, 
       allUsernames: [], //for dynamic search
       loggedInUser: fakeProfileTableData[0], //waiting for login profile name
-      onPageForUser: fakeProfileTableData[0], //is replaced by a real user on render
+      onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
       currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
@@ -56,7 +56,9 @@ class App extends React.Component {
       return (
         <div>
           <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)}/> {/* Albert */}
-          <UserProfile loggedInUser={this.state.loggedInUser} user={this.state.onPageForUser} />
+          {this.state.onPageForUser &&
+            <UserProfile loggedInUser={this.state.loggedInUser} user={this.state.onPageForUser} />
+          }
         </div>
       );
     } else if (currentPg === 'login_page') {

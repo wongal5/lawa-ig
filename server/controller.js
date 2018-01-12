@@ -93,7 +93,6 @@ module.exports = {
   currentUserProfile: function(req, res) {
     
     userId = req.body.username;
-    console.log('user id is ', userId);
 
     db.getUserProfile(userId)
       .then(currentUserProfile => { 
@@ -107,12 +106,16 @@ module.exports = {
                 db.getUsersFollowers(userId)
                   .then(usersFollowers => {
                     currentUserProfile.followers = usersFollowers.rows;
-                    console.log(currentUserProfile);
                     res.json(currentUserProfile);
                   });
               });
           });
       });
-  }
-}
+  },
 
+  addComment: function(req, res) {
+    console.log('reqbody for add comment', req.body);
+    db.addCommentEntry(userId, postId, text)
+      .then(res.status(201).send('Comment Added'));
+  }
+};

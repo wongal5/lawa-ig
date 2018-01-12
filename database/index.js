@@ -40,9 +40,14 @@ const getPostsLiked = function (userId, postsIdArray) {
 		[userId]);
 };
 
+<<<<<<< HEAD
 const insertPost = function (caption, file) {
 	const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
 	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
+=======
+const insertPost = function(post) {
+  return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
+>>>>>>> add page change fn
 	VALUES ($1, $2, $3, $4, $5)',
 		[AWSUrl + file.originalname.split(' ').join('+'), 0, 1, caption, moment().format()]);
 }
@@ -61,21 +66,31 @@ const getUserPosts = function (usedId) {
 	return pool.query('SELECT * FROM posts WHERE user_id = $1', [userId]);
 };
 
-//get user following
+const addLikeEntry = function(userId, postId) {
+  return pool.query('INSERT INTO likes (user_id, post_id, created_at) VALUES ($1, $2, $3)',
+    [userId, postId, moment.format()]);
+};
 
-//get post likes
+const addFollowEntry = function(followerId, followingId) {
+  return pool.query('INSERT INTO followers (followed_user, following_user, created_at) VALUES ($1, $2, $3)',
+    [followingId, followerId, moment.format()]);
+};
 
-//get like number
-
-
+const addCommentEntry = function(userId, postId, text) {
+  return pool.query('INSERT INTO comments (user_id, post_id, text, created_at) VALUES ($1, $2, $3, $4)',
+    [userId, postId, text, moment.format()]);
+};
 
 module.exports = {
-	getUsersFollowing,
-	getUsersFollowers,
-	getAllPosts,
-	getPostsLiked,
-	insertPost,
-	getAllUsernames,
-	getUserPosts,
-	getUserProfile
+  getUsersFollowing,
+  getUsersFollowers,
+  getAllPosts,
+  getPostsLiked,
+  insertPost,
+  getAllUsernames,
+  getUserPosts,
+  getUserProfile,
+  addLikeEntry,
+  addFollowEntry,
+  addCommentEntry
 };
