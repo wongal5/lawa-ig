@@ -4,8 +4,8 @@ const AWS = require('aws-sdk');
 const moment = require('moment');
 
 AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID || 'AKIAJZU7P6UNSIDAC2ZA',
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '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',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
   region: 'us-west-1'
 });
 

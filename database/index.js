@@ -42,11 +42,16 @@ const insertPost = function (caption, file, userId, timestamp) {
   const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/';
   return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
     VALUES ($1, $2, $3, $4, $5)',
+<<<<<<< HEAD
     [`${AWSUrl}${userId}-${timestamp.toString().split(' ').join('+')}${file.originalname.slice(-4)}`, 0, userId, caption, moment().format()]);
+=======
+    [`${AWSUrl}${userId}-${timestamp.toString().split(' ').join('+')}`, 0, userId, caption, moment().format()]);
+>>>>>>> 7a07e6c6a7fc019042d9c8012fc0db3eea077c61
 };
 //for search and profile change
 const getAllUsernames = function () {
   return pool.query('SELECT user_id, name FROM users');
+<<<<<<< HEAD
 };
 
 const checkForUser = function (facebookId) {
@@ -54,6 +59,8 @@ const checkForUser = function (facebookId) {
 };
 const insertNewFbUser = function (newUser) {
   return pool.query('INSERT INTO users (fb_id, fb_name, prof_pic) VALUES ($1, $2, $3)', [newUser.id, newUser.displayName, newUser.photo]);
+=======
+>>>>>>> 7a07e6c6a7fc019042d9c8012fc0db3eea077c61
 };
 
 const getUserProfile = function (userId) {
