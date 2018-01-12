@@ -119,5 +119,6 @@ module.exports = {
   addComment,
   rmComment,
   checkForUser,
-  insertNewFbUser
+  insertNewFbUser,
+  getLikesOnPost
 };
