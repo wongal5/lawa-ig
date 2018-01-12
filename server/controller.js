@@ -1,6 +1,7 @@
 const app = require('./index.js');
 const db = require('../database/index.js');
 const AWS = require('aws-sdk');
+const moment = require('moment');
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID || 'key only available in staging or prod',
@@ -81,6 +82,7 @@ module.exports = {
   },
 
   insertPost: function(req, res) {
+    let timestamp = moment().format();
     s3.putObject({
       Bucket: 'lawa-ig',
       Key: 'images/' + req.file.originalname,
@@ -89,7 +91,7 @@ module.exports = {
     }, (err, result) => {
       console.log(result);
     });
-    db.insertPost(req.body.caption, req.file)
+    db.insertPost(req.body.caption, req.file, req.body.userId, timestamp)
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
