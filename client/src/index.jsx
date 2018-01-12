@@ -42,17 +42,17 @@ class App extends React.Component {
   }
 
   //initialize username data for autocomplete search
-  componentDidMount(){
-    this.getAllUserNames();
-  }
+  // componentDidMount(){
+  //   this.getAllUserNames();
+  // }
 
-  getAllUserNames(){
-    //GET retrieves all profiles
-    fetch('/profile')
-    .then(data => data.json())
-    .then(jsondata => this.setState({allUsernames: jsondata}))
-    .catch(err => console.log('error fetching allprofiles'));
-  }
+  // getAllUserNames(){
+  //   //GET retrieves all profiles
+  //   fetch('/profile')
+  //   .then(data => data.json())
+  //   .then(jsondata => this.setState({allUsernames: jsondata}))
+  //   .catch(err => console.log('error fetching allprofiles'));
+  // }
 
   changeUser(username) {
     //get a specific user's profile - triggered by navbar search
@@ -84,9 +84,7 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} returnHome={e => this.returnHome(e)}/> {/* Albert */}
-          <div></div> {/* <Feed /> Larry */}
-          <NavBar /> {/* Albert */}
+          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)}/> {/* Albert */}
           <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );

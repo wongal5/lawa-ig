@@ -234,7 +234,7 @@
     min-width: 300px;
 }
 
-.ui.grid {
+.feed-grid-container .ui.grid {
     margin-top: 65px;
     margin-left: 220px;
 }
