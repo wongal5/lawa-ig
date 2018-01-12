@@ -6,7 +6,7 @@ AWS.config.update({
   accessKeyId: 'AKIAILL7TX3HOMGX7BGA',
   secretAccessKey: '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',
   region: 'us-west-1'
-})
+});
 
 const s3 = new AWS.S3();
 
@@ -70,7 +70,7 @@ module.exports = {
       ACL: 'public-read', // your permisions  
     }, (err, result) => {
       console.log(result);
-    })
+    });
     db.insertPost(req.body.caption, req.file)
       .then(res.sendStatus(201))
       .catch(err => {
@@ -113,9 +113,37 @@ module.exports = {
       });
   },
 
-  addComment: function(req, res) {
+  //Like, follow, comment below - Do not be alarmed
+  changeComment: function(req, res) {
     console.log('reqbody for add comment', req.body);
-    db.addCommentEntry(userId, postId, text)
-      .then(res.status(201).send('Comment Added'));
+    if (req.body.status === 'addComment') {
+      db.addComment(userId, postId, text)
+        .then(res.status(201).send('Comment Added'));
+    } else if (req.body.status === 'rmComment') {
+      db.rmComment(userId, postId)
+        .then(res.status(201).send('Comment Removed'));
+    } 
+  },
+  changeLike: function(req, res) {
+    console.log('reqbody for addLike', req.body);
+    if (req.body.status === 'addLike') {
+      db.addLike(userId, postId)
+        .then(res.status(201).send('Liked!'));
+    } else if (req.body.status === 'rmLike') {
+      db.rmLike(userId, postId)
+        .then(res.status(201).send('Unliked!'));
+    }
+  },
+
+  changeFollow: function(req, res) {
+    console.log('reqbody for addFollow', req.body);
+    if (req.body.status === 'addFollow') {
+      db.addFollow(userId, postId)
+        .then(res.status(201).send('Followed!'));
+    } else if (req.body.status === 'rmFollow') {
+      db.rmFollow(userId, postId)
+        .then(res.status(201).send('Unfollowed!'));
+    }
+    
   }
 };

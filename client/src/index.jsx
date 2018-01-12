@@ -51,11 +51,24 @@ class App extends React.Component {
       .then(userDataObj => this.setState({onPageForUser: userDataObj}));
   }
 
+  changePage(toPage) {
+    if (toPage === 'home') {
+      this.setState({currentPg: 'feed'});
+    } else if (toPage === 'profile') {
+      this.setState({currentPg: 'user_profile'});
+    }
+    
+  }
+
+  logOut() {
+    // this.setState({loggedInUser: })
+  }
+
   pageRouter(currentPg) {
     if (currentPg === 'user_profile') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)}/> {/* Albert */}
+          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
           {this.state.onPageForUser &&
             <UserProfile loggedInUser={this.state.loggedInUser} user={this.state.onPageForUser} />
           }
@@ -68,7 +81,7 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)}/> {/* Albert */}
+          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
           <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );
