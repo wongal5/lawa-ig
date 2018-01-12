@@ -33,7 +33,7 @@ const ProfilePanel = (props) => (
               })}</List></Modal.Content>
             </Modal></span>
           <span className='profile-sub-data'>
-            <Modal size="mini" trigger={<span><span className='profile-sub-data-num'>{props.user.following.length} </span>followers</span>}>
+            <Modal size="mini" trigger={<span><span className='profile-sub-data-num'>{props.user.following.length} </span>following</span>}>
               <Modal.Header>Following</Modal.Header>
               <Modal.Content scrolling><List divided verticalAlign='middle'>{props.user.following.map((following) => {
                 return <List.Item><List.Content className="follow">{following}</List.Content><br/><List.Content className="small-button" floated="right"><Button color="blue" size="tiny">Following</Button></List.Content></List.Item>;
