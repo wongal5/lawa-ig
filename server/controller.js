@@ -1,8 +1,6 @@
 const app = require('./index.js');
 const db = require('../database/index.js');
 const AWS = require('aws-sdk');
-const multerS3 = require('multer-s3');
-const multer = require('multer');
 
 AWS.config.update({
   accessKeyId: 'AKIAILL7TX3HOMGX7BGA',
@@ -11,8 +9,6 @@ AWS.config.update({
 })
 
 const s3 = new AWS.S3();
-
-const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
 
 let headers = {
   'access-control-allow-origin': '*',
@@ -66,7 +62,7 @@ module.exports = {
       });
   },
 
-  insertPost: function(req,res) {
+  insertPost: function(req, res) {
     s3.putObject({
       Bucket: 'lawa-ig',
       Key: 'images/' + req.file.originalname,
@@ -86,7 +82,6 @@ module.exports = {
   allUserNames: function(req, res) {
     db.getAllUsernames()
       .then(allUserNames =>{
-        console.log('allusernames ', allUserNames);
         let profileNames = allUserNames.rows.map(profileName => {
           return {'name': profileName.user_id, 'label': profileName.name};
         });
