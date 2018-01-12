@@ -53,7 +53,7 @@ const checkForUser = function (facebookId) {
   return pool.query('SELECT * FROM users WHERE user.fb_id = $1', [facebookId]);
 };
 const insertNewFbUser = function (newUser) {
-  return pool.query('INSERT INTO users (fb_id, fb_name, prof_pic) VALUES ($1, $2)', [newUser.id, newUser.displayName, newUser.photo]);
+  return pool.query('INSERT INTO users (fb_id, fb_name, prof_pic) VALUES ($1, $2, $3)', [newUser.id, newUser.displayName, newUser.photo]);
 }
 const getUserProfile = function (userId) {
 	return pool.query('SELECT users.user_id, users.name, users.prof_pic, users.description FROM users \
