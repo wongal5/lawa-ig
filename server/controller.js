@@ -1,5 +1,18 @@
 const app = require('./index.js');
 const db = require('../database/index.js');
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
+const multer = require('multer');
+
+AWS.config.update({
+  accessKeyId: 'AKIAILL7TX3HOMGX7BGA',
+  secretAccessKey: '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',
+  region: 'us-west-1'
+})
+
+const s3 = new AWS.S3();
+
+const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
 
 let headers = {
   'access-control-allow-origin': '*',
@@ -54,11 +67,20 @@ module.exports = {
   },
 
   insertPost: function(req,res) {
+    s3.putObject({
+      Bucket: 'lawa-ig',
+      Key: 'images/' + req.file.originalname,
+      Body: req.file.buffer,
+      ACL: 'public-read', // your permisions  
+    }, (err, result) => {
+      console.log(result);
+    })
     db.insertPost(req.body.caption, req.file)
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
       });
+    console.log(req);
   },
   //for autocomplete search bar
   allUserNames: function(req, res) {
