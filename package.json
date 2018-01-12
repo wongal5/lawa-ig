@@ -11,6 +11,7 @@
     "start": "node server/index.js",
     "react-dev": "webpack --watch",
     "test": "./node_modules/.bin/mocha -u tdd --reporter spec",
+    "jest": "jest",
     "heroku-postbuild": "webpack"
   },
   "dependencies": {
@@ -50,9 +51,10 @@
     "chai": "^4.1.2",
     "eslint": "^4.15.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "jest": "^22.0.6",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.9",
-    "requirejs": "^2.3.5"
+    "react-test-renderer": "^16.2.0"
   },
   "babel": {
     "presets": [
