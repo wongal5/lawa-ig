@@ -3,8 +3,8 @@ const db = require('../database/index.js');
 const AWS = require('aws-sdk');
 
 AWS.config.update({
-  accessKeyId: '',
-  secretAccessKey: '',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID || 'key only available in staging or prod',
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || 'key only available in staging or prod',
   region: 'us-west-1'
 });
 
