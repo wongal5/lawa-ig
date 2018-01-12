@@ -8,7 +8,7 @@ const GridRow = (props) => {
       {
         props.rowPosts.map(post => {
           return (
-            <Grid.Column key={post.photo}>
+            <Grid.Column key={post.img}>
               <PicModal className="grid-img" post={post} img={post.img} user={props.user} />
             </Grid.Column>
           );
