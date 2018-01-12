@@ -40,17 +40,17 @@ module.exports = {
         let user = results.rows;
         if (user.length === 0) {
           let newUser = {
-            "id": res.body.id,
-            "displayName": res.body.displayName,
-            "photo": res.body.photos[0].value
-          }
+            'id': res.body.id,
+            'displayName': res.body.displayName,
+            'photo': res.body.photos[0].value
+          };
           db.insertNewFbUser(newUser)
             .then(res.sendStatus(201))
             .catch((err) => {
               console.log('insert new fb user had an error', err);
-            })
+            });
         }
-      })
+      });
 
   },
   usersFollowers: function(req, res) {
@@ -85,13 +85,13 @@ module.exports = {
     let timestamp = moment().format();
     s3.putObject({
       Bucket: 'lawa-ig',
-      Key: 'images/' + req.file.originalname,
+      Key: `images/${userId}-${timestamp.toString().split(' ').join('+')}${req.file.originalname.slice(-4)}`,
       Body: req.file.buffer,
       ACL: 'public-read', // your permisions  
     }, (err, result) => {
       console.log(result);
     });
-    db.insertPost(req.body.caption, req.file, req.body.userId, timestamp)
+    db.insertPost(req.body.caption, req.file, 1, timestamp) //req.body.userId
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
