@@ -222,10 +222,63 @@
     padding: 0;
 }
 
+
+/*feed page*/
+.ui.card, .ui.cards>.card {
+    margin-top: 45px;
+    width: 550px;
+    margin-bottom: 10px;
+    min-width: 300px;
+}
+
+.ui.grid {
+    margin-top: 65px;
+    margin-left: 220px;
+}
+
+.ui.list {
+    font-size: 1em;
+    width: 200px;
+    min-height: 500px;
+
+}
+
+.feedBar {
+  float: right;
+  margin-right: 250px;
+}
+
+/*.ui.left.aligned.selection.list {
+  margin-right: 100px;
+  min-width: 100px;
+}*/
+
+.ui.selection.list .list>.item, .ui.selection.list>.item {
+  position: fixed;
+  padding: 10px;
+  border-radius: 0;
+  width: 230px;
+  border-color: #D9D9D9;
+  border-bottom-style: solid;
+  border-width: 1px;
+
+}
+
+.likes {
+  font-weight: bold;
+  float: left;
+}
+.ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
+    float: left;
+}
+semantic.min.css:19
+
+
 .heart-icon {
     width: 35px;
     height: 35px;
 }
+<<<<<<< HEAD
 /*feed page*/
 .ui.card, .ui.cards>.card {
     margin-top: 45px;
@@ -277,3 +330,5 @@
 semantic.min.css:19
 
 
+=======
+>>>>>>> 2dd9e7fbefb7d54e18ba56446be79d4f01b4f2cb
