@@ -2,11 +2,9 @@ const pg = require('pg');
 const path = require('path');
 const moment = require('moment');
 
-const connection = {
-	host: process.env.DATABASE_URL || 'localhost',
-	database: 'lawa_db'
-};
-// ADD PATH TO DATABASE URL ABOVE
+const connection = process.env.DATABASE_URL ? 
+  { connectionString: process.env.DATABASE_URL } : 
+  { host: 'localhost', database: 'lawa_db' };
 
 const pool = new pg.Pool(connection);
 pool.connect();
