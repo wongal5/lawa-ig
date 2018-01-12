@@ -8,7 +8,8 @@ class UploadModal extends React.Component {
     super(props);
     this.state = {
       submitFlag: 'not submitted',
-      uploadedFile: null
+      uploadedFile: null,
+      caption: null
     }
     this.insertForm = this.insertForm.bind(this);
   }
@@ -19,26 +20,33 @@ class UploadModal extends React.Component {
         submitFlag: 'invalid file'
       })
     } else {
-      this.setState({
-        submitFlag: 'not submitted',
-        uploadedFile: acceptedFiles
-      })
       var image = new FormData();
       image.append('image', acceptedFiles[0]);
-      axios.post('/post', image)
-        .then((result) => {
-          axios.post('/feed')
-            .then((result) => {
-              console.log(result.data[5].img);
-            })
-        })
-        .catch(err => {
-          console.log('image post failed', err);
-        })
+      this.setState({
+        submitFlag: 'not submitted',
+        uploadedFile: image
+      })
     }
   }
 
   handleSubmit() {
+    if (this.state.uploadedFile) {
+      this.state.uploadedFile.append('caption', this.state.caption)
+      axios.post('/post', this.state.uploadedFile);
+        // .then((result) => {
+        //   axios.post('/feed')
+        //     .then((result) => {
+        //       console.log(result.data[5].img);
+        //     })
+        // })
+        // .catch(err => {
+        //   console.log('image post failed', err);
+        // })
+    } else {
+      console.log('error, please upload a file first'); // HANDLE THIS BETTER
+    }
+    
+
     this.setState({
       submitFlag: 'submitted'
     })
@@ -47,6 +55,12 @@ class UploadModal extends React.Component {
   onOpen() {
     this.setState({
       submitFlag: 'not submitted'
+    })
+  }
+
+  onCaptionChange(event) {
+    this.setState({
+      caption: event.target.value
     })
   }
 
@@ -65,7 +79,7 @@ class UploadModal extends React.Component {
   insertForm(submitFlag) {
     if (submitFlag === 'not submitted') {
       return (<Form onSubmit={this.handleSubmit.bind(this)}>
-        <Form.Input required placeholder='insert caption here' />
+        <Form.Input required placeholder='insert caption here' onChange={this.onCaptionChange.bind(this)} />
         <Message
           success
           header='Form Completed'
@@ -75,7 +89,7 @@ class UploadModal extends React.Component {
       </Form>)
     } else if (submitFlag === 'submitted') {
       return (<Form success>
-        <Form.Input required placeholder='insert caption here' />
+        <Form.Input required placeholder='insert caption here' onChange={this.onCaptionChange.bind(this)} />
         <Message
           success
           header='Form Completed'
@@ -85,7 +99,7 @@ class UploadModal extends React.Component {
       </Form>)
     } else if (submitFlag === 'invalid file') {
       return (<Form onSubmit={this.handleSubmit.bind(this)} error>
-        <Form.Input required placeholder='insert caption here' />
+        <Form.Input required placeholder='insert caption here' onChange={this.onCaptionChange.bind(this)} />
         <Message
           error
           header='Upload Error'
@@ -95,7 +109,7 @@ class UploadModal extends React.Component {
       </Form>)
     } else {
       return (<Form onSubmit={this.handleSubmit.bind(this)} error>
-        <Form.Input required placeholder='insert caption here' />
+        <Form.Input required placeholder='insert caption here' onChange={this.onCaptionChange.bind(this)} />
         <Message
           error
           header='Form Error'

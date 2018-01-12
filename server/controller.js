@@ -53,13 +53,11 @@ module.exports = {
       });
   },
 
-  insertPost: function(req, res) {
-    //CURRENTLY HARD CODED post object, change to req.body when using
-    db.insertPost(req.file)
+  insertPost: function(req,res) {
+    db.insertPost(req.body.caption, req.file)
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
-<<<<<<< HEAD
       });
   },
   //for autocomplete search bar
@@ -98,21 +96,6 @@ module.exports = {
               });
           });
       });
-  },
-
-  //for image modal view
-  //need image likes
-  //need image url
-  //need image comments incl usernames
-
-};
-=======
-      })
   }
-<<<<<<< HEAD
 }
->>>>>>> rebase
-=======
 
-}
->>>>>>> progress on upload modal
