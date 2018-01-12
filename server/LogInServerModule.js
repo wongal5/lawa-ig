@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-// const config = require('./config.js');
+const config = require('./config.js');
 
 // const db = require('../database/index.js');
 
@@ -10,7 +10,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 var expressSession = require('express-session');
 const FacebookStrategy = require('passport-facebook');
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+// var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
 // hardcoded user info
@@ -47,10 +47,10 @@ function findUser(id) {
 
 // configure Facebook Strategy for use by passport
 passport.use(new FacebookStrategy({
-  clientID: process.env.FB_ID,
-  // clientID: config.FACEBOOK_APP_ID,
-  clientSecret: process.env.FB_SECRET,
-  // clientSecret: config.FACEBOOK_APP_SECRET,
+  // clientID: process.env.FB_ID,
+  clientID: config.FACEBOOK_APP_ID,
+  // clientSecret: process.env.FB_SECRET,
+  clientSecret: config.FACEBOOK_APP_SECRET,
   callbackURL: "http://localhost:3000/login/facebook/callback",
   profileFields: ['id', 'displayName', 'link', 'photos', 'emails'],
   enableProof: true
@@ -158,7 +158,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //routes here
 
-app.get('/login/facebook',
+app.get('/login',
 
   // will keep this in case we need to track request params later
   // function (req, res) {
@@ -226,7 +226,7 @@ app.listen(port, () => console.log(`Example app listening on ${port}!`));
 // </script>
 
 // app.get('/login/facebook/callback', 
-// 	passport.authenticate('facebook', {
-// 		successRedirect: '/home',
-// 		failureRedirect : '/'
-// 	}))
+//  passport.authenticate('facebook', {
+//    successRedirect: '/home',
+//    failureRedirect : '/'
+//  }))
