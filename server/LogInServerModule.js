@@ -73,7 +73,8 @@ passport.use(new FacebookStrategy({
     //   if (user.length === 0) {
     //     var newUser = {
     //       "id": profile.id,
-    //       "username": profile.displayName
+    //       "username": profile.displayName,
+            //  "photo": profile.photos[0].value
     //     }
     //     db.query('INSERT INTO users (user_id, name) values (?, ?)', [newUser.id, newUser.username], function(err, user) {
     //       if (err) {
