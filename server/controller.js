@@ -1,5 +1,14 @@
 const app = require('./index.js');
 const db = require('../database/index.js');
+const AWS = require('aws-sdk');
+
+AWS.config.update({
+  accessKeyId: 'AKIAILL7TX3HOMGX7BGA',
+  secretAccessKey: '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',
+  region: 'us-west-1'
+})
+
+const s3 = new AWS.S3();
 
 let headers = {
   'access-control-allow-origin': '*',
@@ -36,7 +45,7 @@ module.exports = {
   },
 
   feed: function(req, res) {
-    db.getAllPosts(1) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getAllPosts(3) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         let posts = results.rows;
         db.getPostsLiked(1)
@@ -54,18 +63,25 @@ module.exports = {
   },
 
   insertPost: function(req, res) {
-    //CURRENTLY HARD CODED post object, change to req.body when using
-    db.insertPost({ img: 'some image here', user_id: 2, caption: 'here is a funny caption'})
+    s3.putObject({
+      Bucket: 'lawa-ig',
+      Key: 'images/' + req.file.originalname,
+      Body: req.file.buffer,
+      ACL: 'public-read', // your permisions  
+    }, (err, result) => {
+      console.log(result);
+    })
+    db.insertPost(req.body.caption, req.file)
       .then(res.sendStatus(201))
       .catch(err => {
         console.log('insertPost had an error');
       });
+    console.log(req);
   },
   //for autocomplete search bar
   allUserNames: function(req, res) {
     db.getAllUsernames()
       .then(allUserNames =>{
-        console.log('allusernames ', allUserNames);
         let profileNames = allUserNames.rows.map(profileName => {
           return {'name': profileName.user_id, 'label': profileName.name};
         });
@@ -97,11 +113,6 @@ module.exports = {
               });
           });
       });
-  },
+  }
+}
 
-  //for image modal view
-  //need image likes
-  //need image url
-  //need image comments incl usernames
-
-};
