@@ -40,45 +40,6 @@ const getPostsLiked = function (userId, postsIdArray) {
 	[userId])
 }
 
-
-//gets the total like count of a particular post
-const getLikeCountOfPost = function (postId, callback) {
-	client.query('SELECT like_count FROM posts WHERE post_id = (?)', postId, function (error, results) {
-		if (error) {
-			console.log('get like count fail')
-		} else {
-			console.log('get like count success')
-			callback(results);
-		}
-	});
-}
-
-//updates the like count for a particular post
-const updatelikeCountForPost = function(postId, callback) {
-	client.query('UPDATE likes SET like_count = like_count+1 WHERE post_id = (?)', postId, function (error, results) {
-		if (error) {
-			console.log('insert like for post fail')
-		} else {
-			console.log('insert like for post success')
-			callback(results);
-		}
-	});
-}
-
-//insert a new like into like table
-const insertNewLike = function (userId, postId callback) {
-	client.query('INSERT into likes (user_id, post_id, created_at) VALUES (?, ?, current_timestamp)', userId, postId, function (error, results) {
-		if (error) {
-			console.log('insert new lke fail')
-		} else {
-			console.log('insert new like success')
-			callback(results)
-		}
-	});
-}
-
-
-
 const insertPost = function(post) {
 	return pool.query('INSERT INTO posts(img, like_count, user_id, caption, created_at) \
 	VALUES ($1, $2, $3, $4, $5)',
