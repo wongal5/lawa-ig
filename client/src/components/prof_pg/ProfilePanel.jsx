@@ -6,19 +6,16 @@ class ProfilePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      followed: false,
-      isSameUser: false
+      followed: false
     };
   }
 
   componentDidMount() {
-    this.checkIfSameUser();
+    this.checkIfFollowing();
   }
 
   checkIfSameUser() {
-    if (this.props.loggedInUser.user_id === this.props.user.user_id) {
-      this.setState({isSameUser: true});
-    }
+    return this.props.loggedInUser.user_id === this.props.user.user_id;
   }
 
   followUser(e) {
@@ -91,7 +88,7 @@ class ProfilePanel extends React.Component {
             <Grid.Row className="first-panel-row">
               <Header className='profile-name-title'>{this.props.user.name}</Header> 
               {
-                !this.state.isSameUser && (
+                !(this.checkIfSameUser()) && (
                   (this.state.followed === true) 
                     ? <Button onClick={e => this.followUser(e)} className='follow-button' onClick={e => this.toggleFollow(e)} basic>Following</Button>
                     : <Button onClick={e => this.followUser(e)} className='follow-button' onClick={e => this.toggleFollow(e)} primary>Follow</Button> 
