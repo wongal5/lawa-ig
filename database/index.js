@@ -70,27 +70,37 @@ const getUserPosts = function (usedId) {
 
 const addLike = function(userId, postId) {
   return pool.query('INSERT INTO likes (user_id, post_id, created_at) VALUES ($1, $2, $3)',
-    [userId, postId, moment.format()]);
+    [userId, postId, moment().format()]);
 };
 
 const rmLike = function(userId, postId) {
-  return pool.query('',
+  return pool.query('DELETE from likes where likes.user_id = $1 and likes.post_id = $2',
     [userId, postId]);
 };
 
-const addFollow = function(followerId, followingId) {
-  return pool.query('INSERT INTO followers (followed_user, following_user, created_at) VALUES ($1, $2, $3)',
-    [followingId, followerId, moment.format()]);
+const checkLike = function(userId, postId) {
+  return pool.query('SELECT * from likes WHERE likes.user_id = $1 and likes.post_id = $2',
+    [userId, postId]);
 };
 
-const rmFollow = function(followerId, followingId) {
-  return pool.query('',
-    [followingId, followerId]);
+const addFollow = function(followerId, followedId) {
+  return pool.query('INSERT INTO followers (followed_user, following_user, created_at) VALUES ($1, $2, $3)',
+    [followedId, followerId, moment().format()]);
+};
+
+const rmFollow = function(followerId, followedId) {
+  return pool.query('DELETE from followers WHERE followers.followed_user = $1 AND followers.following_user = $2; ',
+    [followedId, followerId]);
+};
+
+const checkFollow = function(followerId, followedId) {
+  return pool.query('SELECT * FROM followers WHERE followers.followed_user = $1 AND followers.following_user = $2',
+    [followedId, followerId]);
 };
 
 const addComment = function(userId, postId, text) {
   return pool.query('INSERT INTO comments (user_id, post_id, text, created_at) VALUES ($1, $2, $3, $4)',
-    [userId, postId, text, moment.format()]);
+    [userId, postId, text, moment().format()]);
 };
 
 const rmComment = function(userId, postId) {
@@ -122,5 +132,7 @@ module.exports = {
   rmComment,
   checkForUser,
   insertNewFbUser,
-  getLikesOnPost
+  getLikesOnPost,
+  checkLike, 
+  checkFollow
 };

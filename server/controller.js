@@ -149,25 +149,31 @@ module.exports = {
     } 
   },
   changeLike: function(req, res) {
-    console.log('reqbody for addLike', req.body);
-    if (req.body.status === 'addLike') {
-      db.addLike(userId, postId)
+    if (req.body.status === 'checkLike') {
+      db.checkLike(req.body.userId, req.body.postId)
+        .then(data => res.status(201).json(data));
+    } else if (req.body.status === 'getAllLikes') {
+      db.getLikesOnPost(req.body.postId)
+        .then(data => res.status(201).json(data));
+    } else if (req.body.status === 'addLike') {
+      db.addLike(req.body.userId, req.body.postId)
         .then(res.status(201).send('Liked!'));
     } else if (req.body.status === 'rmLike') {
-      db.rmLike(userId, postId)
+      db.rmLike(req.body.userId, req.body.postId)
         .then(res.status(201).send('Unliked!'));
     }
   },
 
   changeFollow: function(req, res) {
-    console.log('reqbody for addFollow', req.body);
-    if (req.body.status === 'addFollow') {
-      db.addFollow(userId, postId)
+    if (req.body.status === 'checkFollow') {
+      db.checkFollow(req.body.followerId, req.body.followedId)
+        .then(data => res.status(201).json(data));
+    } else if (req.body.status === 'addFollow') {
+      db.addFollow(req.body.followerId, req.body.followedId)
         .then(res.status(201).send('Followed!'));
     } else if (req.body.status === 'rmFollow') {
-      db.rmFollow(userId, postId)
+      db.rmFollow(req.body.followerId, req.body.followedId)
         .then(res.status(201).send('Unfollowed!'));
-    }
-    
+    } 
   }
 };

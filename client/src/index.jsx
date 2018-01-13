@@ -23,10 +23,9 @@ class App extends React.Component {
   componentDidMount() {
     //setup search component
     this.getAllUserNames();
-    //render current user's page w fetch
+
+    this.loginUser(1);
     this.changeUser(1);
-    //TODO//////////////render logged in user's profile here
-    
   }
 
   getAllUserNames() {
@@ -36,7 +35,28 @@ class App extends React.Component {
       .catch(err => console.log('error fetching allprofiles'));
   }
 
+  changeFollowersLive (followerObj, addOrRm) {
+    var user = this.state.onPageForUser;
+    
+    if (addOrRm === 'add') {
+      user.followers.push(followerObj);
+      this.setState({onPageForUser: user});
+    } else {
+      user.followers = user.followers.filter(follower => followerObj.user_id !== follower.user_id);
+      this.setState({onPageForUser: user});
+    }
+
+  }
+
   changeUser(userId) {
+    this.mountUser(userId, 'change');
+  }
+
+  loginUser(userId) {
+    this.mountUser(userId, 'login');
+  }
+
+  mountUser(userId, changeOrLogin) {
     //get a specific user's profile - triggered by navbar search
     var bodyObj = {username: userId};
     var postConfig = {
@@ -46,9 +66,16 @@ class App extends React.Component {
       method: 'POST',
       body: JSON.stringify(bodyObj)
     };
-    fetch('/profile', postConfig)
-      .then(data => data.json())
-      .then(userDataObj => this.setState({onPageForUser: userDataObj}));
+
+    if (changeOrLogin === 'login') {
+      fetch('/profile', postConfig)
+        .then(data => data.json())
+        .then(userDataObj => this.setState({loggedInUser: userDataObj}));
+    } else {
+      fetch('/profile', postConfig)
+        .then(data => data.json())
+        .then(userDataObj => this.setState({onPageForUser: userDataObj}));
+    }
   }
 
   changePage(toPage) {
@@ -56,6 +83,7 @@ class App extends React.Component {
       this.setState({currentPg: 'feed'});
     } else if (toPage === 'profile') {
       this.setState({currentPg: 'user_profile'});
+      this.changeUser(this.state.onPageForUser.user_id);
     }
     
   }
@@ -68,9 +96,16 @@ class App extends React.Component {
     if (currentPg === 'user_profile') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
+          <NavBar allUsers={this.state.allUsernames} 
+            allUsers={this.state.allUsernames} 
+            changeUser={e => this.changeUser(e)} 
+            changePage={e => this.changePage(e)}/> {/* Albert */}
           {this.state.onPageForUser &&
-            <UserProfile loggedInUser={this.state.loggedInUser} user={this.state.onPageForUser} />
+            <UserProfile 
+              loggedInUser={this.state.loggedInUser} 
+              user={this.state.onPageForUser} 
+              changeFollowersLive = {this.changeFollowersLive.bind(this)} 
+            />
           }
         </div>
       );
@@ -81,7 +116,11 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
-          <NavBar allUsers={this.state.allUsernames} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
+          <NavBar 
+            allUsers={this.state.allUsernames} 
+            changeUser={e => this.changeUser(e)} 
+            changePage={e => this.changePage(e)}
+          /> {/* Albert */}
           <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );
