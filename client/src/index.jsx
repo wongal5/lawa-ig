@@ -23,11 +23,9 @@ class App extends React.Component {
   componentDidMount() {
     //setup search component
     this.getAllUserNames();
-    //render current user's page w fetch
+
     this.loginUser(1);
     this.changeUser(1);
-    //TODO//////////////render logged in user's profile here
-    
   }
 
   getAllUserNames() {
@@ -85,6 +83,7 @@ class App extends React.Component {
       this.setState({currentPg: 'feed'});
     } else if (toPage === 'profile') {
       this.setState({currentPg: 'user_profile'});
+      this.changeUser(this.state.onPageForUser.user_id);
     }
     
   }
