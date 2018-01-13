@@ -1,4 +1,4 @@
-/* You'll need to have your Node server running for these tests to pass. 
+/* You'll need to have your Node server running or point to the staging app in the baseURL below. 
  * 
  * Use this reference page for 'matcher' syntax
  * https://facebook.github.io/jest/docs/en/expect.html
