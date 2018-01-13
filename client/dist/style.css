@@ -345,5 +345,15 @@ semantic.min.css:19
 .ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
     float: left;
 }
+
+.caption {
+  float: left;
+}
+
+.userCaption {
+  float: left;
+  font-weight: bold;
+}
+
 semantic.min.css:19
 

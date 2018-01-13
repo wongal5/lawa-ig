@@ -17,5 +17,6 @@ router.post('/post', upload.single('image'), controller.insertPost);
 router.post('/like', controller.changeLike);
 router.post('/comment', controller.changeComment);
 router.post('/follow', controller.changeFollow);
+router.post('/comments', controller.getComments);
 
 module.exports = router;

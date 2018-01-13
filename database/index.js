@@ -27,9 +27,10 @@ const getUsersFollowers = function (userId) {
 
 //get all posts following
 const getAllPosts = function (userId) {
-  return pool.query('SELECT posts.post_id, posts.img, posts.like_count, posts.user_id, posts.caption, posts.created_at FROM posts \
-	INNER JOIN followers ON followers.following_user = $1 AND \
-		followers.followed_user = posts.user_id', [userId]);
+  return pool.query('SELECT users.name, posts.post_id, posts.img, posts.like_count, posts.user_id, posts.caption, posts.created_at FROM posts \
+  INNER JOIN followers ON followers.following_user = $1 AND \
+    followers.followed_user = posts.user_id \
+    INNER JOIN users ON posts.user_id = users.user_id', [userId]);
 };
 
 const getPostsLiked = function (userId, postsIdArray) {
@@ -115,6 +116,12 @@ const getLikesOnPost = function (postId) {
     [postId]);
 };
 
+const getAllCommentFromPost = function(postId) {
+  return pool.query('SELECT users.name, comments.text FROM comments INNER JOIN users ON comments.post_id = $1\
+   AND comments.user_id = users.user_id',
+    [postId]);
+};
+
 module.exports = {
   getUsersFollowing,
   getUsersFollowers,
@@ -134,5 +141,6 @@ module.exports = {
   insertNewFbUser,
   getLikesOnPost,
   checkLike, 
-  checkFollow
+  checkFollow,
+  getAllCommentFromPost
 };
