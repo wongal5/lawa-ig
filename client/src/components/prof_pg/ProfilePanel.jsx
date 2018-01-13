@@ -105,9 +105,12 @@ class ProfilePanel extends React.Component {
               (this.checkIfSameUser()) ? 
                 <Dropzone accept=".jpeg,.png" className="prof-upload" 
                   maxSize={5000000} onDrop={this.onDrop.bind(this)}>
-                  <Image circular className='prof-avatar' src={this.props.user.prof_pic} />
+                  {(this.props.user.prof_pic) ?
+                    <img className="prof-avatar" src={this.props.user.prof_pic} /> :
+                    <p> click here to upload <br/> a profile picture </p>
+                  }
                 </Dropzone> : 
-                <Image circular className='prof-avatar' src={this.props.user.prof_pic} />
+                <img className="prof-avatar" src={this.props.user.prof_pic} />
             }
           </Grid.Column>
           <Grid.Column width={9}>
