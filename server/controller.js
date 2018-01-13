@@ -15,7 +15,7 @@ const s3 = new AWS.S3();
 
 let headers = {
   'access-control-allow-origin': '*',
-  'access-control-allow-methods': 'GET, POST, OPTIONS',
+  'access-control-allow-methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': 10, 
   'Content-Type': 'application/json'
