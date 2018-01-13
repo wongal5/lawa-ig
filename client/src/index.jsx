@@ -101,14 +101,10 @@ class App extends React.Component {
     if (currentPg === 'user_profile') {
       return (
         <div>
-<<<<<<< HEAD
           <NavBar allUsers={this.state.allUsernames} 
-            allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
+            logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}/> {/* Albert */}
-=======
-          <NavBar allUsers={this.state.allUsernames} logOut={this.logOut.bind(this)} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
->>>>>>> added log out functionality to nav bar
           {this.state.onPageForUser &&
             <UserProfile 
               loggedInUser={this.state.loggedInUser} 
@@ -125,15 +121,12 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
-<<<<<<< HEAD
           <NavBar 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
+            logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
           /> {/* Albert */}
-=======
-          <NavBar allUsers={this.state.allUsernames} logOut={this.logOut.bind(this)} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
->>>>>>> added log out functionality to nav bar
           <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );
