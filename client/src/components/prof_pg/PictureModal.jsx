@@ -10,7 +10,6 @@ class PicModal extends React.Component {
       postLikes: []
     };
     this.getLikesOnPost(this.props.post.post_id);
-    this.checkIfLike();
   }
 
   getLikesOnPost() {
@@ -104,7 +103,7 @@ class PicModal extends React.Component {
   render() {
     return (
       <Modal size='large' trigger={
-        <Image src={this.props.img}/>
+        <Image src={this.props.img} onClick={this.checkIfLike.bind(this)}/>
       }>
         <Modal.Content image className='pic-modal'>
           <Image className='modal-img' src={this.props.img} />
@@ -116,11 +115,12 @@ class PicModal extends React.Component {
             <Divider className='top-div-modal'/>
       
             <CommentsField user={this.props.user} 
-              likeCount={this.state.postLikes.length} 
+              likeCount={this.state.postLikes} 
               post={this.props.post} 
               toggleLike={e => this.toggleLike(e)} 
               isLiked={this.state.liked}
-              checkIfLike={this.checkIfLike.bind(this)}/>
+              loggedInUser = {this.props.loggedInUser}
+            />
       
           </Modal.Description>
         </Modal.Content>
