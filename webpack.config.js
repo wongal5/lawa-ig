@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const config = {
-    entry:'./client/src/index.jsx',
+    entry:'./client/src/init.jsx',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'client/dist/')
