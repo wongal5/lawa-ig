@@ -88,10 +88,10 @@ class App extends React.Component {
     
   }
 
-  // logIn(email) {
-  //   axios.get()
-  //   this.setState({currentPg: 'feed', loggedInUser: {}});
-  // }
+  logIn() {
+    // axios.get()
+    this.setState({currentPg: 'feed'});
+  }
 
   logOut() {
     this.setState({currentPg: 'login_page' });
