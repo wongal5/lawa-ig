@@ -127,6 +127,11 @@ const updateProfImg = function (userId, fileName, timestamp) {
   return pool.query('UPDATE users SET prof_pic = $1 WHERE user_id = $2', [fileUrl, userId])
 }
 
+const updateDescription = function(userId, description) {
+  console.log(userId, description);
+  return pool.query('UPDATE users SET description = $1 WHERE user_id = $2', [description, userId])
+}
+
 module.exports = {
   getUsersFollowing,
   getUsersFollowers,
@@ -148,5 +153,6 @@ module.exports = {
   checkLike, 
   checkFollow,
   getAllCommentFromPost,
-  updateProfImg
+  updateProfImg,
+  updateDescription
 };
