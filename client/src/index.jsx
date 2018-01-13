@@ -115,7 +115,7 @@ class App extends React.Component {
     .catch(function(error) {
       console.log('there was an error here', error);
     })
-    this.setState({currentPg: 'user_profile'});
+    this.setState({currentPg: 'feed'});
   }
 
   logOut() {
