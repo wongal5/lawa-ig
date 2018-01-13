@@ -11,9 +11,10 @@ var request = require('request');
 
 describe('/profile endpoint', () => {
   test('to respond to get requests with profile user names', () => {
-    // using axios didn't work here for some reason. 
+    // using axios didn't work here, not sure why. Using request module with callbacks instead. 
+    // return expect(Promise.resolve(axios.get('http://localhost:3000/profile'))).resolves.toBeDefined();
     request.get('http://localhost:3000/profile', function(err, response) {
-      expect(response.body[0]).toBe('Albert Wong');
+      expect(response.body[0]).toHaveProperty('name');
     });
   });
 });
