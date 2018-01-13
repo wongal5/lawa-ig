@@ -55,10 +55,19 @@ module.exports = {
         console.log('getUsersFollowers had an error', err);
       });
   },
-
+ 
   feed: function(req, res) {
+<<<<<<< HEAD
     db.getAllPosts(req.body.userId) //CURRENTLY HARD CODED USER ID, change to req.body
+=======
+    console.log('request', req.body.email);
+    db.checkForEmail(req.body.email)
+    .then((results) => {
+      console.log('results', results.rows);
+    db.getAllPosts(results.rows[0].user_id) //CURRENTLY HARD CODED USER ID, change to req.body
+>>>>>>> log in button now queries for email in database and returns expected results
       .then((results) => {
+        console.log('more results', results)
         let posts = results.rows;
         db.getPostsLiked(1)
           .then((likeResult) => {
@@ -69,6 +78,7 @@ module.exports = {
             res.json(posts);
           });
       })
+    })
       .catch((err) => {
         console.log('feed had an error', err);
       });
