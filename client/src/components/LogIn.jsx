@@ -24,7 +24,7 @@ class LogIn extends React.Component {
 
   handleClick(e) {
     // perform a get request to server
-    axios.get('/login/facebook', {
+    axios.get('/logon', {
       params: {
         email: this.email.value,
         password: this.password.value
@@ -85,7 +85,7 @@ class LogIn extends React.Component {
                   onChange={(input) => { this.password = input }}
                 />
 
-                <Button color='instagram' onClick={(e) => {this.props.logIn(e)}} fluid size='large'>Login</Button>
+                <Button color='instagram' onClick={(e) => {this.props.logIn(this.email)}} fluid size='large'>Login</Button>
               </Segment>
             </Form>
             <Message>

@@ -15,7 +15,7 @@ class App extends React.Component {
       loggedInUser: fakeProfileTableData[0], //waiting for login profile name
       onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
-      currentPg: 'login_page' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
+      currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
     };
   }
@@ -88,22 +88,27 @@ class App extends React.Component {
     
   }
 
-  logIn() {
-    this.setState({currentPg: 'feed'});
-  }
+  // logIn(email) {
+  //   axios.get()
+  //   this.setState({currentPg: 'feed', loggedInUser: {}});
+  // }
 
   logOut() {
-    // this.setState({loggedInUser: })
+    this.setState({currentPg: 'login_page' });
   }
 
   pageRouter(currentPg) {
     if (currentPg === 'user_profile') {
       return (
         <div>
+<<<<<<< HEAD
           <NavBar allUsers={this.state.allUsernames} 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
             changePage={e => this.changePage(e)}/> {/* Albert */}
+=======
+          <NavBar allUsers={this.state.allUsernames} logOut={this.logOut.bind(this)} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
+>>>>>>> added log out functionality to nav bar
           {this.state.onPageForUser &&
             <UserProfile 
               loggedInUser={this.state.loggedInUser} 
@@ -120,11 +125,15 @@ class App extends React.Component {
     } else if (currentPg === 'feed') {
       return (
         <div>
+<<<<<<< HEAD
           <NavBar 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
             changePage={e => this.changePage(e)}
           /> {/* Albert */}
+=======
+          <NavBar allUsers={this.state.allUsernames} logOut={this.logOut.bind(this)} changeUser={e => this.changeUser(e)} changePage={e => this.changePage(e)}/> {/* Albert */}
+>>>>>>> added log out functionality to nav bar
           <AllFeeds data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
       );
