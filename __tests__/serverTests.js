@@ -5,7 +5,6 @@
 */
 
 const axiosLib = require('axios');
-const request = require('request');
 
 var axios = axiosLib.create({
   baseURL: 'https://lawa-ig-staging.herokuapp.com/',
