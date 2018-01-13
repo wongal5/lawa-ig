@@ -3,6 +3,7 @@ import PictureGrid from './PictureGrid.jsx';
 import { Button, Header, List, Image, Divider, Grid, Modal } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import DescriptionModal from './DescriptionModal.jsx';
 
 class ProfilePanel extends React.Component {
   constructor(props) {
@@ -102,17 +103,18 @@ class ProfilePanel extends React.Component {
         <Grid centered>
           <Grid.Column width={4}>
             {
-              (this.checkIfSameUser()) ? 
-                <Dropzone accept=".jpeg,.png" className="prof-upload" 
+              (this.checkIfSameUser()) 
+              ? <Dropzone accept=".jpeg,.png" className="prof-upload" 
                   maxSize={5000000} onDrop={this.onDrop.bind(this)}>
-                  {(this.props.user.prof_pic) ?
-                    <img className="prof-avatar" src={this.props.user.prof_pic} /> :
-                    <p> click here to upload <br/> a profile picture </p>
+                  {(this.props.user.prof_pic) 
+                  ? <img className="prof-avatar" src={this.props.user.prof_pic} /> 
+                  : <p> click here to upload <br/> a profile picture </p>
                   }
-                </Dropzone> : 
-                <img className="prof-avatar" src={this.props.user.prof_pic} />
+                </Dropzone> 
+              : <img className="prof-avatar" src={this.props.user.prof_pic} />
             }
           </Grid.Column>
+
           <Grid.Column width={9}>
             <Grid.Row className="first-panel-row">
               <Header className='profile-name-title'>{this.props.user.name}</Header> 
@@ -124,6 +126,7 @@ class ProfilePanel extends React.Component {
                 )
               }
             </Grid.Row>
+
             <Grid.Row >
               <span className='profile-sub-data'>
                 <span className='profile-sub-data-num'>{this.props.user.posts.length}</span> posts </span>
@@ -142,9 +145,14 @@ class ProfilePanel extends React.Component {
                   })}</List></Modal.Content>
                 </Modal></span>
             </Grid.Row>
+
             <Grid.Row>
               <div className='header-caption'>
-                <span > {this.props.user.description} </span>            
+                {
+                  (this.checkIfSameUser()) 
+                    ? <DescriptionModal description={this.props.user.description} currUser={this.state.currUser}> </DescriptionModal>
+                    : <span > {this.props.user.description} </span> 
+                }           
               </div>
             </Grid.Row>
           </Grid.Column>

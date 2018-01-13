@@ -197,5 +197,12 @@ module.exports = {
           console.log(err);
         }
       });
+    },
+
+    updateDescription: function(req, res) {
+      db.updateDescription(req.body.user, req.body.description)
+        .then(() => {
+          res.sendStatus(201);
+        });
     }
 };
