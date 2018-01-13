@@ -44,9 +44,6 @@ class NavBar extends React.Component {
           </Menu.Menu>
         
           <Menu.Menu position='right' className="right-menu">
-            {/* <Menu.Item name='upload' icon='upload' active={activeItem === 'upload'} onClick={this.handleItemClick}/> */}
-            {/* <Menu.Item className='menu-search'>
-            </Menu.Item> */}
             <UploadModal></UploadModal>
             <Menu.Item name='logout' active={activeItem === 'logout'} onClick={e => this.props.logOut()} />
           </Menu.Menu>

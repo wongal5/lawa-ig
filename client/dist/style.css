@@ -181,6 +181,21 @@
     display: table;
 }
 
+i.close.small.icon.comment-close-icon {
+    position: absolute;
+    right: 0;
+    top: 25%;
+    opacity: .5;
+}
+
+.ui.minimal.comments.ui.comments .comment:first-child {
+    width: 100%;
+}
+
+.comment-close-icon {
+    opacity: .5;
+}
+
 .modal-author, .modal-comment {
     display: table-cell;
     vertical-align: middle;
@@ -252,10 +267,9 @@
   margin-right: 250px;
 }
 
-/*.ui.left.aligned.selection.list {
-  margin-right: 100px;
-  min-width: 100px;
-}*/
+.add-comment-input {
+    border: none;
+}
 
 .ui.selection.list .list>.item, .ui.selection.list>.item {
   position: fixed;

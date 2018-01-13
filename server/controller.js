@@ -129,14 +129,12 @@ module.exports = {
       });
   },
 
-  //Like, follow, comment below - Do not be alarmed
   changeComment: function(req, res) {
-    console.log('reqbody for add comment', req.body);
     if (req.body.status === 'addComment') {
-      db.addComment(userId, postId, text)
+      db.addComment(req.body.userId, req.body.postId, req.body.text)
         .then(res.status(201).send('Comment Added'));
     } else if (req.body.status === 'rmComment') {
-      db.rmComment(userId, postId)
+      db.rmComment(req.body.commentId)
         .then(res.status(201).send('Comment Removed'));
     } 
   },
@@ -169,13 +167,12 @@ module.exports = {
     } 
   },
   
-    getComments: function(req, res) {
-    // console.log('reqbody for getComment', req.body);
+  getComments: function(req, res) {
     db.getAllCommentFromPost(req.body.postId)
       .then((comments) => {
         let allComments = comments.rows.map(comment => {
-          return {'name': comment.name, 'text': comment.text};
-        })
+          return {'id': comment.comment_id, 'name': comment.name, 'text': comment.text};
+        });
         res.json(allComments);
       });
   }

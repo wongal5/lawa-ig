@@ -25,9 +25,7 @@ class UserProfile extends React.Component {
     fetch('/follow', postConfig)
       .then(res => res.json())
       .then(jsonRes => {
-        console.log(jsonRes.rows);
         if (jsonRes.rows && jsonRes.rows.length) {
-          console.log('is following');
           this.setState({followed: true});
         } 
       });

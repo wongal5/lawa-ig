@@ -7,10 +7,10 @@ class PicModal extends React.Component {
     super(props);
     this.state = {
       liked: false,
-      postLikes: []
+      postLikes: [],
+      postComments: []
     };
     this.getLikesOnPost(this.props.post.post_id);
-    this.checkIfLike();
   }
 
   getLikesOnPost() {
@@ -81,6 +81,32 @@ class PicModal extends React.Component {
       });
   }
 
+  getComments() {
+    var bodyObj = {
+      postId: this.props.post.post_id
+    };
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/comments', postConfig)
+      .then(data => data.json())
+      .then(comments => {
+        this.setState({postComments: comments});
+      })
+      .catch(err => console.error('error fetching comments'));
+  }
+
+  getPicInfo() {
+    this.getComments();
+    this.checkIfLike();
+  }
+
   toggleLike() {
     //PUSH picture data into logged in user's liked photos
     var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post.post_id};
@@ -104,7 +130,7 @@ class PicModal extends React.Component {
   render() {
     return (
       <Modal size='large' trigger={
-        <Image src={this.props.img}/>
+        <Image src={this.props.img} onClick={this.getPicInfo.bind(this)}/>
       }>
         <Modal.Content image className='pic-modal'>
           <Image className='modal-img' src={this.props.img} />
@@ -116,11 +142,14 @@ class PicModal extends React.Component {
             <Divider className='top-div-modal'/>
       
             <CommentsField user={this.props.user} 
-              likeCount={this.state.postLikes.length} 
+              likeCount={this.state.postLikes} 
               post={this.props.post} 
               toggleLike={e => this.toggleLike(e)} 
               isLiked={this.state.liked}
-              checkIfLike={this.checkIfLike.bind(this)}/>
+              loggedInUser = {this.props.loggedInUser}
+              comments={this.state.postComments}
+              getComments={ e => this.getComments(e) }
+            />
       
           </Modal.Description>
         </Modal.Content>
