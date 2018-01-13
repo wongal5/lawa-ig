@@ -6,8 +6,32 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      following: false
+      followed: false
     };
+  }
+
+  checkIfFollowing() {
+    var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: this.props.user.user_id};
+    bodyObj.status = 'checkFollow';
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/follow', postConfig)
+      .then(res => res.json())
+      .then(jsonRes => {
+        console.log(jsonRes.rows);
+        if (jsonRes.rows && jsonRes.rows.length) {
+          console.log('is following');
+          this.setState({followed: true});
+        } 
+      });
+
   }
 
   render() {
@@ -17,7 +41,7 @@ class UserProfile extends React.Component {
           user={this.props.user} 
           followUser={e => this.followUser(e)} 
           loggedInUser={this.props.loggedInUser} 
-          isFollowed={this.state.following}
+          followed={this.state.followed}
           changeFollowersLive={this.props.changeFollowersLive} 
         />
         <PictureGrid user={this.props.user} loggedInUser={this.props.loggedInUser} />

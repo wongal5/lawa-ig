@@ -6,21 +6,15 @@ class ProfilePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      followed: false
+      followed: null,
+      currUser: null
     };
   }
 
-  componentDidMount() {
-    this.checkIfFollowing();
-  }
-
-  checkIfSameUser() {
-    return this.props.loggedInUser.user_id === this.props.user.user_id;
-  }
-
-  followUser(e) {
-    //POST this.props.user.username to FOLLOWED table
-    this.setState({followed: !this.state.followed});
+  componentDidUpdate() {
+    if (this.props.user.user_id !== this.state.currUser) {
+      this.checkIfFollowing();
+    }
   }
 
   checkIfFollowing() {
@@ -38,13 +32,24 @@ class ProfilePanel extends React.Component {
     fetch('/follow', postConfig)
       .then(res => res.json())
       .then(jsonRes => {
-        console.log(jsonRes.rows);
         if (jsonRes.rows && jsonRes.rows.length) {
-          console.log('is following');
           this.setState({followed: true});
-        } 
+        } else {
+          this.setState({followed: false});
+        }
       });
 
+    this.setState({currUser: this.props.user.user_id});
+
+  }
+
+  checkIfSameUser() {
+    return this.props.loggedInUser.user_id === this.props.user.user_id;
+  }
+
+  followUser(e) {
+    //POST this.props.user.username to FOLLOWED table
+    this.setState({followed: !this.state.followed});
   }
 
   toggleFollow() {
