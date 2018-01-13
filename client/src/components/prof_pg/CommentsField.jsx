@@ -7,15 +7,17 @@ class CommentsField extends React.Component {
     super(props);
     this.state = {
       newComment: '',
-      postComments: []
+      postComments: this.props.comments
     };
   }
 
-  addComment() {
+  addComment(content) {
+
     var bodyObj = {
       userId: this.props.loggedInUser.user_id, 
       postId: this.props.post.post_id,
-      content: this.state.newComment
+      text: content,
+      status: 'addComment'
     };
 
     var postConfig = {
@@ -26,40 +28,67 @@ class CommentsField extends React.Component {
       body: JSON.stringify(bodyObj)
     };
 
-    fetch('/comment', postConfig);
+    fetch('/comment', postConfig)
+      .then(res => setTimeout(this.props.getComments, 200));
 
-    var formatted; //into below for live post
+  }
 
-    this.liveUpdateComment(content);
+  rmComment(id) {
+    
+    var bodyObj = {
+      commentId: id,
+      status: 'rmComment'
+    };
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/comment', postConfig)
+      .then(res => setTimeout(this.props.getComments, 200));
+
   }
 
   liveUpdateComment(content) {
-    
-    this.setState({postComments: [...this.state.postComments, ]});
-  }
-
-  getComments() {
-
+    this.setState({postComments: [...this.state.postComments, content]});
   }
 
   onCommentType(e) {
-    if (e.charCode === 13) {
-      this.submitComment(e.target.value);
-    }
     this.setState({newComment: e.target.value});
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.addComment(this.state.newComment);
+      this.setState({newComment: ''});
+      this.nameInput.value = '';      
+    }
   }
 
   render() {
     return (
       <div>
-        <Comment.Group minimal>
-          {
-            this.props.post.comments &&
-            this.props.post.comments.map(comment => {
-              return <SingleComment comment={comment} />;
-            })
-          }
-        </Comment.Group>
+        {
+          ( this.props.comments && this.props.comments.length ) 
+            ? (
+              <Comment.Group minimal>
+                {this.props.comments.map( comment => {
+                  return <SingleComment 
+                    key={comment.id} 
+                    id={comment.id} 
+                    comment={comment} 
+                    loggedInUserName={this.props.loggedInUser.name}
+                    rmComment={this.rmComment.bind(this)} 
+                  />;
+                })}
+              </Comment.Group>
+            )
+            : this.state.postComments = []
+        }
   
         <Modal.Description image className='footer-content'>    
           <Container className='modal-footer-contain'>
@@ -69,11 +98,13 @@ class CommentsField extends React.Component {
             <Header className='likes-text' size='small'>{this.props.likeCount.length} Likes</Header>
             <p className='post-date'> {this.props.post.date} </p>
             <Divider />
-            <Input 
+            <input 
+              type="text"
               ref={input => this.nameInput = input } 
               className='add-comment-input' 
-              focus placeholder='Add a Comment...' 
-              onChange={ e => this.onCommentType }
+              placeholder='Add a Comment...' 
+              onChange={ e => this.onCommentType(e) }
+              onKeyPress={ e => this.handleKeyPress(e) }
             />
           </Container>
         </Modal.Description>
@@ -81,6 +112,6 @@ class CommentsField extends React.Component {
     );
   }
   
-};
+}
 
 export default CommentsField;

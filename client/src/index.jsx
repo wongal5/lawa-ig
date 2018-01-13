@@ -22,7 +22,7 @@ class App extends React.Component {
       loggedInUser: larry, //waiting for login profile name
       onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
-      currentPg: 'feed' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
+      currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
     };
   }

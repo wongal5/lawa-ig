@@ -104,9 +104,9 @@ const addComment = function(userId, postId, text) {
     [userId, postId, text, moment().format()]);
 };
 
-const rmComment = function(userId, postId) {
-  return pool.query('',
-    [userId, postId]);
+const rmComment = function(commentId) {
+  return pool.query('DELETE from comments WHERE comments.comment_id = $1',
+    [commentId]);
 };
 
 const getLikesOnPost = function (postId) {
@@ -117,7 +117,7 @@ const getLikesOnPost = function (postId) {
 };
 
 const getAllCommentFromPost = function(postId) {
-  return pool.query('SELECT users.name, comments.text FROM comments INNER JOIN users ON comments.post_id = $1\
+  return pool.query('SELECT comments.comment_id, users.name, comments.text FROM comments INNER JOIN users ON comments.post_id = $1\
    AND comments.user_id = users.user_id',
     [postId]);
 };
