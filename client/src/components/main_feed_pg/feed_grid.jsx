@@ -7,8 +7,8 @@ const FeedGrid = (props) => (
   <div className="feed-grid-container">
     <Grid centered columns={1}>
       {
-        props.users.posts.map((photo, index) => {
-            return <OneFeed photo={photo} key={index}/>;
+        props.userFeeds.map((feed, index) => {
+            return <OneFeed name={feed.name} post={feed.post_id} img={feed.img} likes={feed.like_count} caption={feed.caption} key={index}/>;
         })
       }
     </Grid>
