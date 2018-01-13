@@ -97,7 +97,6 @@ class PicModal extends React.Component {
     fetch('/comments', postConfig)
       .then(data => data.json())
       .then(comments => {
-        console.log('got comments', comments);
         this.setState({postComments: comments});
       })
       .catch(err => console.error('error fetching comments'));
