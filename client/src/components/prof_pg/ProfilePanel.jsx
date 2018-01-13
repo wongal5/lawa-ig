@@ -1,6 +1,8 @@
 import React from 'react';
 import PictureGrid from './PictureGrid.jsx';
 import { Button, Header, List, Image, Divider, Grid, Modal } from 'semantic-ui-react';
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 class ProfilePanel extends React.Component {
   constructor(props) {
@@ -52,6 +54,18 @@ class ProfilePanel extends React.Component {
     this.setState({followed: !this.state.followed});
   }
 
+  onDrop(acceptedFiles, rejectedFiles) {
+    if (acceptedFiles.length) {
+      var image = new FormData();
+      image.append('image', acceptedFiles[0]);
+      image.append('userId', this.state.currUser);
+      axios.post('/uploadprofimg', image)
+        .catch(err => {
+          console.log('prof pic update failed', err);
+        });
+    }
+  }
+
   toggleFollow() {
     //PUSH picture data into logged in user's liked photos
     var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: this.props.user.user_id};
@@ -87,7 +101,14 @@ class ProfilePanel extends React.Component {
       <div className='prof-panel-container'>
         <Grid centered>
           <Grid.Column width={4}>
-            <Image circular className='prof-avatar' src={this.props.user.prof_pic} />
+            {
+              (this.checkIfSameUser()) ? 
+                <Dropzone accept=".jpeg,.png" className="prof-upload" 
+                  maxSize={5000000} onDrop={this.onDrop.bind(this)}>
+                  <Image circular className='prof-avatar' src={this.props.user.prof_pic} />
+                </Dropzone> : 
+                <Image circular className='prof-avatar' src={this.props.user.prof_pic} />
+            }
           </Grid.Column>
           <Grid.Column width={9}>
             <Grid.Row className="first-panel-row">
