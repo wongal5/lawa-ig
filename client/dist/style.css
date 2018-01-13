@@ -131,9 +131,16 @@
     cursor: pointer;
   }
 
+  .description-modal {
+    padding: 10px;
+  }
+
   .description-form {
     margin: 1em;
-    text-align: right;
+  }
+
+  .description-button {
+    float: right;
   }
 
 /* Picture Grid */

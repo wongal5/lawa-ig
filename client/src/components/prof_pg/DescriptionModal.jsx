@@ -49,7 +49,7 @@ class DescriptionModal extends React.Component {
           success
           header='Updated!'
         />
-        <Button>Submit</Button>
+        <Button className="description-button">Submit</Button>
       </Form>);
     } else if (submitFlag === 'submitted') {
       return (<Form className="description-form" success>
@@ -58,7 +58,7 @@ class DescriptionModal extends React.Component {
           success
           header='Updated!'
         />
-        <Button>Submit</Button>
+        <Button className="description-button">Submit</Button>
       </Form>);
     }
   }
