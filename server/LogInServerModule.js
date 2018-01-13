@@ -186,7 +186,7 @@ app.get('/login/facebook/callback',
   function (req, res) {
     // Successful authentication, redirect home. 
     console.log('here is user', res.req.user);
-    res.redirect('http://www.wikipedia.org');
+    res.redirect('/');
   });
 
 app.get('/logout', function (req, res) {
