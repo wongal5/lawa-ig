@@ -5,12 +5,15 @@
 */
 
 var axios = require('axios');
+var request = require('request');
 
 // Opens connection to lawa_db database. This won't work in travisCI
 
 describe('/profile endpoint', () => {
-  test('to respond to get requests', () => {
-    return expect(axios.get('http://localhost:3000/profile')).resolves.toBeDefined();
+  test('to respond to get requests with profile user names', () => {
+    // using axios didn't work here for some reason. 
+    request.get('http://localhost:3000/profile', function(err, response) {
+      expect(response.body[0]).toBe('Albert Wong');
+    });
   });
-  test('')
 });
