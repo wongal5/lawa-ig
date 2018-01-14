@@ -10,9 +10,15 @@ class ProfilePanel extends React.Component {
     super(props);
     this.state = {
       followed: null,
-      currUser: this.props.loggedInUser.user_id,
-      profPic: this.props.user.prof_pic
+      profPic: this.props.user.prof_pic,
+      currUser: null,
+      iFollowInFollowers: [],
+      iFollowInFollowing: []
     };
+  }
+
+  componentDidMount() {
+    this.followMatches();
   }
 
   componentDidUpdate() {
@@ -57,7 +63,6 @@ class ProfilePanel extends React.Component {
   }
 
   followUser(e) {
-    //POST this.props.user.username to FOLLOWED table
     this.setState({followed: !this.state.followed});
   }
 
@@ -77,7 +82,7 @@ class ProfilePanel extends React.Component {
   }
 
   toggleFollow() {
-    //PUSH picture data into logged in user's liked photos
+
     var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: this.props.user.user_id};
     bodyObj.status = this.state.followed ? 'rmFollow' : 'addFollow';
 
@@ -106,6 +111,39 @@ class ProfilePanel extends React.Component {
 
   }
 
+  toggleFollowInModal(followOrUnfollow, followThisUser) {
+
+    var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: followThisUser.user_id};
+    bodyObj.status = followOrUnfollow === 'unfollow' ? 'rmFollow' : 'addFollow';
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/follow', postConfig);
+
+    bodyObj.status === 'rmFollow'
+      ? this.setState({iFollowInFollowers: this.state.iFollowInFollowers.filter(user => user !== followThisUser.name), iFollowInFollowing: this.state.iFollowInFollowing.filter(user => user !== followThisUser.name)})
+      : this.setState({iFollowInFollowers: [...this.state.iFollowInFollowers, followThisUser.name], iFollowInFollowing: [...this.state.iFollowInFollowing, followThisUser.name]});
+  }
+
+  followMatches() {
+
+    let loggedInUserFollowingNames = this.props.loggedInUser.following.map(following => following.name);
+    //followers list
+    let currUserFollowerNames = this.props.user.followers.map(follower => follower.name);
+    let userFollowsInFollowerList = loggedInUserFollowingNames.filter(name => currUserFollowerNames.includes(name));
+    this.setState({iFollowInFollowers: userFollowsInFollowerList});
+    //following list
+    let currUserFollowingNames = this.props.user.following.map(following => following.name);
+    let userFollowsInFollowingList = loggedInUserFollowingNames.filter(name => currUserFollowingNames.includes(name));
+    this.setState({iFollowInFollowing: userFollowsInFollowingList});
+  }
+
   render() {
     return (
       <div className='prof-panel-container'>
@@ -116,11 +154,11 @@ class ProfilePanel extends React.Component {
                 ? <Dropzone accept="image/jpeg, image/png, image/gif" className="prof-upload" 
                   maxSize={5000000} onDrop={this.onDrop.bind(this)}>
                   {(this.state.profPic) 
-                  ? <img className="prof-avatar" src={this.state.profPic} /> 
-                  : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
+                    ? <img className="prof-avatar" src={this.state.profPic} /> 
+                    : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
                   }
                 </Dropzone> 
-              : <img className="prof-avatar" src={this.state.profPic} />
+                : <img className="prof-avatar" src={this.state.profPic} />
             }
           </Grid.Column>
 
@@ -139,27 +177,57 @@ class ProfilePanel extends React.Component {
             <Grid.Row >
               <span className='profile-sub-data'>
                 <span className='profile-sub-data-num'>{this.props.user.posts.length}</span> posts </span>
+              
               <span className='profile-sub-data'>
-                <Modal size="mini" trigger={<span><span className='profile-sub-data-num'>{this.props.user.followers.length} </span>followers</span>}>
+                <Modal size="mini" 
+                  trigger={
+                    <span><span className='profile-sub-data-num'>{this.props.user.followers.length} </span>followers</span>
+                  }>
                   <Modal.Header>Followers</Modal.Header>
-                  <Modal.Content scrolling><List divided verticalAlign='middle'>{this.props.user.followers.map((follower) => {
-                    return <List.Item><Image avatar src={follower.prof_pic} /><List.Content className="follow">{follower.name}</List.Content><List.Content className="small-button" floated="right"><Button color="blue" size="mini">Following</Button></List.Content></List.Item>;
-                  })}</List></Modal.Content>
-                </Modal></span>
+                  <Modal.Content scrolling>
+                    <List divided verticalAlign='middle'>{
+                      this.props.user.followers.map((follower) => {
+                        return <List.Item key={follower.name} className="ff-modal-listItem"><Image avatar src={follower.prof_pic} /><List.Content className="follow">{follower.name}</List.Content><List.Content className="small-button" floated="right">
+    
+                          {
+                            follower.name !== this.props.loggedInUser.name && (
+                              this.state.iFollowInFollowers.includes(follower.name)
+                                ? <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'unfollow', follower )} className='follow-button' basic >Following</Button>
+                                : <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'follow', follower )} className='follow-button' primary>Follow</Button>  
+                            )
+                          }
+
+                        </List.Content></List.Item>;
+                      })
+                    }</List></Modal.Content></Modal></span>
+
               <span className='profile-sub-data'>
-                <Modal size="mini" trigger={<span><span className='profile-sub-data-num'>{this.props.user.following.length} </span>following</span>}>
+                <Modal size="mini" 
+                  trigger={
+                    <span><span className='profile-sub-data-num'>{this.props.user.following.length} </span>following</span>
+                  }>
                   <Modal.Header>Following</Modal.Header>
-                  <Modal.Content scrolling><List divided verticalAlign='middle'>{this.props.user.following.map((following) => {
-                    return <List.Item><Image avatar src={following.prof_pic} /><List.Content className="follow">{following.name}</List.Content><List.Content className="small-button" floated="right"><Button color="blue" size="mini">Following</Button></List.Content></List.Item>;
-                  })}</List></Modal.Content>
-                </Modal></span>
+                  <Modal.Content scrolling>
+                    <List divided verticalAlign='middle'>{
+                      this.props.user.following.map((following) => {
+                        return <List.Item key={following.name} className='ff-modal-listitem'><Image avatar src={following.prof_pic} /><List.Content className="follow">{following.name}</List.Content><List.Content className="small-button" floated="right">
+                          {
+                            following.name !== this.props.loggedInUser.name && ( 
+                              this.state.iFollowInFollowing.includes(following.name)
+                                ? <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'unfollow', following )} className='follow-button' basic>Following</Button>
+                                : <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'follow', following )} className='follow-button' primary>Follow</Button> 
+                            )
+                          }
+                        </List.Content></List.Item>;
+                      })
+                    }</List></Modal.Content></Modal></span>
             </Grid.Row>
 
             <Grid.Row>
               <div className='header-caption'>
                 {
                   (this.checkIfSameUser()) 
-                    ? <DescriptionModal description={this.props.user.description} currUser={this.state.currUser}> </DescriptionModal>
+                    ? <DescriptionModal description={this.props.user.description} currUser={this.props.loggedInUser.user_id}> </DescriptionModal>
                     : <span > {this.props.user.description} </span> 
                 }           
               </div>
