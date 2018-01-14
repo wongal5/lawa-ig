@@ -14,7 +14,7 @@ class App extends React.Component {
       loggedIn: false, 
       allUsernames: [], //for dynamic search
       loggedInUser: {user_id: 1}, //waiting for login profile name
-      onPageForUser: null, //is replaced by a real user on render
+      onPageForUser: {user_id: 1}, //is replaced by a real user on render
       //****************************************************************************/
       currentPg: 'login_page' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
