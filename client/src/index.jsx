@@ -119,6 +119,7 @@ class App extends React.Component {
       console.log('here is the id', response.data);
       console.log('this', this);
       this.loginUser(response.data);
+      this.changeUser(response.data);
     })
     .catch(function(error) {
       console.log('there was an error here', error);
