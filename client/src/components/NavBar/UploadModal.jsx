@@ -37,20 +37,23 @@ class UploadModal extends React.Component {
     if (this.state.uploadedFile) {
       this.state.uploadedFile.append('caption', this.state.caption);
       this.state.uploadedFile.append('userId', this.props.loggedInUser.user_id);
+      
       // NEED TO ALSO SEND ID OF CURRENTLY LOGGED IN USER
       axios.post('/post', this.state.uploadedFile)
         .then((response) => {
           this.props.newUpload(response.data);
+          this.setState({
+            submitFlag: 'submitted'
+          });
         })
         .catch(err => {
           console.log('image post failed', err);
         });
     } else {
-      console.log('error, please upload a file first'); // HANDLE THIS BETTER
+      this.setState({
+        submitFlag: 'invalid file'
+      })
     }
-    this.setState({
-      submitFlag: 'submitted'
-    });
   }
 
   insertFileName() {
@@ -61,7 +64,9 @@ class UploadModal extends React.Component {
   
   onOpen() {
     this.setState({
-      submitFlag: 'not submitted'
+      submitFlag: 'not submitted',
+      uploadedFile: null,
+      uploadedFileName: ''
     });
   }
 
@@ -111,7 +116,7 @@ class UploadModal extends React.Component {
         <Message
           error
           header='Upload Error'
-          content="Uhoh! We don't accept that file type or the file is too big. Please try again with a .jpg or .png under 5MB."
+          content="Uhoh! Did you upload a valid file? Please try again with a .jpg or .png under 5MB."
         />
         <Button>Submit</Button>
       </Form>);
