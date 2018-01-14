@@ -81,10 +81,10 @@ module.exports = {
       Bucket: 'lawa-ig',
       Key: fileName,
       Body: req.file.buffer,
-      ACL: 'public-read', // your permisions  
+      ACL: 'public-read',  
     }, (err, result) => {
       if (result) {
-        db.insertPost(req.body.caption, 1, fileName, timestamp) //req.body.userId
+        db.insertPost(req.body.caption, req.body.userId, fileName, timestamp) 
           .then(res.sendStatus(201))
           .catch(err => {
             console.log('insertPost had an error');
