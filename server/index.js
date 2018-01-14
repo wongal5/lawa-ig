@@ -13,24 +13,24 @@ var FacebookStrategy = require('passport-facebook');
 var expressSession = require('express-session');
 
 
-var users = [
-    { "id": 111, "username": "amy", "token": "amyspassword" },
-    {
-        "id": "10159843655865710",
-        "username": "Will Putnam",
-        "token": null
-    },
-    {
-        "id": "10155209497660814",
-        "username": "Larry Chang",
-        "token": null
-    },
-    {
-        "id": "10215398276259796",
-        "username": "Albert Wong",
-        "token": null
-    }
-];
+// var users = [
+//     { "id": 111, "username": "amy", "token": "amyspassword" },
+//     {
+//         "id": "10159843655865710",
+//         "username": "Will Putnam",
+//         "token": null
+//     },
+//     {
+//         "id": "10155209497660814",
+//         "username": "Larry Chang",
+//         "token": null
+//     },
+//     {
+//         "id": "10215398276259796",
+//         "username": "Albert Wong",
+//         "token": null
+//     }
+// ];
 
 // for hardcoded data. queries are built into new facebook strategy for database
 function findUser(id) {

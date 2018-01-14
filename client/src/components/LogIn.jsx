@@ -24,13 +24,6 @@ class LogIn extends React.Component {
         }
     `}</style>
     return (
-      // <div>
-      //   <a href={'https://www.facebook.com/v2.8/dialog/oauth?client_id=' + config.FACEBOOK_APP_ID + '&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback'}>Log in with Facebook</a>
-      //   <input name='email' ref={(input) => { this.email = input }} placeholder='Username or email'></input>
-      //   <input name='password' ref={(input) => { this.password = input }} placeholder='Password'></input>
-      //   <button>Sign Up</button>
-      //   <button onClick={(e) => {this.logOut(e)}}>Log Out</button>
-      // </div>
       <div className='login-form'>
         <Grid
           textAlign='center'
