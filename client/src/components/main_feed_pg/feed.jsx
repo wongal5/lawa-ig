@@ -101,7 +101,6 @@ class OneFeed extends React.Component {
   //toggles the 'heart' img of a like/unlike post. also sends user liked to database
 	toggleLike() {
     //PUSH picture data into logged in user's liked photos
-
     var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post};
 
     bodyObj.status = this.state.liked ? 'rmLike' : 'addLike';
@@ -212,4 +211,3 @@ class OneFeed extends React.Component {
 }
 
 export default OneFeed;
-
