@@ -13,7 +13,7 @@ class ProfilePanel extends React.Component {
       profPic: this.props.user.prof_pic,
       currUser: null,
       iFollowInFollowers: [],
-      iFollowInFollowing: [],
+      iFollowInFollowing: []
     };
   }
 
@@ -24,7 +24,6 @@ class ProfilePanel extends React.Component {
   componentDidUpdate() {
     if (this.props.user.user_id !== this.state.currUser) {
       this.checkIfFollowing();
-      this.followMatches();
     }
     if (this.props.user.prof_pic !== this.state.profPic) {
       this.setState({
@@ -127,11 +126,8 @@ class ProfilePanel extends React.Component {
 
     fetch('/follow', postConfig);
 
-    console.log('user.name is', this.state.iFollowInFollowers[0]);
-    console.log('followthisuser.name is', followThisUser.name);
-
     bodyObj.status === 'rmFollow'
-      ? this.setState({iFollowInFollowers: this.state.iFollowInFollowers.filter(user => user !== followThisUser.name), iFollowInFollowing: this.state.iFollowInFollowers.filter(user => user !== followThisUser.name)})
+      ? this.setState({iFollowInFollowers: this.state.iFollowInFollowers.filter(user => user !== followThisUser.name), iFollowInFollowing: this.state.iFollowInFollowing.filter(user => user !== followThisUser.name)})
       : this.setState({iFollowInFollowers: [...this.state.iFollowInFollowers, followThisUser.name], iFollowInFollowing: [...this.state.iFollowInFollowing, followThisUser.name]});
   }
 
@@ -158,11 +154,11 @@ class ProfilePanel extends React.Component {
                 ? <Dropzone accept="image/jpeg, image/png, image/gif" className="prof-upload" 
                   maxSize={5000000} onDrop={this.onDrop.bind(this)}>
                   {(this.state.profPic) 
-                  ? <img className="prof-avatar" src={this.state.profPic} /> 
-                  : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
+                    ? <img className="prof-avatar" src={this.state.profPic} /> 
+                    : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
                   }
                 </Dropzone> 
-              : <img className="prof-avatar" src={this.state.profPic} />
+                : <img className="prof-avatar" src={this.state.profPic} />
             }
           </Grid.Column>
 
@@ -194,9 +190,11 @@ class ProfilePanel extends React.Component {
                         return <List.Item key={follower.name} className="ff-modal-listItem"><Image avatar src={follower.prof_pic} /><List.Content className="follow">{follower.name}</List.Content><List.Content className="small-button" floated="right">
     
                           {
-                            (this.state.iFollowInFollowers.includes(follower.name))
-                              ? <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'unfollow', follower )} className='follow-button' basic >Following</Button>
-                              : <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'follow', follower )} className='follow-button' primary>Follow</Button>  
+                            follower.name !== this.props.loggedInUser.name && (
+                              this.state.iFollowInFollowers.includes(follower.name)
+                                ? <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'unfollow', follower )} className='follow-button' basic >Following</Button>
+                                : <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'follow', follower )} className='follow-button' primary>Follow</Button>  
+                            )
                           }
 
                         </List.Content></List.Item>;
@@ -214,10 +212,11 @@ class ProfilePanel extends React.Component {
                       this.props.user.following.map((following) => {
                         return <List.Item key={following.name} className='ff-modal-listitem'><Image avatar src={following.prof_pic} /><List.Content className="follow">{following.name}</List.Content><List.Content className="small-button" floated="right">
                           {
-                            (this.state.iFollowInFollowing.includes(following.name)) 
-                              ? <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'unfollow', following )} className='follow-button' basic>Following</Button>
-                              : <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'follow', following )} className='follow-button' primary>Follow</Button> 
-                          
+                            following.name !== this.props.loggedInUser.name && ( 
+                              this.state.iFollowInFollowing.includes(following.name)
+                                ? <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'unfollow', following )} className='follow-button' basic>Following</Button>
+                                : <Button size="mini" onClick={this.toggleFollowInModal.bind(this, 'follow', following )} className='follow-button' primary>Follow</Button> 
+                            )
                           }
                         </List.Content></List.Item>;
                       })
