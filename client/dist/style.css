@@ -355,11 +355,19 @@ semantic.min.css:19
     margin-left: 220px;
 }
 
-.ui.list {
+.ui.divided.list .ff-modal-listItem {
+    padding: 15px 5px;
+}
+
+.ui.divided.list>.item {
+    padding: 15px 5px;
+}
+
+
+.feedBar .ui.list {
     font-size: 1em;
     width: 200px;
     min-height: 500px;
-
 }
 
 .feedBar {
