@@ -92,7 +92,6 @@ class App extends React.Component {
       this.setState({currentPg: 'user_profile'});
       this.changeUser(this.state.onPageForUser.user_id);
     }
-    
   }
 
   logIn() {
@@ -104,6 +103,12 @@ class App extends React.Component {
     this.setState({currentPg: 'login_page' });
   }
 
+  newUpload(newPost) {
+    this.setState((prevState) => {
+      loggedInUser: prevState.loggedInUser.posts.push(newPost);
+    })
+  }
+
   pageRouter(currentPg) {
     if (currentPg === 'user_profile') {
       return (
@@ -113,7 +118,9 @@ class App extends React.Component {
             changeUser={e => this.changeUser(e)}
             loggedInUserId={this.state.loggedInUser.user_id} 
             logOut={this.logOut.bind(this)}
-            changePage={e => this.changePage(e)}/> {/* Albert */}
+            changePage={e => this.changePage(e)}
+            newUpload={this.newUpload.bind(this)}
+          /> {/* Albert */}
           {this.state.onPageForUser &&
             <UserProfile 
               loggedInUser={this.state.loggedInUser} 
@@ -136,6 +143,7 @@ class App extends React.Component {
             loggedInUserId={this.state.loggedInUser.user_id}
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
+            newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
           <AllFeeds user={this.state.loggedInUser} data={this.state.onPageForUser} /> {/*Larry*/}
         </div>
