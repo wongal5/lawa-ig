@@ -8,7 +8,7 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: 'home',
+      activeItem: 'profile',
       selectedOption: ''
     };
     this.handleItemClick = this.handleItemClick.bind(this);
