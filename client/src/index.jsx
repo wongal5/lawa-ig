@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state = {
       loggedIn: false, 
       allUsernames: [], //for dynamic search
-      loggedInUser: null, //waiting for login profile name
+      loggedInUser: {user_id: 1}, //waiting for login profile name
       onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
 <<<<<<< HEAD
@@ -26,11 +26,11 @@ class App extends React.Component {
     this.loginUser = this.loginUser.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     //setup search component
     this.getAllUserNames();
 
-    // this.loginUser(1);
+    this.loginUser(1);
     // this.changeUser(1);
   }
 
