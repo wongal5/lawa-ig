@@ -177,7 +177,6 @@ module.exports = {
   },
 
     uploadProfImg: function(req, res) {
-      console.log('upload prof image called')
       let timestamp = moment().format();
       const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
       let fileName = `images/${req.body.userId}-${timestamp.toString().split(' ').join('+')}${req.file.originalname.slice(-4)}`;
