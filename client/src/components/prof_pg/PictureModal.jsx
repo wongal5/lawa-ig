@@ -10,7 +10,7 @@ class PicModal extends React.Component {
       postLikes: [],
       postComments: []
     };
-    this.getLikesOnPost(this.props.post.post_id);
+    this.getLikesOnPost();
   }
 
   getLikesOnPost() {

@@ -127,9 +127,12 @@ class ProfilePanel extends React.Component {
 
     fetch('/follow', postConfig);
 
+    console.log('user.name is', this.state.iFollowInFollowers[0]);
+    console.log('followthisuser.name is', followThisUser.name);
+
     bodyObj.status === 'rmFollow'
-      ? this.setState({iFollowInFollowers: this.state.iFollowInFollowers.filter(user => user.name !== followThisUser.name), iFollowInFollowing: this.state.iFollowInFollowers.filter(user => user.name !== followThisUser.name)})
-      : this.setState({iFollowInFollowers: [...this.state.iFollowInFollowers, followThisUser], iFollowInFollowing: [this.state.iFollowInFollowing, followThisUser]});
+      ? this.setState({iFollowInFollowers: this.state.iFollowInFollowers.filter(user => user !== followThisUser.name), iFollowInFollowing: this.state.iFollowInFollowers.filter(user => user !== followThisUser.name)})
+      : this.setState({iFollowInFollowers: [...this.state.iFollowInFollowers, followThisUser.name], iFollowInFollowing: [...this.state.iFollowInFollowing, followThisUser.name]});
   }
 
   followMatches() {
