@@ -11,7 +11,7 @@
     "start": "node server/index.js",
     "react-dev": "webpack --watch",
     "test": "jest",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack"
   },
   "dependencies": {
     "aws-sdk": "^2.180.0",
