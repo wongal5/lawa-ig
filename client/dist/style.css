@@ -143,6 +143,18 @@
     float: right;
   }
 
+  .prof-pic-absent {
+    border: solid;
+    border-width: 1px;
+    width: 13vw;
+    height: 13vw;
+    border-radius:50%;
+    object-fit: cover;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 30%;
+  }
+
 /* Picture Grid */
 .grid-container {
   margin: 0 auto;

@@ -10,7 +10,8 @@ class ProfilePanel extends React.Component {
     super(props);
     this.state = {
       followed: null,
-      currUser: null
+      currUser: this.props.loggedInUser.user_id,
+      profPic: this.props.user.prof_pic
     };
   }
 
@@ -59,8 +60,13 @@ class ProfilePanel extends React.Component {
     if (acceptedFiles.length) {
       var image = new FormData();
       image.append('image', acceptedFiles[0]);
-      image.append('userId', this.state.currUser);
+      image.append('userId', this.props.loggedInUser.user_id);
       axios.post('/uploadprofimg', image)
+        .then((response)=> {
+          this.setState({
+            profPic: response.data
+          })
+        })
         .catch(err => {
           console.log('prof pic update failed', err);
         });
@@ -104,14 +110,14 @@ class ProfilePanel extends React.Component {
           <Grid.Column width={4}>
             {
               (this.checkIfSameUser()) 
-              ? <Dropzone accept=".jpeg,.png" className="prof-upload" 
+                ? <Dropzone accept="image/jpeg, image/png, image/gif" className="prof-upload" 
                   maxSize={5000000} onDrop={this.onDrop.bind(this)}>
-                  {(this.props.user.prof_pic) 
-                  ? <img className="prof-avatar" src={this.props.user.prof_pic} /> 
-                  : <p> click here to upload <br/> a profile picture </p>
+                  {(this.state.profPic) 
+                  ? <img className="prof-avatar" src={this.state.profPic} /> 
+                  : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
                   }
                 </Dropzone> 
-              : <img className="prof-avatar" src={this.props.user.prof_pic} />
+              : <img className="prof-avatar" src={this.state.profPic} />
             }
           </Grid.Column>
 

@@ -10,7 +10,6 @@ AWS.config.update({
   region: 'us-west-1'
 });
 
-
 const s3 = new AWS.S3();
 
 module.exports = {
@@ -178,7 +177,9 @@ module.exports = {
   },
 
     uploadProfImg: function(req, res) {
+      console.log('upload prof image called')
       let timestamp = moment().format();
+      const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
       let fileName = `images/${req.body.userId}-${timestamp.toString().split(' ').join('+')}${req.file.originalname.slice(-4)}`;
       s3.putObject({
         Bucket: 'lawa-ig',
@@ -188,13 +189,13 @@ module.exports = {
       }, (err, result) => {
         if (result) {
           db.updateProfImg(req.body.userId, fileName, timestamp) //req.body.userId
-            .then(res.sendStatus(201))
+            .then(res.json(`${AWSUrl}${req.body.userId}-${ encodeURIComponent(timestamp)}${fileName.slice(-4)}`))
             .catch(err => {
               console.log('insertPost had an error');
             });
         }
         else {
-          console.log(err);
+          console.log('upload to S3 failed', err);
         }
       });
     },

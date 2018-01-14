@@ -128,7 +128,6 @@ const updateProfImg = function (userId, fileName, timestamp) {
 }
 
 const updateDescription = function(userId, description) {
-  console.log(userId, description);
   return pool.query('UPDATE users SET description = $1 WHERE user_id = $2', [description, userId])
 }
 

@@ -63,11 +63,11 @@ class UploadModal extends React.Component {
         <Dropzone 
           acceptStyle={{ background: '#C8E6C9'}} 
           rejectStyle={{ background: '#EF9A9A'}}
-          accept="image/jpeg, image/png" 
+          accept="image/jpeg, image/png, image/gif" 
           maxSize={5000000} 
           onDrop={this.onDrop.bind(this)}> 
           <p>Try dropping some files here, or click to select files to upload.</p>
-          <p>Only *.jpeg and *.png images will be accepted</p><br/>
+          <p>Only *.jpeg, *.png, *.gif images will be accepted</p><br/>
         </Dropzone>
         {this.insertForm(this.state.submitFlag)}
       </Modal>
