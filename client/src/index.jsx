@@ -22,7 +22,7 @@ class App extends React.Component {
       loggedInUser: larry, //waiting for login profile name
       onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
-      currentPg: 'user_profile' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
+      currentPg: 'feed' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
     };
   }
@@ -145,7 +145,7 @@ class App extends React.Component {
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
-          <AllFeeds user={this.state.loggedInUser} data={this.state.onPageForUser} /> {/*Larry*/}
+          <AllFeeds user={this.state.loggedInUser} /> {/*Larry*/}
         </div>
       );
     }
