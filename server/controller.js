@@ -102,8 +102,7 @@ module.exports = {
       });
   },
   FBfeed: function (req, res) {
-    console.log('request', req.body.id);
-    db.checkForFbId(req.body.id)
+    db.checkForFbId('10159843655865710')
       .then((results) => {
         console.log('results', results.rows);
         db.getAllPosts(results.rows[0].user_id) //CURRENTLY HARD CODED USER ID, change to req.body
@@ -116,7 +115,7 @@ module.exports = {
                 posts.forEach(post => {
                   likedPosts.includes(post.post_id) ? post.liked = false : post.liked = true;
                 });
-                res.json(posts);
+                res.send(posts);
               });
           })
       })

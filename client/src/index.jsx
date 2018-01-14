@@ -31,7 +31,7 @@ class App extends React.Component {
     this.getAllUserNames();
 
     this.loginUser(1);
-    this.changeUser(1);
+    // this.changeUser(1);
   }
 
   getAllUserNames() {
@@ -55,6 +55,7 @@ class App extends React.Component {
   }
 
   changeUser(userId) {
+    this.setState({ currentPg: 'user_profile' })
     this.mountUser(userId, 'change');
   }
 
@@ -116,7 +117,7 @@ class App extends React.Component {
     .catch(function(error) {
       console.log('there was an error here', error);
     })
-    this.setState({currentPg: 'user_profile'});
+    this.setState({currentPg: 'feed'});
   }
 
   logOut() {
@@ -174,7 +175,11 @@ class App extends React.Component {
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
+<<<<<<< HEAD
           <AllFeeds user={this.state.loggedInUser} /> {/*Larry*/}
+=======
+          <AllFeeds data={this.state.loggedInUser} /> {/*Larry*/}
+>>>>>>> fixed nav bar it was only navigating when on profile page for some reason
         </div>
       );
     }
