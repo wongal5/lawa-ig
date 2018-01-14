@@ -55,7 +55,7 @@ class UploadModal extends React.Component {
 
   insertFileName() {
     if (this.state.uploadedFileName.length) {
-      return (<p>{this.state.uploadedFileName}<br/></p>);
+      return (<p className="success-filename">{this.state.uploadedFileName}<br/></p>);
     }
   }
   

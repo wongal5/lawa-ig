@@ -49,6 +49,11 @@
     position: fixed;
   }
 
+  .success-filename {
+    color: green;
+    text-decoration: underline;
+  }
+
   .upload-modal {
     padding: 20px;
   }
