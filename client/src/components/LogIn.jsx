@@ -31,9 +31,9 @@ class LogIn extends React.Component {
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <img className="logo" src="./assets/flame-logo.png" />
+            <img className="login-logo" src="./assets/flame-logo.png" />
             <Header as='h1' color='instagram' textAlign='center'>
-                <div className="logo-name" > Instalawa </div>
+                <div className="login-logo-name" > Instalawa </div>
            </Header>
             <Form size='large'>
               <Segment stacked>

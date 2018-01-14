@@ -37,8 +37,8 @@ class NavBar extends React.Component {
       <Container className="navbar-container">
         <Menu className="navbar" secondary>
           <Menu.Menu position='left' className="left-menu">
-            <img className="logo" src="http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg"/>
-            <div className="logo-bar">|</div><div className="logo-name" > InstaLawa</div>
+            <img className="navbar-logo" src="./assets/flame-logo.png"/>
+            <div className="logo-bar">|</div><div className="navbar-logo-name" > InstaLawa</div>
             <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
             <Menu.Item name='profile' active={activeItem === 'profile'} onClick={this.handleItemClick}/>
           </Menu.Menu>
