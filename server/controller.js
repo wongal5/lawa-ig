@@ -47,7 +47,7 @@ module.exports = {
 0
   },
   usersFollowers: function(req, res) {
-    db.getUsersFollowers(1) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getUsersFollowers(req.body) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         res.json(results.rows);
       })
@@ -58,10 +58,10 @@ module.exports = {
  
   renderFeed: function(req, res) {
     console.log('here is req', req.body);
-    db.getAllPosts(req.body.userId) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getAllPosts(req.body.userId)
       .then((results) => {
         let posts = results.rows;
-        db.getPostsLiked(1)
+        db.getPostsLiked(req.body.userId)
           .then((likeResult) => {
             let likedPosts = likeResult.rows.map(result => { return result.post_id; });
             posts.forEach(post => {
@@ -74,6 +74,16 @@ module.exports = {
         console.log('feed had an error', err);
       });
   },
+  signUp: function(req, res) {
+   console.log('request', req.body.email);
+   db.insertNewUser(req.body.email, req.body.name)
+     .then((results) => {
+       res.status(201).send('inserted');
+     })
+     .catch((error) => {
+       console.log('error signing up sorry', error);
+     })
+  },
   feed: function(req, res) {
 <<<<<<< HEAD
     db.getAllPosts(req.body.userId) //CURRENTLY HARD CODED USER ID, change to req.body
@@ -82,12 +92,16 @@ module.exports = {
     db.checkForEmail(req.body.email)
     .then((results) => {
       console.log('results', results.rows);
+<<<<<<< HEAD
     db.getAllPosts(results.rows[0].user_id) //CURRENTLY HARD CODED USER ID, change to req.body
 >>>>>>> log in button now queries for email in database and returns expected results
+=======
+  
+    db.getAllPosts(results.rows[0].user_id)
+>>>>>>> sign up works now
       .then((results) => {
-        console.log('more results', results)
         let posts = results.rows;
-        db.getPostsLiked(1)
+        db.getPostsLiked(results.rows[0].user_id)
           .then((likeResult) => {
             let likedPosts = likeResult.rows.map(result => { return result.post_id; });
             posts.forEach(post => {
@@ -102,6 +116,7 @@ module.exports = {
       });
   },
   FBfeed: function (req, res) {
+    // hardcoded. still doesn't work
     db.checkForFbId('10159843655865710')
       .then((results) => {
         console.log('results', results.rows);
@@ -167,6 +182,9 @@ module.exports = {
     console.log('req in controller', req.body.email);
     db.checkForEmail(req.body.email)
       .then(result => {
+        if (result.rows.length === 0) {
+          db.insertNewFbUser(req.body.email);
+        }
         res.json(result.rows[0].user_id);
       })
       .catch(error => {

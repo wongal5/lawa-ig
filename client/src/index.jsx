@@ -98,6 +98,19 @@ class App extends React.Component {
     }
   }
 
+  signUp(arr) {
+    console.log(arr);
+    axios.post('/signUp', {
+      email: arr[0].value,
+      name: arr[1].value
+    })
+    .then(function(response) {
+      console.log('here is the sign up', response);
+    })
+    .catch(function(error) {
+      console.log('there was an error', error);
+    })
+  }
   logIn(e) {
     axios.post('/logon', {
         email: e.value
@@ -120,7 +133,7 @@ class App extends React.Component {
     .catch(function(error) {
       console.log('there was an error here', error);
     })
-    this.setState({currentPg: 'user_profile', loggedIn: true});
+    this.setState({currentPg: 'feed', loggedIn: true});
   }
 
   logOut() {
@@ -166,7 +179,7 @@ class App extends React.Component {
       );
     } else if (currentPg === 'login_page') {
       return (
-        <LogIn logIn={e => this.logIn(e)}/> //(WILL)
+        <LogIn signUp={e => this.signUp(e)} logIn={e => this.logIn(e)}/> //(WILL)
       );
     } else if (currentPg === 'feed') {
       return (

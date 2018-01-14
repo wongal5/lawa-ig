@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-// import config from '../../../server/config.js';
-import { Button, Form, Grid, Header, Image, Icon, Message, Segment } from 'semantic-ui-react'
+import config from '../../../server/config.js';
+import { Button, Form, Grid, Header, Image, Modal, Icon, Message, Segment } from 'semantic-ui-react'
 
 
 
@@ -58,7 +58,7 @@ class LogIn extends React.Component {
                   iconPosition='left'
                   placeholder='Password'
                   type='password'
-                  ref={(input) => { this.password = input }}
+                  ref={(i) => { this.password = i }}
                 />
 
                 <Button color='instagram' onClick={(e) => {this.props.logIn(this.email)}} fluid size='large'>Login</Button>
@@ -66,7 +66,8 @@ class LogIn extends React.Component {
             </Form>
             <Message>
             {/* will probably get rid of this button  */}
-              New to us? <a href='/'>Sign Up</a>
+              New to us? 
+              <Button onClick={e => {this.props.signUp([this.email, this.password])}}>Sign Up</Button>
             </Message>
           </Grid.Column>
         </Grid>
