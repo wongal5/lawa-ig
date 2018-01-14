@@ -43,6 +43,7 @@ class LogIn extends React.Component {
                   iconPosition='left'
                   placeholder='Username or email'
                   ref={(input) => { this.email = input }}
+                  className="login-input"
                 />
                 <input
                   fluid
@@ -51,6 +52,7 @@ class LogIn extends React.Component {
                   placeholder='Password'
                   type='password'
                   ref={(i) => { this.password = i }}
+                  className="login-input"
                 />
 
                 <Button color='instagram' onClick={(e) => {this.props.logIn(this.email)}} fluid size='large'>Login</Button>
