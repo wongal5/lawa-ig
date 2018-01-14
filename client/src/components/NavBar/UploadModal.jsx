@@ -9,9 +9,11 @@ class UploadModal extends React.Component {
     this.state = {
       submitFlag: 'not submitted',
       uploadedFile: null,
-      caption: null
+      caption: null,
+      uploadedFileName: ''
     };
     this.insertForm = this.insertForm.bind(this);
+    this.insertFileName = this.insertFileName.bind(this);
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -20,11 +22,13 @@ class UploadModal extends React.Component {
         submitFlag: 'invalid file'
       });
     } else {
+      console.log(acceptedFiles);
       var image = new FormData();
       image.append('image', acceptedFiles[0]);
       this.setState({
         submitFlag: 'not submitted',
-        uploadedFile: image
+        uploadedFile: image,
+        uploadedFileName: acceptedFiles[0].name
       });
     }
   }
@@ -47,6 +51,12 @@ class UploadModal extends React.Component {
     this.setState({
       submitFlag: 'submitted'
     });
+  }
+
+  insertFileName() {
+    if (this.state.uploadedFileName.length) {
+      return (<p>{this.state.uploadedFileName}<br/></p>);
+    }
   }
   
   onOpen() {
@@ -73,6 +83,7 @@ class UploadModal extends React.Component {
           <p>Try dropping some files here, or click to select files to upload.</p>
           <p>Only *.jpeg, *.png, *.gif images will be accepted</p><br/>
         </Dropzone>
+        {this.insertFileName()}
         {this.insertForm(this.state.submitFlag)}
       </Modal>
     );
