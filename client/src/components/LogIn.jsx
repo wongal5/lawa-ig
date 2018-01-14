@@ -31,7 +31,7 @@ class LogIn extends React.Component {
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <img className="logo" src="http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg" />
+            <img className="logo" src="./assets/flame-logo.png" />
             <Header as='h1' color='instagram' textAlign='center'>
                 <div className="logo-name" > Instalawa </div>
            </Header>
