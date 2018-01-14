@@ -30,7 +30,7 @@ class App extends React.Component {
     //setup search component
     this.getAllUserNames();
 
-    this.loginUser(1);
+    // this.loginUser(1);
     // this.changeUser(1);
   }
 
@@ -77,7 +77,10 @@ class App extends React.Component {
     if (changeOrLogin === 'login') {
       fetch('/profile', postConfig)
         .then(data => data.json())
-        .then(userDataObj => this.setState({loggedInUser: userDataObj, onPageForUser: userDataObj}));
+        .then(userDataObj => {
+          console.log('logged in', userDataObj)
+          this.setState({loggedInUser: userDataObj, onPageForUser: userDataObj});
+        });
     } else {
       fetch('/profile', postConfig)
         .then(data => data.json())
@@ -117,7 +120,7 @@ class App extends React.Component {
     .catch(function(error) {
       console.log('there was an error here', error);
     })
-    this.setState({currentPg: 'feed'});
+    this.setState({currentPg: 'user_profile', loggedIn: true});
   }
 
   logOut() {
