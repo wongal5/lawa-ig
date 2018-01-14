@@ -8,7 +8,7 @@ const FeedGrid = (props) => (
     <Grid centered columns={1}>
       {
         props.userFeeds.map((feed, index) => {
-            return <OneFeed loggedInUser={props.loggedInUser} name={feed.name} pic={feed.prof_pic} post={feed.post_id} img={feed.img} likes={feed.like_count} caption={feed.caption} key={index}/>;
+            return <OneFeed loggedInUser={props.loggedInUser} name={feed.name} pic={feed.prof_pic} post={feed.post_id} img={feed.img} likes={feed.like_count} caption={feed.caption} date={feed.created_at} key={index}/>;
         })
       }
     </Grid>

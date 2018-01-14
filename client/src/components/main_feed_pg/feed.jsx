@@ -3,6 +3,7 @@ import { Comment, Image} from 'semantic-ui-react';
 import FeedGrid from './feed_grid.jsx';
 import Comments from './comment.jsx';
 import axios from 'axios';
+import moment from 'moment';
 
 class OneFeed extends React.Component {
 	constructor(props) {
@@ -11,16 +12,22 @@ class OneFeed extends React.Component {
 		this.state = {
 			comments: [],
 			liked: false,
-			postLikes: []
+			postLikes: [],
+			likeCount: 0,
+			newComment: ''
 		}
+		this.getLikesOnPost();
+		// this.loadComments(this.props.post);
 	}
 
 	componentDidMount() {
 		this.loadComments(this.props.post);
+		this.checkIfLike();
+
 	}
 
 	getLikesOnPost() {
-    var bodyObj = {postId: this.props.post.post_id};
+    var bodyObj = {postId: this.props.post};
     bodyObj.status = 'getAllLikes';
 
     var postConfig = {
@@ -34,12 +41,13 @@ class OneFeed extends React.Component {
     fetch('/like', postConfig)
       .then(data => data.json())
       .then(jsonData => {
-        this.setState({postLikes: jsonData.rows});
+        this.setState({
+        	postLikes: jsonData.rows,
+        });
       });
   }
 
 	loadComments(postId) {
-		console.log(postId);
 		axios.post('/comments', {postId: postId})
 			.then((response) => {
 				this.setState({
@@ -62,8 +70,29 @@ class OneFeed extends React.Component {
     }
   }
 
+  checkIfLike() {
+    var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post};
+    bodyObj.status = 'checkLike';
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/like', postConfig)
+      .then(data => data.json())
+      .then(jsonData => {
+        if (jsonData.rows && jsonData.rows.length) {
+          this.setState({liked: true});
+        }
+      });
+  }
+
 	liveUpdateLike() {
-    // let { postLikes } = this.state;
+    let { postLikes } = this.state;
 
     let likerObj = {
       user_id: this.props.loggedInUser.user_id,
@@ -99,6 +128,51 @@ class OneFeed extends React.Component {
     this.setState({liked: !this.state.liked});
 	}
 
+	////////COMMENTS//////////
+	onCommentType(e) {
+		console.log('text', e.target.value);
+    this.setState({newComment: e.target.value});
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.addComment(this.state.newComment);
+      console.log(this.state.newComment);
+      this.setState({newComment: ''});
+      this.nameInput.value = '';      
+    }
+    console.log('loading.');
+    this.loadComments(this.props.post)
+  }
+
+  // liveUpdateComment(content) {
+  // 	console.log('hi');
+  //   this.setState({comments: [...this.state.comments, content]});
+  // }
+
+  addComment(content) {
+
+    var bodyObj = {
+      userId: this.props.loggedInUser.user_id, 
+      postId: this.props.post,
+      text: content,
+      status: 'addComment'
+    };
+
+    console.log(bodyObj);
+
+    var postConfig = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bodyObj)
+    };
+
+    fetch('/comment', postConfig)
+      .then(res => setTimeout(this.props.getComments, 200));
+
+  }
 
 	render () {
 		return (
@@ -115,18 +189,18 @@ class OneFeed extends React.Component {
 			      <Image src="./assets/comment-icon.png" size="mini"/>
 			    </div><br />
 			    <br/>
-			    <div className="likes">{this.props.likes}{' '}likes</div><br/>
+			    <div className="likes">{this.state.postLikes.length}{' '}likes</div><br/>
 			    <div className="userCaption">{this.props.name}&#160;</div>
 			    <div className="caption">{this.props.caption}</div><br />
 			    <div className="comments">
 			    	<Comments comments={this.state.comments} />
 			  	</div>
-			    <div className="left floated meta">14h</div>
+			    <div className="left floated meta">{moment(this.props.date).fromNow()}</div>
 			  </div>
 			  <div className="extra content">
 			    <div className="ui large transparent left icon input">
 			      <i className="heart outline icon"></i>
-			      <input type="text" placeholder="Add Comment..."></input>
+			      <input className="textField" ref={input => this.nameInput = input }  type="text" placeholder="Add Comment..." onChange={e => this.onCommentType(e)} onKeyPress={e => this.handleKeyPress(e)}></input>
 			    </div>
 			  </div>
 			</div>

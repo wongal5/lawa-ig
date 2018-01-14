@@ -145,7 +145,7 @@ class App extends React.Component {
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
-          <AllFeeds user={this.state.loggedInUser} data={this.state.onPageForUser} /> {/*Larry*/}
+          <AllFeeds user={this.state.loggedInUser} /> {/*Larry*/}
         </div>
       );
     }
