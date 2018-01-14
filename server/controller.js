@@ -19,7 +19,7 @@ module.exports = {
   },
 
   usersFollowing: function(req, res) {
-    db.getUsersFollowing(1) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getUsersFollowing(req.body) //CURRENTLY HARD CODED USER ID, change to req.body
       .then((results) => {
         res.json(results.rows);
       })
