@@ -85,20 +85,15 @@ module.exports = {
      })
   },
   feed: function(req, res) {
-<<<<<<< HEAD
+
     db.getAllPosts(req.body.userId) //CURRENTLY HARD CODED USER ID, change to req.body
-=======
-    console.log('request', req.body.email);
+
     db.checkForEmail(req.body.email)
     .then((results) => {
       console.log('results', results.rows);
-<<<<<<< HEAD
     db.getAllPosts(results.rows[0].user_id) //CURRENTLY HARD CODED USER ID, change to req.body
->>>>>>> log in button now queries for email in database and returns expected results
-=======
   
     db.getAllPosts(results.rows[0].user_id)
->>>>>>> sign up works now
       .then((results) => {
         let posts = results.rows;
         db.getPostsLiked(results.rows[0].user_id)

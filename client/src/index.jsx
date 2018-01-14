@@ -13,25 +13,21 @@ class App extends React.Component {
     this.state = {
       loggedIn: false, 
       allUsernames: [], //for dynamic search
-      loggedInUser: {user_id: 1}, //waiting for login profile name
+      loggedInUser: fakeProfileTableData[0], //waiting for login profile name
       onPageForUser: null, //is replaced by a real user on render
       //****************************************************************************/
-<<<<<<< HEAD
-      currentPg: 'feed' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
-=======
       currentPg: 'login_page' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
->>>>>>> log in finally works just need to get feed rendering user images
       //****************************************************************************/
     };
     this.loginUser = this.loginUser.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     //setup search component
     this.getAllUserNames();
 
     this.loginUser(1);
-    // this.changeUser(1);
+    this.changeUser(1);
   }
 
   getAllUserNames() {
@@ -55,7 +51,6 @@ class App extends React.Component {
   }
 
   changeUser(userId) {
-    this.setState({ currentPg: 'user_profile' })
     this.mountUser(userId, 'change');
   }
 
@@ -77,10 +72,7 @@ class App extends React.Component {
     if (changeOrLogin === 'login') {
       fetch('/profile', postConfig)
         .then(data => data.json())
-        .then(userDataObj => {
-          console.log('logged in', userDataObj)
-          this.setState({loggedInUser: userDataObj, onPageForUser: userDataObj});
-        });
+        .then(userDataObj => this.setState({loggedInUser: userDataObj, onPageForUser: userDataObj}));
     } else {
       fetch('/profile', postConfig)
         .then(data => data.json())
@@ -93,23 +85,21 @@ class App extends React.Component {
       this.setState({currentPg: 'feed'});
     } else if (toPage === 'profile') {
       this.setState({currentPg: 'user_profile'});
-      console.log('user', this.state.onPageForUser);
       this.changeUser(this.state.onPageForUser.user_id);
     }
   }
-
   signUp(arr) {
     console.log(arr);
     axios.post('/signUp', {
       email: arr[0].value,
       name: arr[1].value
     })
-    .then(function(response) {
-      console.log('here is the sign up', response);
-    })
-    .catch(function(error) {
-      console.log('there was an error', error);
-    })
+      .then(function (response) {
+        console.log('here is the sign up', response);
+      })
+      .catch(function (error) {
+        console.log('there was an error', error);
+      })
   }
   logIn(e) {
     axios.post('/logon', {
@@ -133,7 +123,7 @@ class App extends React.Component {
     .catch(function(error) {
       console.log('there was an error here', error);
     })
-    this.setState({currentPg: 'feed', loggedIn: true});
+    this.setState({currentPg: 'user_profile'});
   }
 
   logOut() {
@@ -191,11 +181,7 @@ class App extends React.Component {
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
-<<<<<<< HEAD
           <AllFeeds user={this.state.loggedInUser} /> {/*Larry*/}
-=======
-          <AllFeeds data={this.state.loggedInUser} /> {/*Larry*/}
->>>>>>> fixed nav bar it was only navigating when on profile page for some reason
         </div>
       );
     }
