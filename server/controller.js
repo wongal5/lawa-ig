@@ -2,7 +2,7 @@ const app = require('./index.js');
 const db = require('../database/index.js');
 const AWS = require('aws-sdk');
 const moment = require('moment');
-const config = '' //require('./config.js');
+const config = require('./config.js');
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID || config.AWS_ACCESS_KEY_ID || '',
@@ -85,7 +85,17 @@ module.exports = {
     }, (err, result) => {
       if (result) {
         db.insertPost(req.body.caption, req.body.userId, fileName, timestamp) 
-          .then(res.sendStatus(201))
+          .then((result) => {
+            console.log(result);
+            res.json({
+              post_id: 0, // not actual postID, temp placeholder
+              img: `${AWSUrl}${userId}-${encodeURIComponent(timestamp)}${fileName.slice(-4)}`,
+              like_count: 0,
+              user_id: req.body.userId,
+              caption: req.body.caption,
+              createdAt: timestamp
+            });
+          })
           .catch(err => {
             console.log('insertPost had an error');
           });
@@ -176,27 +186,26 @@ module.exports = {
       });
   },
 
-    uploadProfImg: function(req, res) {
-      let timestamp = moment().format();
-      const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
-      let fileName = `images/${req.body.userId}-${timestamp.toString().split(' ').join('+')}${req.file.originalname.slice(-4)}`;
-      s3.putObject({
-        Bucket: 'lawa-ig',
-        Key: fileName,
-        Body: req.file.buffer,
-        ACL: 'public-read', // your permisions  
-      }, (err, result) => {
-        if (result) {
-          db.updateProfImg(req.body.userId, fileName, timestamp) //req.body.userId
-            .then(res.json(`${AWSUrl}${req.body.userId}-${ encodeURIComponent(timestamp)}${fileName.slice(-4)}`))
-            .catch(err => {
-              console.log('insertPost had an error');
-            });
-        }
-        else {
-          console.log('upload to S3 failed', err);
-        }
-      });
+  uploadProfImg: function(req, res) {
+    let timestamp = moment().format();
+    const AWSUrl = 'https://s3-us-west-1.amazonaws.com/lawa-ig/images/'
+    let fileName = `images/${req.body.userId}-${timestamp.toString().split(' ').join('+')}${req.file.originalname.slice(-4)}`;
+    s3.putObject({
+      Bucket: 'lawa-ig',
+      Key: fileName,
+      Body: req.file.buffer,
+      ACL: 'public-read', // your permisions  
+    }, (err, result) => {
+      if (result) {
+        db.updateProfImg(req.body.userId, fileName, timestamp) //req.body.userId
+          .then(res.json(`${AWSUrl}${req.body.userId}-${ encodeURIComponent(timestamp)}${fileName.slice(-4)}`))
+          .catch(err => {
+            console.log('insertPost had an error');
+          });
+      } else {
+        console.log('upload to S3 failed', err);
+      }
+    });
     },
 
     updateDescription: function(req, res) {
