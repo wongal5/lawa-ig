@@ -104,9 +104,18 @@ class App extends React.Component {
   }
 
   newUpload(newPost) {
+    this.state.onPageForUser.posts.push(newPost);
     this.setState((prevState) => {
-      loggedInUser: prevState.loggedInUser.posts.push(newPost);
-    })
+      return {onPageForUser: prevState.onPageForUser.posts};
+    });
+  }
+
+  newProfPic(profPic) {
+    let newState = this.state.onPageForUser;
+    newState.prof_pic = profPic;
+    this.setState({
+      onPageForUser: newState
+    });
   }
 
   pageRouter(currentPg) {
@@ -116,7 +125,7 @@ class App extends React.Component {
           <NavBar allUsers={this.state.allUsernames} 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)}
-            loggedInUserId={this.state.loggedInUser.user_id} 
+            loggedInUser={this.state.loggedInUser} 
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
@@ -126,6 +135,7 @@ class App extends React.Component {
               loggedInUser={this.state.loggedInUser} 
               user={this.state.onPageForUser} 
               changeFollowersLive = {this.changeFollowersLive.bind(this)} 
+              newProfPic = {this.newProfPic.bind(this)}
             />
           }
         </div>
@@ -140,7 +150,7 @@ class App extends React.Component {
           <NavBar 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
-            loggedInUserId={this.state.loggedInUser.user_id}
+            loggedInUser={this.state.loggedInUser}
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
