@@ -8,21 +8,24 @@ class AllFeeds extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loggedInUser: this.props.user,
 			userFeeds: []
 		}
 	}
 
 	componentDidMount() {
 		this.updateFeed(this.props.user.user_id);
+
 	}
 
 	updateFeed(userId) {
 		axios.post('/feed', {userId})
 			.then((response) => {
-				// console.log('axios get success', response)
+				console.log('hii', response.data);
 				this.setState({
 					userFeeds: response.data
 				})
+				console.log(this.state.userFeeds)
 			})
 			.catch((error) => {
 				console.log('axios get error', error)
@@ -33,10 +36,10 @@ class AllFeeds extends React.Component {
 		return (
 			<div>
 				<div className="feedBar">
-					<FeedBar />
+					<FeedBar loggedInUser={this.state.loggedInUser} />
 				</div>
 				<div className="all-feeds">
-					<FeedGrid userFeeds={this.state.userFeeds} />
+					<FeedGrid loggedInUser={this.state.loggedInUser} userFeeds={this.state.userFeeds} />
 				</div>
 			</div>
 		)
