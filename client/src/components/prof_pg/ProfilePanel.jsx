@@ -1,13 +1,17 @@
 import React from 'react';
 import PictureGrid from './PictureGrid.jsx';
 import { Button, Header, List, Image, Divider, Grid, Modal } from 'semantic-ui-react';
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
+import DescriptionModal from './DescriptionModal.jsx';
 
 class ProfilePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       followed: null,
-      currUser: null
+      currUser: this.props.loggedInUser.user_id,
+      profPic: this.props.user.prof_pic
     };
   }
 
@@ -52,6 +56,23 @@ class ProfilePanel extends React.Component {
     this.setState({followed: !this.state.followed});
   }
 
+  onDrop(acceptedFiles, rejectedFiles) {
+    if (acceptedFiles.length) {
+      var image = new FormData();
+      image.append('image', acceptedFiles[0]);
+      image.append('userId', this.props.loggedInUser.user_id);
+      axios.post('/uploadprofimg', image)
+        .then((response)=> {
+          this.setState({
+            profPic: response.data
+          })
+        })
+        .catch(err => {
+          console.log('prof pic update failed', err);
+        });
+    }
+  }
+
   toggleFollow() {
     //PUSH picture data into logged in user's liked photos
     var bodyObj = {followerId: this.props.loggedInUser.user_id, followedId: this.props.user.user_id};
@@ -87,8 +108,19 @@ class ProfilePanel extends React.Component {
       <div className='prof-panel-container'>
         <Grid centered>
           <Grid.Column width={4}>
-            <Image circular className='prof-avatar' src={this.props.user.prof_pic} />
+            {
+              (this.checkIfSameUser()) 
+                ? <Dropzone accept="image/jpeg, image/png, image/gif" className="prof-upload" 
+                  maxSize={5000000} onDrop={this.onDrop.bind(this)}>
+                  {(this.state.profPic) 
+                  ? <img className="prof-avatar" src={this.state.profPic} /> 
+                  : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
+                  }
+                </Dropzone> 
+              : <img className="prof-avatar" src={this.state.profPic} />
+            }
           </Grid.Column>
+
           <Grid.Column width={9}>
             <Grid.Row className="first-panel-row">
               <Header className='profile-name-title'>{this.props.user.name}</Header> 
@@ -100,6 +132,7 @@ class ProfilePanel extends React.Component {
                 )
               }
             </Grid.Row>
+
             <Grid.Row >
               <span className='profile-sub-data'>
                 <span className='profile-sub-data-num'>{this.props.user.posts.length}</span> posts </span>
@@ -118,9 +151,14 @@ class ProfilePanel extends React.Component {
                   })}</List></Modal.Content>
                 </Modal></span>
             </Grid.Row>
+
             <Grid.Row>
               <div className='header-caption'>
-                <span > {this.props.user.description} </span>            
+                {
+                  (this.checkIfSameUser()) 
+                    ? <DescriptionModal description={this.props.user.description} currUser={this.state.currUser}> </DescriptionModal>
+                    : <span > {this.props.user.description} </span> 
+                }           
               </div>
             </Grid.Row>
           </Grid.Column>

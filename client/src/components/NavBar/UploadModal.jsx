@@ -32,6 +32,7 @@ class UploadModal extends React.Component {
   handleSubmit() {
     if (this.state.uploadedFile) {
       this.state.uploadedFile.append('caption', this.state.caption);
+      this.state.uploadedFile.append('userId', this.props.loggedInUserId);
       // NEED TO ALSO SEND ID OF CURRENTLY LOGGED IN USER
       axios.post('/post', this.state.uploadedFile)
         .catch(err => {
@@ -63,11 +64,11 @@ class UploadModal extends React.Component {
         <Dropzone 
           acceptStyle={{ background: '#C8E6C9'}} 
           rejectStyle={{ background: '#EF9A9A'}}
-          accept="image/jpeg, image/png" 
+          accept="image/jpeg, image/png, image/gif" 
           maxSize={5000000} 
           onDrop={this.onDrop.bind(this)}> 
           <p>Try dropping some files here, or click to select files to upload.</p>
-          <p>Only *.jpeg and *.png images will be accepted</p><br/>
+          <p>Only *.jpeg, *.png, *.gif images will be accepted</p><br/>
         </Dropzone>
         {this.insertForm(this.state.submitFlag)}
       </Modal>
@@ -78,11 +79,6 @@ class UploadModal extends React.Component {
     if (submitFlag === 'not submitted') {
       return (<Form onSubmit={this.handleSubmit.bind(this)}>
         <Form.Input required placeholder='insert caption here' onChange={this.onCaptionChange.bind(this)} />
-        <Message
-          success
-          header='Form Completed'
-          content="You lavagrammed it up!"
-        />
         <Button>Submit</Button>
       </Form>);
     } else if (submitFlag === 'submitted') {
@@ -91,7 +87,7 @@ class UploadModal extends React.Component {
         <Message
           success
           header='Form Completed'
-          content="You lavagrammed it up!"
+          content="You lawagrammed it up!"
         />
         <Button>Submit</Button>
       </Form>);

@@ -110,7 +110,8 @@ class App extends React.Component {
         <div>
           <NavBar allUsers={this.state.allUsernames} 
             allUsers={this.state.allUsernames} 
-            changeUser={e => this.changeUser(e)} 
+            changeUser={e => this.changeUser(e)}
+            loggedInUserId={this.state.loggedInUser.user_id} 
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}/> {/* Albert */}
           {this.state.onPageForUser &&
@@ -132,7 +133,7 @@ class App extends React.Component {
           <NavBar 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
-
+            loggedInUserId={this.state.loggedInUser.user_id}
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
           /> {/* Albert */}
