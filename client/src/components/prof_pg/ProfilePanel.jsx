@@ -154,7 +154,7 @@ class ProfilePanel extends React.Component {
                 ? <Dropzone accept="image/jpeg, image/png, image/gif" className="prof-upload" 
                   maxSize={5000000} onDrop={this.onDrop.bind(this)}>
                   {(this.state.profPic) 
-                    ? <img className="prof-avatar" src={this.state.profPic} /> 
+                    ? <img className="prof-avatar self-avatar" src={this.state.profPic} /> 
                     : <p className="prof-pic-absent"> click here to upload <br/> a profile picture </p>
                   }
                 </Dropzone> 

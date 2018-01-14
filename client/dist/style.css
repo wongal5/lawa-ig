@@ -72,7 +72,6 @@
       height: 13vw;
       border-radius:50%;
       object-fit: cover;
-      cursor: pointer;
   }
 
   .profile-name-title {
@@ -153,6 +152,10 @@
     cursor: pointer;
     text-align: center;
     padding-top: 30%;
+  }
+
+  .self-avatar {
+    cursor: pointer;
   }
 
 /* Picture Grid */

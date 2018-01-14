@@ -11,6 +11,7 @@ class DescriptionModal extends React.Component {
       description: this.props.description
     };
     this.insertForm = this.insertForm.bind(this);
+    this.setDescription = this.setDescription.bind(this);
   }
 
   handleSubmit() {
@@ -18,6 +19,14 @@ class DescriptionModal extends React.Component {
     this.setState({
       submitFlag: 'submitted'
     });
+  }
+
+  setDescription() {
+    if (this.state.description.length) {
+      return (<span className="self-description"> {this.state.description} </span>);
+    } else {
+      return (<span className="self-description"> Click here to set a description! </span>)
+    }
   }
 
   onOpen() {
@@ -35,7 +44,7 @@ class DescriptionModal extends React.Component {
   render() {
     return (
       <Modal className="description-modal" size='small' onOpen={this.onOpen.bind(this)} 
-      trigger={<span className="self-description"> {this.state.description} </span>} >
+      trigger={this.setDescription()} >
         {this.insertForm(this.state.submitFlag)}
       </Modal>
     );
@@ -44,7 +53,7 @@ class DescriptionModal extends React.Component {
   insertForm(submitFlag) {
     if (submitFlag === 'not submitted') {
       return (<Form className="description-form" onSubmit={this.handleSubmit.bind(this)}>
-        <Form.Input required placeholder='describe yourself!' onChange={this.onDescriptionChange.bind(this)} />
+        <Form.Input required placeholder='describe yourself!' value={this.state.description} onChange={this.onDescriptionChange.bind(this)} />
         <Message
           success
           header='Updated!'
@@ -53,7 +62,7 @@ class DescriptionModal extends React.Component {
       </Form>);
     } else if (submitFlag === 'submitted') {
       return (<Form className="description-form" success>
-        <Form.Input required placeholder='describe yourself!' onChange={this.onDescriptionChange.bind(this)} />
+        <Form.Input required placeholder='describe yourself!' value={this.state.description} onChange={this.onDescriptionChange.bind(this)} />
         <Message
           success
           header='Updated!'
