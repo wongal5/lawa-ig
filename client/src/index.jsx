@@ -125,7 +125,7 @@ class App extends React.Component {
           <NavBar allUsers={this.state.allUsernames} 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)}
-            loggedInUserId={this.state.loggedInUser.user_id} 
+            loggedInUser={this.state.loggedInUser} 
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
@@ -150,7 +150,7 @@ class App extends React.Component {
           <NavBar 
             allUsers={this.state.allUsernames} 
             changeUser={e => this.changeUser(e)} 
-            loggedInUserId={this.state.loggedInUser.user_id}
+            loggedInUser={this.state.loggedInUser}
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
             newUpload={this.newUpload.bind(this)}
