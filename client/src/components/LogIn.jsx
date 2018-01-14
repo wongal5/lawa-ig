@@ -35,7 +35,6 @@ class LogIn extends React.Component {
             <Header as='h1' color='instagram' textAlign='center'>
                 <div className="logo-name" > Instalawa </div>
            </Header>
-            <Button color="facebook"><Icon name="facebook" /><a href={'https://www.facebook.com/v2.8/dialog/oauth?client_id=' + process.env.FB_ID + '&redirect_uri=http%3A%2F%2Flocalhost:3000%2Flogin%2Ffacebook%2Fcallback'}>Log in with Facebook</a></Button>
             <Form size='large'>
               <Segment stacked>
                 <input
@@ -59,7 +58,6 @@ class LogIn extends React.Component {
             </Form>
             <Message>
             {/* will probably get rid of this button  */}
-              New to us? 
               <Button onClick={e => {this.props.signUp([this.email, this.password])}}>Sign Up</Button>
             </Message>
           </Grid.Column>

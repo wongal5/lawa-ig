@@ -3,11 +3,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const router = require('./router.js');
-// const config = require('./config.js');
 
 
-const passport = require('passport');
-var FacebookStrategy = require('passport-facebook');
 
 
 var expressSession = require('express-session');
@@ -23,8 +20,7 @@ app.use(cookieParser());
 
 
 app.use(expressSession({ secret: 'mySecretKey' }));
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.options('/*', function (req, res, next) {
