@@ -22,12 +22,12 @@ class App extends React.Component {
     this.loginUser = this.loginUser.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     //setup search component
     this.getAllUserNames();
 
-    // this.loginUser(1);
-    // this.changeUser(1);
+    this.loginUser(1);
+    this.changeUser(1);
   }
 
   getAllUserNames() {
