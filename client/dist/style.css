@@ -17,6 +17,12 @@
   margin-bottom: 30px;
 }
 
+.modal-logo {
+    font-family: 'Dancing Script', Arial;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
 
 /*==================*/
 /*==================*/
@@ -448,3 +454,8 @@ semantic.min.css:19
     width: 33em;
 }
 
+#signUp {
+    padding-left: 18px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}

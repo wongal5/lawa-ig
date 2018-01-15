@@ -46,14 +46,18 @@ class LogIn extends React.Component {
             </Form>
             <Message>
               <Modal size="tiny" trigger={<Button>Sign Up</Button>} closeIcon>
-              <Modal.Header>Welcome to Insta-Lawa!</Modal.Header>
+              <Modal.Header>Welcome to <span className="modal-logo"> InstaLawa!</span></Modal.Header>
               <Modal.Content>
                 <Form>
                 <Segment stacked>
                 <input placeholder='Enter your email' ref={i => {this.newEmail = i }} />
                 <input placeholder='Enter your username' ref={i => {this.newUsername = i}} />
               </Segment>
-                    <Button onClick={e => { this.props.signUp([this.newEmail, this.newUsername]) }}>Let's get started</Button>
+                    <Modal size="mini" trigger={<Button type="submit" id="signUp" onClick={e => { this.props.signUp([this.newEmail, this.newUsername]) }}>Let's get started</Button>}>
+                       <Grid textAlign="center">
+                       <Button color="green" style={{width: '100%'}}><Icon name="checkmark" />You're all set!</Button>
+                       </Grid>
+                    </Modal>
               </Form>
               </Modal.Content>
             </Modal>
