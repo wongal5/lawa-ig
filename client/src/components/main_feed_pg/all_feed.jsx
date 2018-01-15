@@ -12,12 +12,14 @@ class AllFeeds extends React.Component {
 			userFeeds: [],
 			userInfo: ''
 		}
-	}
-
-	componentDidMount() {
 		this.updateFeed(this.props.user.user_id);
 		this.getUserInfo(this.props.user.user_id);
 	}
+
+	// componentDidMount() {
+	// 	this.updateFeed(this.props.user.user_id);
+	// 	this.getUserInfo(this.props.user.user_id);
+	// }
 
 	updateFeed(userId) {
 		axios.post('/feed', {userId})
