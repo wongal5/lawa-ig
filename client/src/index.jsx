@@ -4,7 +4,6 @@ import NavBar from './components/NavBar/NavBar.jsx';
 import LogIn from './components/LogIn.jsx';
 import UserProfile from './components/prof_pg/UserProfile.jsx';
 import AllFeeds from './components/main_feed_pg/all_feed.jsx';
-import fakeProfileTableData from '../../database/fakeProfileTableData';
 import axios from 'axios';
 
 class App extends React.Component {
