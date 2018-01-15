@@ -135,13 +135,6 @@ class App extends React.Component {
     this.setState({currentPg: 'login_page' });
   }
 
-  newUpload(newPost) {
-    this.state.onPageForUser.posts.push(newPost);
-    this.setState((prevState) => {
-      return {onPageForUser: prevState.onPageForUser.posts};
-    });
-  }
-
   newProfPic(profPic) {
     let newState = this.state.onPageForUser;
     newState.prof_pic = profPic;
@@ -160,7 +153,6 @@ class App extends React.Component {
             loggedInUser={this.state.loggedInUser} 
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
-            newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
           {this.state.onPageForUser &&
             <UserProfile 
@@ -184,7 +176,6 @@ class App extends React.Component {
             loggedInUser={this.state.loggedInUser}
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
-            newUpload={this.newUpload.bind(this)}
           /> {/* Albert */}
           <AllFeeds user={this.state.loggedInUser} /> {/*Larry*/}
         </div>
