@@ -95,9 +95,6 @@ class App extends React.Component {
       name: arr[1].value,
       description: ''
     })
-      .then((response) => {
-        console.log('here is the sign up info', response);
-      })
       .catch(function (error) {
         console.log('there was an error', error);
       })
