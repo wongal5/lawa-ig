@@ -4,6 +4,7 @@ import FeedGrid from './feed_grid.jsx';
 import FeedBar from './feed_bar.jsx';
 import axios from 'axios';
 
+//this is the /feed page
 class AllFeeds extends React.Component {
 	constructor(props) {
 		super(props);
@@ -21,6 +22,7 @@ class AllFeeds extends React.Component {
 	// 	this.getUserInfo(this.props.user.user_id);
 	// }
 
+//updates state with all the posts with the account the logged in user is following
 	updateFeed(userId) {
 		axios.post('/feed', {userId})
 			.then((response) => {
@@ -33,6 +35,7 @@ class AllFeeds extends React.Component {
 			})
 	}
 
+//gets the loggedIn users info in order to render sidebar
 	getUserInfo(userId) {
 		axios.post('/user', {userId})
 			.then((response) => {
@@ -45,6 +48,7 @@ class AllFeeds extends React.Component {
 			})
 	}
 
+//renders two seperate component on the /feed page
 	render() {
 		return (
 			<div>

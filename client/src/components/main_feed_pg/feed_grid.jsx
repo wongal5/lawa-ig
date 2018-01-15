@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import OneFeed from './feed.jsx';
 
+//sets up the grid on /feed page
 const FeedGrid = (props) => (
 
   <div className="feed-grid-container">
