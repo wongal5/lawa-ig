@@ -445,3 +445,6 @@ i.close.small.icon.comment-close-icon {
     width: 33em;
 }
 
+ .ui.grid>.row>.column>img:hover {
+     cursor:pointer;
+ }
