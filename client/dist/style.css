@@ -1,57 +1,82 @@
 /*==================*/
 /*==================*/
+/* Login Page */
+/*==================*/
+/*==================*/
+
+.login-logo {
+  height: 80px;
+  width: auto;
+  margin-top: 40px;
+}
+
+.login-logo-name {
+  font-size: 5rem;
+  font-family: 'Dancing Script', Arial;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+
+/*==================*/
+/*==================*/
 /* NavBar */
 /*==================*/
 /*==================*/
 
-.logo {
-    height: 60px;
-    width: 40px;
-    margin: 0 20px 0 20px;
-  }
+.navbar-logo {
+  height: 60px;
+  width: 40px;
+  margin: 0 20px 0 20px;
+}
   
-  .logo-name {
-    margin-top: 20px;
-    margin-right: 20px;
-    font-size: 3.5rem;
-    font-family: 'Dancing Script', Arial;
-    font-weight: 700;
-  }
-  
-  .logo-bar {
-    margin-top: 20px;
-    margin-right: 20px;
-    font-size: 3.5rem;
-  }
+.navbar-logo-name {
+  margin-top: 20px;
+  margin-right: 20px;
+  font-size: 3.5rem;
+  font-family: 'Dancing Script', Arial;
+  font-weight: 700;
+}
 
-  .navbar.ui.secondary.menu {
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 2% 0;
-    width: 80%;
-  }
+.logo-bar {
+  margin-top: 20px;
+  margin-right: 20px;
+  font-size: 3.5rem;
+}
 
-  .navbar-container.ui.container {
-      width: 80%;
-      padding: 0 0 8% 0;
-      background-color: white;
-  }
+.navbar.ui.secondary.menu {
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 2% 0;
+  width: 80%;
+}
 
-  .navbar-container {
-      padding: 0 0 8% 0;
-      z-index: 1;
-      background: #fff;
-  }
+.navbar-container.ui.container {
+  width: 80%;
+  padding: 0 0 8% 0;
+  background-color: white;
+}
 
-  .navbar {
-    width: 82%;
-    object-fit: cover;
-    position: fixed;
-  }
+.navbar-container {
+  padding: 0 0 8% 0;
+  z-index: 1;
+  background: #fff;
+}
 
-  .upload-modal {
-    padding: 20px;
-  }
+.navbar {
+  width: 82%;
+  object-fit: cover;
+  position: fixed;
+}
+
+.success-filename {
+  color: green;
+  text-decoration: underline;
+}
+
+.upload-modal {
+  padding: 20px;
+}
 
 /*==================*/
 /*==================*/
@@ -72,7 +97,6 @@
       height: 13vw;
       border-radius:50%;
       object-fit: cover;
-      cursor: pointer;
   }
 
   .profile-name-title {
@@ -153,6 +177,10 @@
     cursor: pointer;
     text-align: center;
     padding-top: 30%;
+  }
+
+  .self-avatar {
+    cursor: pointer;
   }
 
 /* Picture Grid */

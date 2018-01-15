@@ -31,9 +31,9 @@ class LogIn extends React.Component {
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <img className="logo" src="http://static.tumblr.com/tnhrvnx/SiOm2xuu2/fireythings_flame_logo.jpg" />
+            <img className="login-logo" src="./assets/flame-logo.png" />
             <Header as='h1' color='instagram' textAlign='center'>
-                <div className="logo-name" > Instalawa </div>
+                <div className="login-logo-name" > Instalawa </div>
            </Header>
             <Form size='large'>
               <Segment stacked>
@@ -43,6 +43,7 @@ class LogIn extends React.Component {
                   iconPosition='left'
                   placeholder='Username or email'
                   ref={(input) => { this.email = input }}
+                  className="login-input"
                 />
                 <input
                   fluid
@@ -51,6 +52,7 @@ class LogIn extends React.Component {
                   placeholder='Password'
                   type='password'
                   ref={(i) => { this.password = i }}
+                  className="login-input"
                 />
 
                 <Button color='instagram' onClick={(e) => {this.props.logIn(this.email)}} fluid size='large'>Login</Button>

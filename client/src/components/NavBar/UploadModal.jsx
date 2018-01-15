@@ -9,9 +9,11 @@ class UploadModal extends React.Component {
     this.state = {
       submitFlag: 'not submitted',
       uploadedFile: null,
-      caption: null
+      caption: null,
+      uploadedFileName: ''
     };
     this.insertForm = this.insertForm.bind(this);
+    this.insertFileName = this.insertFileName.bind(this);
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -20,20 +22,25 @@ class UploadModal extends React.Component {
         submitFlag: 'invalid file'
       });
     } else {
+      console.log(acceptedFiles);
       var image = new FormData();
       image.append('image', acceptedFiles[0]);
       this.setState({
         submitFlag: 'not submitted',
-        uploadedFile: image
+        uploadedFile: image,
+        uploadedFileName: acceptedFiles[0].name
       });
     }
   }
 
   handleSubmit() {
     if (this.state.uploadedFile) {
+      this.setState({
+        submitFlag: 'submitted'
+      });
+
       this.state.uploadedFile.append('caption', this.state.caption);
       this.state.uploadedFile.append('userId', this.props.loggedInUser.user_id);
-      // NEED TO ALSO SEND ID OF CURRENTLY LOGGED IN USER
       axios.post('/post', this.state.uploadedFile)
         .then((response) => {
           this.props.newUpload(response.data);
@@ -42,16 +49,23 @@ class UploadModal extends React.Component {
           console.log('image post failed', err);
         });
     } else {
-      console.log('error, please upload a file first'); // HANDLE THIS BETTER
+      this.setState({
+        submitFlag: 'invalid file'
+      })
     }
-    this.setState({
-      submitFlag: 'submitted'
-    });
+  }
+
+  insertFileName() {
+    if (this.state.uploadedFileName.length) {
+      return (<p className="success-filename">{this.state.uploadedFileName}<br/></p>);
+    }
   }
   
   onOpen() {
     this.setState({
-      submitFlag: 'not submitted'
+      submitFlag: 'not submitted',
+      uploadedFile: null,
+      uploadedFileName: ''
     });
   }
 
@@ -73,6 +87,7 @@ class UploadModal extends React.Component {
           <p>Try dropping some files here, or click to select files to upload.</p>
           <p>Only *.jpeg, *.png, *.gif images will be accepted</p><br/>
         </Dropzone>
+        {this.insertFileName()}
         {this.insertForm(this.state.submitFlag)}
       </Modal>
     );
@@ -100,7 +115,7 @@ class UploadModal extends React.Component {
         <Message
           error
           header='Upload Error'
-          content="Uhoh! We don't accept that file type or the file is too big. Please try again with a .jpg or .png under 5MB."
+          content="Uhoh! Did you upload a valid file? Please try again with a .jpg or .png under 5MB."
         />
         <Button>Submit</Button>
       </Form>);
