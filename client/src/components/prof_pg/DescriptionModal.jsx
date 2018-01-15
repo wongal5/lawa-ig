@@ -8,26 +8,16 @@ class DescriptionModal extends React.Component {
     super(props);
     this.state = {
       submitFlag: 'not submitted',
-      description: this.props.description,
-      descriptionField: ''
+      description: this.props.description
     };
     this.insertForm = this.insertForm.bind(this);
     this.setDescription = this.setDescription.bind(this);
-  }
-
-  componentDidUpdate() {
-    if (this.state.description !== this.props.description && this.state.description !== this.state.descriptionField) {
-      this.setState({
-        description: this.props.description
-      });
-    }
   }
   
   handleSubmit() {
     axios.post('/description', {description: this.state.description, user: this.props.currUserId});
     this.setState({
-      submitFlag: 'submitted',
-      description: this.state.descriptionField
+      submitFlag: 'submitted'
     });
   }
 
@@ -47,7 +37,7 @@ class DescriptionModal extends React.Component {
 
   onDescriptionChange(event) {
     this.setState({
-      descriptionField: event.target.value
+      description: event.target.value
     });
   }
 
@@ -63,7 +53,7 @@ class DescriptionModal extends React.Component {
   insertForm(submitFlag) {
     if (submitFlag === 'not submitted') {
       return (<Form className="description-form" onSubmit={this.handleSubmit.bind(this)}>
-        <Form.Input required placeholder='describe yourself!' value={this.state.descriptionField} onChange={this.onDescriptionChange.bind(this)} />
+        <Form.Input required placeholder='describe yourself!' value={this.state.description} onChange={this.onDescriptionChange.bind(this)} />
         <Message
           success
           header='Updated!'
@@ -72,7 +62,7 @@ class DescriptionModal extends React.Component {
       </Form>);
     } else if (submitFlag === 'submitted') {
       return (<Form className="description-form" success>
-        <Form.Input required placeholder='describe yourself!' value={this.state.descriptionField} onChange={this.onDescriptionChange.bind(this)} />
+        <Form.Input required placeholder='describe yourself!' value={this.state.description} onChange={this.onDescriptionChange.bind(this)} />
         <Message
           success
           header='Updated!'
