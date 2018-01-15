@@ -131,6 +131,12 @@
       position: absolute;
       left: 50%;
       top: 40%;
+      background-color: #fff;
+      padding: 0 10px;
+  }
+
+  .dynamic-select:hover {
+      cursor:pointer;
   }
 
   .follow-button.ui.primary.button {
@@ -145,6 +151,10 @@
     font-size: 1.25rem;
     margin-right: 6%;
     font-family: 'Heebo', sans-serif;
+  }
+
+  .profile-sub-data:hover {
+      cursor: pointer;
   }
 
   .header-caption {
@@ -225,6 +235,10 @@
 
 .ui.modal>.content {
     padding: 0;
+}
+
+.content:hover {
+    cursor: pointer;
 }
 
 .ui.container {
@@ -362,18 +376,6 @@ i.close.small.icon.comment-close-icon {
   font-weight: bold;
   float: left;
 }
-/* .ui.card [class*="left floated"], .ui.cards>.card [class*="left floated"] {
-    float: left;
-}
-
-
-semantic.min.css:19
-
-
-.heart-icon {
-    width: 35px;
-    height: 35px;
-}
 
 /*feed page*/
 .ui.card, .ui.cards>.card {
@@ -383,14 +385,9 @@ semantic.min.css:19
     min-width: 300px;
 }
 
-/*.ui.divided.list .ff-modal-listItem {
-    padding: 10em;
-}*/
-
-/*.ui.divided.list>.item {
+.ui.divided.list>.item {
     padding: 15px 5px;
-}*/
-
+}
 
 .feedBar .ui.list {
     font-size: 1em;
@@ -459,3 +456,7 @@ semantic.min.css:19
     margin-left: 10px;
     margin-bottom: 10px;
 }
+
+ .ui.grid>.row>.column>img:hover {
+     cursor:pointer;
+ }

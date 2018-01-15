@@ -182,6 +182,11 @@ module.exports = {
     if (req.body.status === 'checkLike') {
       db.checkLike(req.body.userId, req.body.postId)
         .then(data => res.status(201).json(data));
+
+    } else if (req.body.status === 'getAllLikes') {
+      db.getLikesOnPost(req.body.postId)
+        .then(data => res.status(201).json(data));
+
     } else if (req.body.status === 'getAllLikes') {
       db.getLikesOnPost(req.body.postId)
         .then(data => res.status(201).json(data));

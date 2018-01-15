@@ -15,6 +15,7 @@ class App extends React.Component {
       allUsernames: [], //for dynamic search
       loggedInUser: {user_id: 1, description: ''}, //waiting for login profile name
       onPageForUser: {user_id: 1, description: ''}, //is replaced by a real user on render
+      activeMenuItem: 'profile',
       //****************************************************************************/
       currentPg: 'login_page' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
@@ -82,9 +83,13 @@ class App extends React.Component {
 
   changePage(toPage) {
     if (toPage === 'home') {
-      this.setState({currentPg: 'feed'});
+      this.setState({
+        currentPg: 'feed',
+        activeMenuItem: 'home'
+      });
     } else if (toPage === 'profile') {
-      this.setState({currentPg: 'user_profile'});
+      this.setState({currentPg: 'user_profile',
+        activeMenuItem: 'profile'});
       this.changeUser(this.state.onPageForUser.user_id);
     }
   }
@@ -97,7 +102,7 @@ class App extends React.Component {
     })
       .catch(function (error) {
         console.log('there was an error', error);
-      })
+      });
   }
   logIn(e) {
     axios.post('/logon', {
@@ -140,6 +145,14 @@ class App extends React.Component {
     });
   }
 
+  clickToSwitchUser(userId) {
+    this.changeUser(userId);
+    this.setState({
+      currentPg: 'user_profile',
+      activeMenuItem: 'profile'
+    });
+  }
+
   pageRouter(currentPg) {
     if (currentPg === 'user_profile') {
       return (
@@ -150,6 +163,8 @@ class App extends React.Component {
             loggedInUser={this.state.loggedInUser} 
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
+            activeMenuItem = {this.state.activeMenuItem}
+
           /> {/* Albert */}
           {this.state.onPageForUser &&
             <UserProfile 
@@ -174,7 +189,10 @@ class App extends React.Component {
             logOut={this.logOut.bind(this)}
             changePage={e => this.changePage(e)}
           /> {/* Albert */}
-          <AllFeeds user={this.state.loggedInUser} /> {/*Larry*/}
+          <AllFeeds 
+            user={this.state.loggedInUser} 
+            clickToSwitchUser = {this.clickToSwitchUser.bind(this)}
+          /> {/*Larry*/}
         </div>
       );
     }
