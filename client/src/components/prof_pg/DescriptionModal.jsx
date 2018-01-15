@@ -15,9 +15,11 @@ class DescriptionModal extends React.Component {
   }
 
   componentDidUpdate() {
-    this.setState({
-      description: this.props.description
-    })
+    if (this.state.description !== this.props.description) {
+      this.setState({
+        description: this.props.description
+      });
+    }
   }
   
   handleSubmit() {
