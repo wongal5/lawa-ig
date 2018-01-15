@@ -15,7 +15,7 @@ class DescriptionModal extends React.Component {
   }
 
   handleSubmit() {
-    axios.post('/description', {description: this.state.description, user: this.props.currUser});
+    axios.post('/description', {description: this.state.description, user: this.props.currUserId});
     this.setState({
       submitFlag: 'submitted'
     });
