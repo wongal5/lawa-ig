@@ -76,7 +76,7 @@ class CommentsField extends React.Component {
           ( this.props.comments && this.props.comments.length ) 
             ? (
               <Comment.Group minimal>
-                {this.props.comments.reverse().map( comment => {
+                {this.props.comments.map( comment => {
                   return <SingleComment 
                     key={comment.id} 
                     id={comment.id} 
