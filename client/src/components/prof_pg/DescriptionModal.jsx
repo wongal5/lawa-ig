@@ -14,7 +14,7 @@ class DescriptionModal extends React.Component {
     this.setDescription = this.setDescription.bind(this);
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     if (this.state.description !== this.props.description) {
       this.setState({
         description: this.props.description
