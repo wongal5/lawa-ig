@@ -229,7 +229,7 @@ class ProfilePanel extends React.Component {
                   (this.checkIfSameUser()) 
                     ? <DescriptionModal description={this.props.user.description} currUserId={this.props.loggedInUser.user_id}> </DescriptionModal>
                     : <span > {this.props.user.description} </span> 
-                }           
+                }
               </div>
             </Grid.Row>
           </Grid.Column>
