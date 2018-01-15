@@ -109,8 +109,7 @@ class OneFeed extends React.Component {
 
 	toggleLike() {
     //PUSH picture data into logged in user's liked photos
-    console.log(this.props.loggedInUser);
-    console.log(this.props.post);
+
     var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post};
 
     bodyObj.status = this.state.liked ? 'rmLike' : 'addLike';
@@ -130,14 +129,12 @@ class OneFeed extends React.Component {
 
 	////////COMMENTS//////////
 	onCommentType(e) {
-		console.log('text', e.target.value);
     this.setState({newComment: e.target.value});
   }
 
   handleKeyPress(e) {
     if (e.key === 'Enter') {
       this.addComment(this.state.newComment);
-      console.log(this.state.newComment);
       this.setState({newComment: ''});
       this.nameInput.value = '';      
     }
@@ -158,8 +155,6 @@ class OneFeed extends React.Component {
       text: content,
       status: 'addComment'
     };
-
-    console.log(bodyObj);
 
     var postConfig = {
       headers: {

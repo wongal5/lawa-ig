@@ -37,7 +37,6 @@ class AllFeeds extends React.Component {
 				this.setState({
 					userInfo: response.data,
 				})
-				console.log('userinfo', this.state.userInfo);
 			})
 			.catch((error) => {
 				console.log('axios get errorfgfd', error)
