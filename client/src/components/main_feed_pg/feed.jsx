@@ -18,11 +18,11 @@ class OneFeed extends React.Component {
 			newComment: ''
 		}
 		this.getLikesOnPost();
-		// this.loadComments(this.props.post);
+		this.loadComments(this.props.post);
 	}
 
 	componentDidMount() {
-		this.loadComments(this.props.post);
+		// this.loadComments(this.props.post);
 		this.checkIfLike();
 	}
 
@@ -146,7 +146,6 @@ class OneFeed extends React.Component {
       this.setState({newComment: ''});
       this.nameInput.value = '';      
     }
-    console.log('loading.');
     this.loadComments(this.props.post)
   }
 
@@ -204,7 +203,6 @@ class OneFeed extends React.Component {
 			  </div>
 			  <div className="extra content">
 			    <div className="ui large transparent left icon input">
-			      <i className="heart outline icon"></i>
 			      <input className="textField" ref={input => this.nameInput = input }  type="text" placeholder="Add Comment..." onChange={e => this.onCommentType(e)} onKeyPress={e => this.handleKeyPress(e)}></input>
 			    </div>
 			  </div>

@@ -312,13 +312,12 @@ i.close.small.icon.comment-close-icon {
 .feed-grid-container .ui.grid {
     margin-top: 65px;
     margin-left: 220px;
-} */
+} 
 
-.ui.list {
+.feed-grid-container .ui.list {
     font-size: 1em;
     width: 200px;
     min-height: 500px;
-
 }
 
 .feedBar {
@@ -434,5 +433,17 @@ semantic.min.css:19
   float: left;
 }
 
+.textField{
+  text-align: left;
+  float: left;
+}
 
+.ui.card > .extra, .ui.cards > .card > .extra {
+    text-align: left;
+}
+
+.ui.transparent[class*="left icon"].input>input {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
 
