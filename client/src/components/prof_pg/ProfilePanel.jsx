@@ -227,7 +227,7 @@ class ProfilePanel extends React.Component {
               <div className='header-caption'>
                 {
                   (this.checkIfSameUser()) 
-                    ? <DescriptionModal description={this.props.loggedInUser.description} currUserId={this.props.loggedInUser.user_id}> </DescriptionModal>
+                    ? <DescriptionModal description={this.props.user.description} currUserId={this.props.loggedInUser.user_id}> </DescriptionModal>
                     : <span > {this.props.user.description} </span> 
                 }           
               </div>
