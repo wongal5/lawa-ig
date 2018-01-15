@@ -13,10 +13,10 @@ class App extends React.Component {
     this.state = {
       loggedIn: false, 
       allUsernames: [], //for dynamic search
-      loggedInUser: {user_id: 2}, //waiting for login profile name
-      onPageForUser: {user_id: 2}, //is replaced by a real user on render
+      loggedInUser: {user_id: 1, description: ''}, //waiting for login profile name
+      onPageForUser: {user_id: 1, description: ''}, //is replaced by a real user on render
       //****************************************************************************/
-      currentPg: 'feed' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
+      currentPg: 'login_page' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
     };
     this.loginUser = this.loginUser.bind(this);
@@ -26,8 +26,8 @@ class App extends React.Component {
     //setup search component
     this.getAllUserNames();
 
-    this.loginUser(1);
-    this.changeUser(1);
+    this.loginUser(2); // trying out a different starting user
+    this.changeUser(2);
   }
 
   getAllUserNames() {
@@ -88,14 +88,15 @@ class App extends React.Component {
       this.changeUser(this.state.onPageForUser.user_id);
     }
   }
+  
   signUp(arr) {
-    console.log(arr);
     axios.post('/signUp', {
       email: arr[0].value,
-      name: arr[1].value
+      name: arr[1].value,
+      description: ''
     })
-      .then(function (response) {
-        console.log('here is the sign up', response);
+      .then((response) => {
+        console.log('here is the sign up info', response);
       })
       .catch(function (error) {
         console.log('there was an error', error);
@@ -103,28 +104,31 @@ class App extends React.Component {
   }
   logIn(e) {
     axios.post('/logon', {
-        email: e.value
+        email: e.value,
     })
       .then(function (response) {
-        console.log('here is the server response', response);
+        if (typeof response.data === 'string') {
+          alert('Sorry new user, but you need to sign up for Insta-Lawa first!');
+        }
       })
       .catch(function (error) {
-        console.log('there was an error', error);
+        console.log('there was an error logging in', error);
       });
 
     axios.post('/id', {
-      email: e.value
+      email: e.value,
     })
     .then(response => {
-      console.log('here is the id', response.data);
-      console.log('this', this);
+      if (typeof response.data === 'string') {
+        return;
+      }
       this.loginUser(response.data);
       this.changeUser(response.data);
+      this.setState({ currentPg: 'user_profile' });
     })
     .catch(function(error) {
-      console.log('there was an error here', error);
+      console.log('there was an error with your log in information', error);
     })
-    this.setState({currentPg: 'user_profile'});
   }
 
   logOut() {
@@ -198,5 +202,6 @@ class App extends React.Component {
     );
   }
 }
+
 
 export default App;

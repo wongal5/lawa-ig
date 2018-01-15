@@ -19,7 +19,7 @@ module.exports = {
   },
 
   usersFollowing: function(req, res) {
-    db.getUsersFollowing(req.body) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getUsersFollowing(req.body) 
       .then((results) => {
         res.json(results.rows);
       })
@@ -27,27 +27,9 @@ module.exports = {
         console.log('getUsersFollowing had an error', err);
       });
   },
-  fbLogin: function(req, res) {
-    db.checkForUser(res.body.id)
-      .then((results) => {
-        let user = results.rows;
-        if (user.length === 0) {
-          let newUser = {
-            'id': res.body.id,
-            'displayName': res.body.displayName,
-            'photo': res.body.photos[0].value
-          };
-          db.insertNewFbUser(newUser)
-            .then(res.sendStatus(201))
-            .catch((err) => {
-              console.log('insert new fb user had an error', err);
-            });
-        }
-      })
 
-  },
   usersFollowers: function(req, res) {
-    db.getUsersFollowers(req.body) //CURRENTLY HARD CODED USER ID, change to req.body
+    db.getUsersFollowers(req.body) 
       .then((results) => {
         res.json(results.rows);
       })
@@ -57,7 +39,6 @@ module.exports = {
   },
  
   renderFeed: function(req, res) {
-    console.log('here is req', req.body);
     db.getAllPosts(req.body.userId)
       .then((results) => {
         let posts = results.rows;
@@ -74,9 +55,10 @@ module.exports = {
         console.log('feed had an error', err);
       });
   },
+
   signUp: function(req, res) {
-   console.log('request', req.body.email);
-   db.insertNewUser(req.body.email, req.body.name)
+    console.log('description', req.body.description);
+   db.insertNewUser(req.body.email, req.body.name, req.body.description)
      .then((results) => {
        res.status(201).send('inserted');
      })
@@ -85,50 +67,25 @@ module.exports = {
      })
   },
   feed: function(req, res) {
-
-    db.getAllPosts(req.body.userId) //CURRENTLY HARD CODED USER ID, change to req.body
-
     db.checkForEmail(req.body.email)
     .then((results) => {
-      console.log('results', results.rows);
-    db.getAllPosts(results.rows[0].user_id) //CURRENTLY HARD CODED USER ID, change to req.body
-  
-    db.getAllPosts(results.rows[0].user_id)
-      .then((results) => {
-        let posts = results.rows;
-        db.getPostsLiked(results.rows[0].user_id)
-          .then((likeResult) => {
-            let likedPosts = likeResult.rows.map(result => { return result.post_id; });
-            posts.forEach(post => {
-              likedPosts.includes(post.post_id) ? post.liked = false : post.liked = true;
-            });
-            res.json(posts);
-          });
-      })
-    })
-      .catch((err) => {
-        console.log('feed had an error', err);
-      });
-  },
-  FBfeed: function (req, res) {
-    // hardcoded. still doesn't work
-    db.checkForFbId('10159843655865710')
-      .then((results) => {
-        console.log('results', results.rows);
-        db.getAllPosts(results.rows[0].user_id) //CURRENTLY HARD CODED USER ID, change to req.body
-          .then((results) => {
-            console.log('more results', results)
-            let posts = results.rows;
-            db.getPostsLiked(1)
-              .then((likeResult) => {
-                let likedPosts = likeResult.rows.map(result => { return result.post_id; });
-                posts.forEach(post => {
-                  likedPosts.includes(post.post_id) ? post.liked = false : post.liked = true;
-                });
-                res.json(posts);
+      console.log('results', results)
+      if (results.rows.length === 0) {
+        res.send('you need to sign up');
+      }
+      db.getAllPosts(results.rows[0].user_id)
+        .then((results) => {
+          let posts = results.rows;
+          db.getPostsLiked(results.rows[0].user_id)
+            .then((likeResult) => {
+              let likedPosts = likeResult.rows.map(result => { return result.post_id; });
+              posts.forEach(post => {
+                likedPosts.includes(post.post_id) ? post.liked = false : post.liked = true;
               });
-          })
-      })
+              res.json(posts);
+            });
+        })
+    })
       .catch((err) => {
         console.log('feed had an error', err);
       });
@@ -148,7 +105,7 @@ module.exports = {
           .then((result) => {
             console.log(result);
             res.json({
-              post_id: 0, // not actual postID, temp placeholder
+              post_id: 0, // not actual postID, temp placeholder (should we change this? WP)
               img: `${AWSUrl}${userId}-${encodeURIComponent(timestamp)}${fileName.slice(-4)}`,
               like_count: 0,
               user_id: req.body.userId,
@@ -173,19 +130,20 @@ module.exports = {
         res.json(profileNames);
       });
   }, 
+
   switchUser: function(req, res) {
-    console.log('req in controller', req.body.email);
     db.checkForEmail(req.body.email)
       .then(result => {
         if (result.rows.length === 0) {
-          db.insertNewFbUser(req.body.email);
+          res.send('sign up please');
         }
         res.json(result.rows[0].user_id);
       })
       .catch(error => {
-        console.log('error switching users good sir', error);
+        console.log('error switching users', error);
       })
   },
+
   //for profile page view
   currentUserProfile: function(req, res) {
     
@@ -219,6 +177,7 @@ module.exports = {
         .then(res.status(201).send('Comment Removed'));
     } 
   },
+  
   changeLike: function(req, res) {
     if (req.body.status === 'checkLike') {
       db.checkLike(req.body.userId, req.body.postId)
