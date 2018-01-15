@@ -35,16 +35,15 @@ class UploadModal extends React.Component {
 
   handleSubmit() {
     if (this.state.uploadedFile) {
+      this.setState({
+        submitFlag: 'submitted'
+      });
+
       this.state.uploadedFile.append('caption', this.state.caption);
       this.state.uploadedFile.append('userId', this.props.loggedInUser.user_id);
-      
-      // NEED TO ALSO SEND ID OF CURRENTLY LOGGED IN USER
       axios.post('/post', this.state.uploadedFile)
         .then((response) => {
           this.props.newUpload(response.data);
-          this.setState({
-            submitFlag: 'submitted'
-          });
         })
         .catch(err => {
           console.log('image post failed', err);
