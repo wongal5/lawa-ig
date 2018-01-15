@@ -15,7 +15,7 @@ class App extends React.Component {
       allUsernames: [], //for dynamic search
       loggedInUser: {user_id: 1, description: ''}, //waiting for login profile name
       onPageForUser: {user_id: 1, description: ''}, //is replaced by a real user on render
-      activeMenuItem: 'home',
+      activeMenuItem: 'profile',
       //****************************************************************************/
       currentPg: 'login_page' //<=CHANGE THIS VALUE TO RENDER AND WORK ON YOUR PAGE
       //****************************************************************************/
