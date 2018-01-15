@@ -78,7 +78,7 @@ const getUserProfile = function (userId) {
 };
 
 const getUserPosts = function (usedId) {
-  return pool.query('SELECT * FROM posts WHERE user_id = $1', [userId]);
+  return pool.query('SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at DESC ', [userId]);
 };
 
 const addLike = function(userId, postId) {
@@ -159,10 +159,8 @@ module.exports = {
   rmFollow,
   addComment,
   checkForEmail,
-  checkForFbId,
   rmComment,
   checkForUser,
-  insertNewFbUser,
   insertNewUser,
   getLikesOnPost,
   checkLike, 

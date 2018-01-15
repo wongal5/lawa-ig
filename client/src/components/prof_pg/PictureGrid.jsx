@@ -7,7 +7,7 @@ const PictureGrid = (props) => (
   <div className="grid-container">
     <Grid centered columns={3}>
       {
-        props.user.posts.reverse().map((photo, i, arr) => {
+        props.user.posts.map((photo, i, arr) => {
           if (i % 3 === 0) {
             return <GridRow key={props.user.posts[i].img} rowPosts={props.user.posts.slice(i, i+3).reverse()} user={props.user} loggedInUser={props.loggedInUser}/>;
           }
