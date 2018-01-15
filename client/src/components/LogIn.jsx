@@ -30,7 +30,7 @@ class LogIn extends React.Component {
           <Grid.Column style={{ maxWidth: 450 }}>
             <img className="login-logo" src="./assets/flame-logo.png" />
             <Header as='h1' color='instagram' textAlign='center'>
-                <div className="login-logo-name" > Instalawa </div>
+                <div className="login-logo-name" > InstaLawa </div>
            </Header>
             <Form size='large'>
               <Segment stacked>
