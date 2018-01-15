@@ -5,6 +5,7 @@ import Comments from './comment.jsx';
 import axios from 'axios';
 import moment from 'moment';
 
+//this renders one indiviudal post on /feed
 class OneFeed extends React.Component {
 	constructor(props) {
 		super(props);
@@ -23,9 +24,9 @@ class OneFeed extends React.Component {
 	componentDidMount() {
 		this.loadComments(this.props.post);
 		this.checkIfLike();
-
 	}
 
+	//gets the like on a single post using postId
 	getLikesOnPost() {
     var bodyObj = {postId: this.props.post};
     bodyObj.status = 'getAllLikes';
@@ -47,18 +48,7 @@ class OneFeed extends React.Component {
       });
   }
 
-	loadComments(postId) {
-		axios.post('/comments', {postId: postId})
-			.then((response) => {
-				this.setState({
-					comments: response.data
-				})
-			})
-			.catch((error) => {
-				console.log('axios load comment error', error)
-			})
-	}
-
+	//changes the like of post
 	changeLikesLive (likerObj, addOrRm) {
     var postLikes = this.state.postLikes;
     if (addOrRm === 'add') {
@@ -69,6 +59,7 @@ class OneFeed extends React.Component {
       this.setState({postLikes: postLikes});
     }
   }
+
 
   checkIfLike() {
     var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post};
@@ -91,6 +82,7 @@ class OneFeed extends React.Component {
       });
   }
 
+
 	liveUpdateLike() {
     let { postLikes } = this.state;
 
@@ -106,11 +98,10 @@ class OneFeed extends React.Component {
       this.changeLikesLive(likerObj, 'add');
     }
   }
-
+  //toggles the 'heart' img of a like/unlike post. also sends user liked to database
 	toggleLike() {
     //PUSH picture data into logged in user's liked photos
-    console.log(this.props.loggedInUser);
-    console.log(this.props.post);
+
     var bodyObj = {userId: this.props.loggedInUser.user_id, postId: this.props.post};
 
     bodyObj.status = this.state.liked ? 'rmLike' : 'addLike';
@@ -129,15 +120,29 @@ class OneFeed extends React.Component {
 	}
 
 	////////COMMENTS//////////
+
+	 //load all comments of postId
+	loadComments(postId) {
+		axios.post('/comments', {postId: postId})
+			.then((response) => {
+				this.setState({
+					comments: response.data
+				})
+			})
+			.catch((error) => {
+				console.log('axios load comment error', error)
+			})
+	}
+	//changes input value as user types
 	onCommentType(e) {
-		console.log('text', e.target.value);
     this.setState({newComment: e.target.value});
+    // this.loadComments(this.props.post)
   }
 
+  //on Enter, new comment is added to Db
   handleKeyPress(e) {
     if (e.key === 'Enter') {
       this.addComment(this.state.newComment);
-      console.log(this.state.newComment);
       this.setState({newComment: ''});
       this.nameInput.value = '';      
     }
@@ -150,6 +155,7 @@ class OneFeed extends React.Component {
   //   this.setState({comments: [...this.state.comments, content]});
   // }
 
+  //helper function adding comment to db
   addComment(content) {
 
     var bodyObj = {
@@ -158,8 +164,6 @@ class OneFeed extends React.Component {
       text: content,
       status: 'addComment'
     };
-
-    console.log(bodyObj);
 
     var postConfig = {
       headers: {
@@ -174,6 +178,7 @@ class OneFeed extends React.Component {
 
   }
 
+  //everything rendered on ONE individual post on /feed
 	render () {
 		return (
 			<div className="ui card">

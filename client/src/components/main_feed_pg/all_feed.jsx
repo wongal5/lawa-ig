@@ -4,20 +4,25 @@ import FeedGrid from './feed_grid.jsx';
 import FeedBar from './feed_bar.jsx';
 import axios from 'axios';
 
+//this is the /feed page
 class AllFeeds extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			loggedInUser: this.props.user,
-			userFeeds: []
+			userFeeds: [],
+			userInfo: ''
 		}
-	}
-
-	componentDidMount() {
-		console.log('data', this.props.user.user_id);
 		this.updateFeed(this.props.user.user_id);
+		this.getUserInfo(this.props.user.user_id);
 	}
 
+	// componentDidMount() {
+	// 	this.updateFeed(this.props.user.user_id);
+	// 	this.getUserInfo(this.props.user.user_id);
+	// }
+
+//updates state with all the posts with the account the logged in user is following
 	updateFeed(userId) {
 		axios.post('/feed', {userId})
 			.then((response) => {
@@ -30,11 +35,25 @@ class AllFeeds extends React.Component {
 			})
 	}
 
+//gets the loggedIn users info in order to render sidebar
+	getUserInfo(userId) {
+		axios.post('/user', {userId})
+			.then((response) => {
+				this.setState({
+					userInfo: response.data,
+				})
+			})
+			.catch((error) => {
+				console.log('axios get errorfgfd', error)
+			})
+	}
+
+//renders two seperate component on the /feed page
 	render() {
 		return (
 			<div>
 				<div className="feedBar">
-					<FeedBar loggedInUser={this.state.loggedInUser} />
+					<FeedBar loggedInUser={this.state.userInfo} />
 				</div>
 				<div className="all-feeds">
 					<FeedGrid loggedInUser={this.state.loggedInUser} userFeeds={this.state.userFeeds} />
