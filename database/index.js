@@ -130,7 +130,7 @@ const getLikesOnPost = function (postId) {
 
 const getAllCommentFromPost = function(postId) {
   return pool.query('SELECT comments.comment_id, users.name, comments.text FROM comments INNER JOIN users ON comments.post_id = $1\
-   AND comments.user_id = users.user_id',
+   AND comments.user_id = users.user_id ORDER BY comments.created_at ASC',
     [postId]);
 };
 

@@ -130,6 +130,7 @@ class OneFeed extends React.Component {
 	////////COMMENTS//////////
 	onCommentType(e) {
     this.setState({newComment: e.target.value});
+    // this.loadComments(this.props.post)
   }
 
   handleKeyPress(e) {
