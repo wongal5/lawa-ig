@@ -44,7 +44,7 @@ module.exports = {
             });
         }
       })
-0
+
   },
   usersFollowers: function(req, res) {
     db.getUsersFollowers(req.body) //CURRENTLY HARD CODED USER ID, change to req.body
