@@ -460,3 +460,9 @@ i.close.small.icon.comment-close-icon {
  .ui.grid>.row>.column>img:hover {
      cursor:pointer;
  }
+ 
+#signUp {
+    padding-left: 18px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
