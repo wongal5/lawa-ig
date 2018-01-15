@@ -17,6 +17,12 @@
   margin-bottom: 30px;
 }
 
+.modal-logo {
+    font-family: 'Dancing Script', Arial;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
 
 /*==================*/
 /*==================*/
@@ -443,6 +449,12 @@ i.close.small.icon.comment-close-icon {
     padding-left: 0!important;
     padding-right: 0!important;
     width: 33em;
+}
+
+#signUp {
+    padding-left: 18px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
  .ui.grid>.row>.column>img:hover {
