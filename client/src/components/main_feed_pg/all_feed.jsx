@@ -17,11 +17,6 @@ class AllFeeds extends React.Component {
 		this.getUserInfo(this.props.user.user_id);
 	}
 
-	// componentDidMount() {
-	// 	this.updateFeed(this.props.user.user_id);
-	// 	this.getUserInfo(this.props.user.user_id);
-	// }
-
 //updates state with all the posts with the account the logged in user is following
 	updateFeed(userId) {
 		axios.post('/feed', {userId})
@@ -53,10 +48,10 @@ class AllFeeds extends React.Component {
 		return (
 			<div>
 				<div className="feedBar">
-					<FeedBar loggedInUser={this.state.userInfo} />
+					<FeedBar loggedInUser={this.state.userInfo} clickToSwitchUser={this.props.clickToSwitchUser}/>
 				</div>
 				<div className="all-feeds">
-					<FeedGrid loggedInUser={this.state.loggedInUser} userFeeds={this.state.userFeeds} />
+					<FeedGrid loggedInUser={this.state.loggedInUser} userFeeds={this.state.userFeeds} clickToSwitchUser={this.props.clickToSwitchUser} />
 				</div>
 			</div>
 		)
